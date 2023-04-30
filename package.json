@@ -6,7 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "generate-icons": "vsvg -s ./src/assets/svg/icons -t ./src/compiled-icons"
+    "deploy": "sh deploy.sh"
   },
   "dependencies": {
     "core-js": "^3.29.1",
