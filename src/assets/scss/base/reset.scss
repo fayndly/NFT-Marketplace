@@ -1,0 +1,25 @@
+* {
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  color: #fff;
+}
+
+button {
+  border: none;
+  background-color: transparent;
+}
+
+ul {
+  display: flex;
+  list-style-type: none;
+}
+
+input {
+  &hover {
+    border: none;
+  }
+  &focus {
+    border: none;
+  }
+}

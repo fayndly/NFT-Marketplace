@@ -1,0 +1,66 @@
+@mixin h1 {
+  font-weight: 600;
+  line-height: 110%;
+  font-size: $fontSiseH1;
+}
+@mixin h2 {
+  font-weight: 600;
+  line-height: 110%;
+  font-size: $fontSiseH2;
+}
+@mixin h3 {
+  font-weight: 600;
+  line-height: 120%;
+  font-size: $fontSiseH3;
+}
+@mixin h4 {
+  font-weight: 600;
+  line-height: 140%;
+  font-size: $fontSiseH4;
+}
+@mixin h5 {
+  font-weight: 400;
+  line-height: 140%;
+  font-size: $fontSiseH5;
+}
+
+@mixin base {
+  font-weight: 400;
+  line-height: 140%;
+  font-size: $fontSiseBase;
+}
+@mixin caption {
+  font-weight: 400;
+  line-height: 110%;
+  font-size: $fontSiseCaption;
+}
+
+@mixin body-text {
+  font-weight: 400;
+  line-height: 160%;
+  font-size: $fontSiseBodyText;
+}
+
+@mixin ScreenSizePC {
+  @media screen and (width >= 1200px) {
+    @content;
+  }
+}
+
+@mixin ScreenSizeLaptop {
+  @media screen and (width < 1200px) {
+    @content;
+  }
+}
+
+@mixin ScreenSizeLaptopMini {
+  @media screen and (width < 834px) and (width > 425px) {
+    @content;
+  }
+}
+
+@mixin ScreenSizeMobile {
+  @media screen and (width < 834px) {
+    @content;
+  }
+}
