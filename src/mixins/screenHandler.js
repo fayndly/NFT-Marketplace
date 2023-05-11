@@ -1,7 +1,11 @@
 export default {
   computed: {
-    ScreenSize() {
-      return this.$store.getters.GetScreenSize;
+    getScreenSize() {
+      return this.$store.getters.getScreenSize;
+    },
+    getScreenDevice() {
+      return this.$store.getters.getScreenDevice;
+      // return "heloo";
     },
   },
 };

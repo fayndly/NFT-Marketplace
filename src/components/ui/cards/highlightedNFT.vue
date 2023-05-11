@@ -1,6 +1,13 @@
 <template>
-  <div class="highlighted-nft">
-    <img :src="image" alt="" class="highlighted-nft__image" />
+  <div
+    class="highlighted-nft"
+    :class="{ 'highlighted-nft-adaptive': size == 'adaptive' }"
+  >
+    <img
+      :src="getImageFromPublic(image)"
+      alt=""
+      class="highlighted-nft__image"
+    />
     <div class="highlighted-nft__info">
       <p class="highlighted-nft__name">{{ name }}</p>
       <artistCard class="highlighted-nft__artist" :size="'small'" />
@@ -9,6 +16,7 @@
 </template>
 
 <script>
+import getImages from "@/mixins/getImages";
 export default {
   name: "highlightedNFT",
   props: {
@@ -21,7 +29,11 @@ export default {
     artist: {
       type: String,
     },
+    size: {
+      type: String,
+    },
   },
+  mixins: [getImages],
 };
 </script>
 
@@ -54,13 +66,18 @@ export default {
     padding: 0;
   }
 
-  @include ScreenSizeLaptop {
-    width: 330px;
-    // height: 330px;
-  }
-  @include ScreenSizeMobile {
+  &-adaptive {
     width: 100%;
-    // height: 330px;
+    max-width: $maxWhidthItem;
   }
+
+  // @include ScreenSizeLaptop {
+  //   width: 330px;
+  //   // height: 330px;
+  // }
+  // @include ScreenSizeMobile {
+  //   width: 100%;
+  //   // height: 330px;
+  // }
 }
 </style>

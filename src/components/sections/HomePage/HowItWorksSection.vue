@@ -11,14 +11,18 @@
         :icon="infoCard.icon"
         :header="infoCard.header"
         :text="infoCard.text"
+        :sizeCard="getScreenDevice"
       />
     </gridWrapper>
   </sectionWrapper>
 </template>
 
 <script>
+import screenHandler from "@/mixins/screenHandler";
+
 export default {
   name: "HowItWorksSection",
+  mixins: [screenHandler],
   data() {
     return {
       infoCards: [

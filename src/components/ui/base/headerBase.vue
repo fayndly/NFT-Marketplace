@@ -1,13 +1,17 @@
 <template>
   <header class="header">
     <router-link to="/">
-      <img src="/images/content/Logo.png" alt="Logo" class="logotype" />
+      <img
+        :src="getImageFromPublic('/images/content/Logo.png')"
+        alt="Logo"
+        class="logotype"
+      />
     </router-link>
 
     <nav
       class="navbar"
       :class="{
-        'navbar-mobile': isMobile,
+        'navbar-mobile': getScreenDevice !== 'desktop',
         'navbar-mobile--active': navbarIsOpen,
       }"
     >
@@ -16,38 +20,42 @@
         path="Plus"
         @click="navbarIsOpen = false"
       />
-      <router-link to="/marketplace">Marketplace</router-link>
-      <router-link to="/rankings">Rankings</router-link>
-      <router-link to="/connect-wallet">Connect a wallet</router-link>
+      <router-link to="/marketplace" @click="closeNavbar()"
+        >Marketplace</router-link
+      >
+      <router-link to="/rankings" @click="closeNavbar()">Rankings</router-link>
+      <router-link to="/connect-wallet" @click="closeNavbar()"
+        >Connect a wallet</router-link
+      >
       <ButtonDefault
         :type="'secondary'"
         :text="'Sign Up'"
         :icon="'User'"
-        @clickButton="this.$router.push('/create-account')"
+        @clickButton="this.$router.push('/create-account'), closeNavbar()"
       />
     </nav>
-    <IconComponent
-      class="navbar-icon-open"
-      path="List"
-      @click="navbarIsOpen = true"
-    />
+    <IconComponent class="navbar-icon-open" path="List" @click="openNavbar()" />
   </header>
 </template>
 
 <script>
 import screenHandler from "@/mixins/screenHandler";
+import getImages from "@/mixins/getImages";
 
 export default {
   name: "headerBase",
-  mixins: [screenHandler],
+  mixins: [screenHandler, getImages],
   data() {
     return {
       navbarIsOpen: false,
     };
   },
-  computed: {
-    isMobile() {
-      return this.ScreenSize !== "desctop";
+  methods: {
+    openNavbar() {
+      this.navbarIsOpen = true;
+    },
+    closeNavbar() {
+      this.navbarIsOpen = false;
     },
   },
 };
@@ -64,7 +72,7 @@ export default {
   align-items: center;
   justify-content: space-between;
   padding: 20px 50px;
-  @include ScreenSizeLaptop {
+  @include ScreenSizeTablet {
     padding: 15px 50px;
   }
   @include ScreenSizeMobile {
@@ -73,7 +81,7 @@ export default {
 }
 
 .logotype {
-  @include ScreenSizeLaptop {
+  @include ScreenSizeTablet {
     width: 180px;
     height: 24px;
   }
@@ -90,6 +98,7 @@ export default {
 
   a {
     padding: 20px;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   }
 
   button {
@@ -105,7 +114,7 @@ export default {
     right: 24px;
     transform: rotate(45deg);
   }
-  @include ScreenSizePC {
+  @include ScreenSizeDesktop {
     &-icon-open {
       display: none;
     }

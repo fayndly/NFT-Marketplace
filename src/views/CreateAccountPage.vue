@@ -9,15 +9,6 @@ import CreateAccountSection from "@/components/sections/ConnectPages/CreateAccou
 export default {
   name: "CreateAccountPage",
   components: { CreateAccountSection },
-  data() {
-    return {
-      categories: [
-        {
-          name: "hello",
-        },
-      ],
-    };
-  },
 };
 </script>
 

@@ -2,36 +2,28 @@
   <div class="tab-bar">
     <TabComponent
       v-for="tab in tabs"
-      :text="tab"
       :key="tab.key"
-      @clickTab="choseTab"
-      :class="{ 'tab--active': tab === activeTab }"
+      :name="tab.name"
+      :nameRouteTo="tab.nameRouteTo"
+      :haveCounter="true"
+      :counter="10"
     />
   </div>
 </template>
 
 <script>
 import TabComponent from "@/components/ui/tabbars/TabComponent.vue";
+
 export default {
   name: "TabBar",
+  components: { TabComponent },
   props: {
     tabs: {
       type: Array,
     },
-    counter: {
+    haveCounters: {
       type: Boolean,
-    },
-  },
-  data() {
-    return {
-      activeTab: this.tabs[0],
-    };
-  },
-  components: { TabComponent },
-  methods: {
-    choseTab(text) {
-      this.activeTab = text;
-      this.$emit("choseTab", text);
+      default: true,
     },
   },
 };

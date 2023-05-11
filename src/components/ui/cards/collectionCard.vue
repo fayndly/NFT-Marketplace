@@ -1,5 +1,8 @@
 <template>
-  <div class="collection-card">
+  <div
+    class="collection-card"
+    :class="{ 'collection-card--adaptive': isAdaptive }"
+  >
     <div class="collection-card__preview-nfts">
       <img
         :src="nfts[0]['image']"
@@ -61,6 +64,10 @@ export default {
     },
     name: {
       type: String,
+    },
+    isAdaptive: {
+      type: Boolean,
+      default: false,
     },
   },
   methods: {
@@ -127,13 +134,11 @@ export default {
   &__artist {
     margin-top: 10px;
   }
+}
 
-  @include ScreenSizeLaptop {
-  }
-  @include ScreenSizeMobile {
-    width: 100%;
-    height: auto;
-  }
+.collection-card--adaptive {
+  @include adaptive;
+  height: auto;
 }
 
 @media (any-hover: hover) {

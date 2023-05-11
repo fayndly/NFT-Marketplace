@@ -1,5 +1,9 @@
 <template>
-  <button class="button" :class="getButtonClassName" @click="clickButton">
+  <button
+    class="button"
+    :class="[getButtonClassName, { 'button--adaptive': isAdaptive }]"
+    @click="clickButton"
+  >
     <IconComponent :path="icon" class="button__icon" v-if="icon" />
     <div class="button__text" v-if="text">
       {{ text }}
@@ -31,6 +35,10 @@ export default {
     text: {
       type: String,
     },
+    isAdaptive: {
+      type: Boolean,
+      default: false,
+    },
   },
   computed: {
     getButtonClassName() {
@@ -55,16 +63,13 @@ export default {
 
   gap: 12px;
   padding: 0 50px;
+  box-sizing: border-box;
 
   border-radius: 20px;
   transition: transform $AnimationDuration $AnimationDelay;
 
   cursor: pointer;
   user-select: none;
-}
-
-.button:hover {
-  transform: scale($ScaleValueMin);
 }
 
 .button-primary {
@@ -132,6 +137,16 @@ export default {
   }
   &--outlined {
     border: 2px solid $colorActionPurple;
+  }
+}
+
+.button--adaptive {
+  @include adaptive;
+}
+
+@media (any-hover: hover) {
+  .button:hover {
+    transform: scale($ScaleValueMin);
   }
 }
 </style>

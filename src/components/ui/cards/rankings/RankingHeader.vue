@@ -5,9 +5,9 @@
       <p class="ranking-header__artist">Artist</p>
     </div>
     <div class="ranking-header__stats">
-      <p class="ranking-header__stats-item">Change</p>
-      <p class="ranking-header__stats-item">NFTs Sold</p>
-      <p class="ranking-header__stats-item">Volume</p>
+      <p class="ranking-header__stats-item ranking-header__change">Change</p>
+      <p class="ranking-header__stats-item ranking-header__sold">NFTs Sold</p>
+      <p class="ranking-header__stats-item ranking-header__volume">Volume</p>
     </div>
   </div>
 </template>
@@ -25,11 +25,13 @@ export default {
   border: 1px solid $colorBgTextSilverBlack;
   border-radius: 20px;
   padding: 12px 20px;
+
   &__rank-artist {
     flex-grow: 1;
     display: flex;
     gap: 20px;
   }
+
   &__rank,
   &__artist {
     font-family: $fontSpaceMono;
@@ -48,6 +50,34 @@ export default {
     @include base;
     width: 160px;
     color: $colorBgTextSilverWhite;
+  }
+
+  @include ScreenSizeDesktop {
+  }
+  @include ScreenSizeTablet {
+    &__sold {
+      display: none;
+    }
+  }
+  @include ScreenSizeTabletMini {
+    &__stats-item {
+      @include caption;
+    }
+    &__change {
+      display: none;
+    }
+  }
+  @include ScreenSizeMobile {
+    &__change {
+      display: none;
+    }
+    &__volume {
+      text-align: end;
+      width: auto;
+    }
+    &__stats-item {
+      @include caption;
+    }
   }
 }
 </style>

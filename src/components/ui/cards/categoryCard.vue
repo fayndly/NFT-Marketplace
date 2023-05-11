@@ -1,5 +1,12 @@
 <template>
-  <div class="category-card" @click="this.$router.push('marketplace')">
+  <div
+    class="category-card"
+    :class="{
+      'category-card--mobile': isMobile,
+      'category-card--adaptive': isAdaptive,
+    }"
+    @click="this.$router.push('marketplace')"
+  >
     <div class="category-card__photo">
       <div class="category-card__icon-wrapper">
         <img
@@ -8,15 +15,22 @@
           alt="category-icon"
         />
       </div>
-      <img class="category-card__image" :src="image" alt="category-image" />
+      <img
+        class="category-card__image"
+        :src="getImageFromPublic(image)"
+        alt="category-image"
+      />
     </div>
     <div class="category-card__name">{{ name }}</div>
   </div>
 </template>
 
 <script>
+import getImages from "@/mixins/getImages";
+
 export default {
   name: "categoryCard",
+  mixins: [getImages],
   props: {
     icon: {
       type: String,
@@ -29,6 +43,14 @@ export default {
     name: {
       type: String,
       required: true,
+    },
+    isMobile: {
+      type: Boolean,
+      default: false,
+    },
+    isAdaptive: {
+      type: Boolean,
+      default: false,
     },
   },
   computed: {
@@ -102,24 +124,52 @@ export default {
     padding: 30px 20px 30px 25px;
   }
 
-  @include ScreenSizeLaptop {
-    width: 142px;
-    &__name {
-      font-weight: 600;
-      font-size: 16px;
-      line-height: 140%;
+  &--mobile {
+    width: 150px;
+    .category-card__name {
+      @include base;
 
       padding: 20px;
       padding-bottom: 25px;
     }
-    &__icon {
+    .category-card__icon {
       width: 80px;
       height: 80px;
     }
   }
-  @include ScreenSizeMobile {
+
+  &--adaptive {
     width: calc(100% / 2 - 10px);
+    .category-card__name {
+      @include base;
+
+      padding: 20px;
+      padding-bottom: 25px;
+    }
+    .category-card__icon {
+      width: 80px;
+      height: 80px;
+    }
   }
+
+  // @include ScreenSizeTablet {
+  //   width: 142px;
+  //   &__name {
+  //     font-weight: 600;
+  //     font-size: 16px;
+  //     line-height: 140%;
+
+  //     padding: 20px;
+  //     padding-bottom: 25px;
+  //   }
+  //   &__icon {
+  //     width: 80px;
+  //     height: 80px;
+  //   }
+  // }
+  // @include ScreenSizeMobile {
+  //   width: calc(100% / 2 - 10px);
+  // }
 }
 
 @media (any-hover: hover) {

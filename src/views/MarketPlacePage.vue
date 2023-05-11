@@ -21,6 +21,7 @@
           :name="nft.name"
           :price="nft.price"
           :highest_bid="nft.highest_bid"
+          :isAdaptive="getScreenSize <= 834"
         />
       </gridWrapper>
       <gridWrapper class="card-wrapper" v-else-if="activeTab === 'Collections'">
@@ -31,6 +32,7 @@
           :nfts="collection.nfts"
           :artist="collection.artist"
           :name="collection.name"
+          :isAdaptive="getScreenSize <= 834"
         />
       </gridWrapper>
     </sectionWrapper>
@@ -39,11 +41,13 @@
 
 <script>
 import TabBar from "@/components/ui/tabbars/TabBar.vue";
-
 import HeaderSection from "@/components/ui/HeaderSection.vue";
+import screenHandler from "@/mixins/screenHandler";
+
 export default {
   name: "MarketPlacePage",
   components: { HeaderSection, TabBar },
+  mixins: [screenHandler],
   data() {
     return {
       tabs: ["NFTs", "Collections"],
@@ -289,7 +293,9 @@ export default {
 <style lang="scss" scoped>
 .section-list {
   background-color: $colorBgTextSilverBlack;
-  padding: 0;
+  padding: 30px;
+  padding-top: 0;
+  padding-bottom: 0;
   & :deep(.section__content) {
     gap: 0;
   }
@@ -304,6 +310,15 @@ export default {
   padding-bottom: 80px;
   & :deep(.nft-card) {
     background-color: $colorBgTextBlack;
+  }
+
+  @include ScreenSizeTabletMini {
+    padding-top: 30px;
+    padding-bottom: 40px;
+  }
+  @include ScreenSizeMobile {
+    padding-top: 30px;
+    padding-bottom: 40px;
   }
 }
 </style>

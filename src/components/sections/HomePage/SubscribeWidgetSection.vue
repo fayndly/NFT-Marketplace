@@ -2,7 +2,7 @@
   <sectionWrapper>
     <div class="subscribe-widget">
       <img
-        src="/images/content/cosmonaft.webp"
+        :src="getImageFromPublic('/images/content/cosmonaft.webp')"
         alt=""
         class="subscribe-widget__image"
       />
@@ -13,7 +13,7 @@
         </p>
         <SubscribeForm
           class="subscribe-widget__form"
-          :isMobile="ScreenSize !== 'desctop'"
+          :isMobile="getScreenDevice !== 'desktop'"
         />
       </div>
     </div>
@@ -21,10 +21,12 @@
 </template>
 
 <script>
+import getImages from "@/mixins/getImages";
 import screenHandler from "@/mixins/screenHandler";
+
 export default {
   name: "SubscribeWidgetSection",
-  mixins: [screenHandler],
+  mixins: [screenHandler, getImages],
 };
 </script>
 
@@ -58,9 +60,10 @@ export default {
   &__form {
     margin-top: 40px;
   }
-  @include ScreenSizeLaptop {
+  @include ScreenSizeTablet {
     gap: 30px;
     padding: 40px 30px;
+
     &__image {
       width: 300px;
       height: 280px;

@@ -55,7 +55,7 @@ export default {
       display: none;
     }
   }
-  @include ScreenSizeLaptop {
+  @include ScreenSizeTablet {
     &__header {
       @include h4;
     }

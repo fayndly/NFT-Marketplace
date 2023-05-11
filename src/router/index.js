@@ -4,57 +4,79 @@ const routes = [
   {
     path: "/",
     name: "home",
-    component: () => import("../views/HomePage.vue"),
+    component: () => import("@/views/HomePage.vue"),
   },
   {
     path: "/connect-wallet",
     name: "Connect wallet",
-    component: () => import("../views/ConnectWalletPage.vue"),
+    component: () => import("@/views/ConnectWalletPage.vue"),
   },
   {
     path: "/create-account",
     name: "Create account",
-    component: () => import("../views/CreateAccountPage.vue"),
+    component: () => import("@/views/CreateAccountPage.vue"),
   },
   {
     path: "/marketplace",
     name: "Marketplace",
-    component: () => import("../views/MarketPlacePage.vue"),
+    component: () => import("@/views/MarketPlacePage.vue"),
   },
   {
     path: "/",
     name: "home",
-    component: () => import("../views/HomePage.vue"),
+    component: () => import("@/views/HomePage.vue"),
   },
   {
     path: "/rankings",
     name: "Rankings",
-    component: () => import("../views/RankingsPage.vue"),
+    component: () => import("@/views/RankingsPage.vue"),
   },
   {
     path: "/artist/:id",
     name: "Artist",
-    component: () => import("../views/ArtistPage.vue"),
+    // redirect: "/artist/:id/created",
+    redirect: (to) => `/artist/${to.params.id}/created`,
+    component: () => import("@/views/ArtistPage.vue"),
+    children: [
+      {
+        path: "created",
+        name: "ArtistCreated",
+        component: () =>
+          import("@/components/routeChildren/artist/ArtistCreated.vue"),
+      },
+      {
+        path: "owned",
+        name: "ArtistOwned",
+        component: () =>
+          import("@/components/routeChildren/artist/ArtistOwned.vue"),
+      },
+      {
+        path: "collection",
+        name: "ArtistCollection",
+        component: () =>
+          import("@/components/routeChildren/artist/ArtistCollection.vue"),
+      },
+    ],
   },
   {
     path: "/nft/:id",
     name: "Nft",
-    component: () => import("../views/NftPage.vue"),
+    component: () => import("@/views/NftPage.vue"),
   },
   {
     path: "/collection/:id",
     name: "Collection",
-    component: () => import("../views/CollectionPage.vue"),
+    component: () => import("@/views/CollectionPage.vue"),
   },
   {
     path: "/test",
     name: "Test",
-    component: () => import("../views/TestPage.vue"),
+    component: () => import("@/views/TestPage.vue"),
   },
   {
     path: "/:catchAll(.*)",
     name: "notFound",
-    component: () => import("../views/PageNotFound.vue"),
+    component: () => import("@/views/PageNotFound.vue"),
   },
 ];
 

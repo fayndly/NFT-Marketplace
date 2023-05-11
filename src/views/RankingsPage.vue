@@ -7,7 +7,7 @@
       />
     </sectionWrapper>
     <sectionWrapper class="section-list">
-      <TabBar :tabs="tabs" @choseTab="openTab" />
+      <TabBar :tabs="getHeadersTabs" @choseTab="openTab" :counters="false" />
       <listWrapper class="rankings">
         <RankingHeader />
         <RankingItem
@@ -30,13 +30,16 @@ import HeaderSection from "@/components/ui/HeaderSection.vue";
 
 import RankingHeader from "@/components/ui/cards/rankings/RankingHeader.vue";
 import RankingItem from "@/components/ui/cards/rankings/RankingItem.vue";
+import screenHandler from "@/mixins/screenHandler";
 
 export default {
   name: "RankingsPage",
   components: { HeaderSection, TabBar, RankingHeader, RankingItem },
+  mixins: [screenHandler],
   data() {
     return {
-      tabs: ["Today", "This Week", "This Month", "All Time"],
+      tabs1: ["Today", "This Week", "This Month", "All Time"],
+      tabs2: ["1d", "7d", "30d", "All Time"],
       rankings: [
         {
           artist: {
@@ -61,6 +64,17 @@ export default {
       ],
     };
   },
+  computed: {
+    getHeadersTabs() {
+      let ret;
+      if (this.getScreenSize <= 834) {
+        ret = this.tabs2;
+      } else {
+        ret = this.tabs1;
+      }
+      return ret;
+    },
+  },
   methods: {
     openTab(text) {
       return text;
@@ -71,7 +85,8 @@ export default {
 
 <style lang="scss" scoped>
 .section-list {
-  padding: 0;
+  padding-top: 0;
+  padding-bottom: 0;
   & :deep(.section__content) {
     gap: 0;
   }

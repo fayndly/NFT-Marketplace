@@ -1,5 +1,11 @@
 <template>
-  <div class="info-card">
+  <div
+    class="info-card"
+    :class="{
+      'info-card-tablet': sizeCard == 'tablet',
+      'info-card-adaptive': sizeCard == 'tabletMini' || sizeCard == 'mobile',
+    }"
+  >
     <img :src="getIconInfo" alt="" class="info-card__icon" />
     <div class="info-card__details">
       <h5 class="info-card__header">{{ header }}</h5>
@@ -26,10 +32,16 @@ export default {
       type: String,
       required: true,
     },
+    sizeCard: {
+      type: String,
+    },
   },
   computed: {
     getIconInfo() {
       return require(`@/assets/svg/content/${this.icon}`);
+    },
+    getClass() {
+      return "info-card-" + this.sizeCard;
     },
   },
 };
@@ -64,37 +76,77 @@ export default {
     @include base;
   }
 
-  @include ScreenSizeLaptop {
-    width: 198px;
-    padding: 10px 20px 30px 20px;
-    &__icon {
-      width: 160px;
-      height: 160px;
-    }
-    &__header {
-      font-weight: 600;
-      font-size: 16px;
-      line-height: 140%;
-    }
-    &__text {
-      font-weight: 400;
-      font-size: 12px;
-      line-height: 140%;
-    }
-  }
+  // @include ScreenSizeLaptop {
+  //   width: 198px;
+  //   padding: 10px 20px 30px 20px;
+  //   &__icon {
+  //     width: 160px;
+  //     height: 160px;
+  //   }
+  //   &__header {
+  //     font-weight: 600;
+  //     font-size: 16px;
+  //     line-height: 140%;
+  //   }
+  //   &__text {
+  //     font-weight: 400;
+  //     font-size: 12px;
+  //     line-height: 140%;
+  //   }
+  // }
 
-  @include ScreenSizeMobile {
-    // width: 315px;
-    width: 100%;
-    flex-direction: row;
-    padding: 20px;
-    &__icon {
-      width: 100px;
-      height: 100px;
-    }
-    &__text {
-      text-align: start;
-    }
+  // @include ScreenSizeMobile {
+  //   // width: 315px;
+  //   width: 100%;
+  //   flex-direction: row;
+  //   padding: 20px;
+  //   &__icon {
+  //     width: 100px;
+  //     height: 100px;
+  //   }
+  //   &__text {
+  //     text-align: start;
+  //   }
+  // }
+}
+
+.info-card-tablet {
+  width: 210px;
+  padding: 10px 20px 30px 20px;
+  .info-card__icon {
+    width: 160px;
+    height: 160px;
+  }
+  .info-card__header {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 140%;
+  }
+  .info-card__text {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 140%;
+  }
+}
+
+.info-card-adaptive {
+  @include adaptive;
+  flex-direction: row;
+  padding: 20px;
+  .info-card__icon {
+    width: 100px;
+    height: 100px;
+  }
+  .info-card__header {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 140%;
+  }
+  .info-card__text {
+    text-align: start;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 140%;
   }
 }
 </style>

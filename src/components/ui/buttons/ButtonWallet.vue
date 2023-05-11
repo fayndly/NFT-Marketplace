@@ -1,5 +1,8 @@
 <template>
-  <button class="button-wallet">
+  <button
+    class="button-wallet"
+    :class="{ 'button-wallet--adaptive': isAdaptive }"
+  >
     <img :src="getPathIcon" class="button-wallet__icon" />
     <p class="button-wallet__text">
       {{ text }}
@@ -16,6 +19,10 @@ export default {
     },
     text: {
       type: String,
+    },
+    isAdaptive: {
+      type: Boolean,
+      default: false,
     },
   },
   computed: {
@@ -46,6 +53,9 @@ export default {
   &__text {
     @include h5;
     font-weight: 600;
+  }
+  &--adaptive {
+    @include adaptive;
   }
 }
 

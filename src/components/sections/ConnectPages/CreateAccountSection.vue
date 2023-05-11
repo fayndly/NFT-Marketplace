@@ -1,7 +1,7 @@
 <template>
   <section class="create-account">
     <img
-      src="/images/content/ufo.webp"
+      :src="getImageFromPublic('/images/content/ufo.webp')"
       alt=""
       class="create-account__placeholder"
     />
@@ -13,17 +13,18 @@
           NFTs.
         </p>
       </div>
-      <CreateAccountForm class="create-account__form" />
+      <CreateAccountForm :isAdaptive="getScreenSize <= 834" />
     </div>
   </section>
 </template>
 
 <script>
+import getImages from "@/mixins/getImages";
+import screenHandler from "@/mixins/screenHandler";
+
 export default {
   name: "CreateAccountSection",
-  data() {
-    return {};
-  },
+  mixins: [getImages, screenHandler],
 };
 </script>
 
@@ -58,11 +59,8 @@ export default {
     @include body-text;
     max-width: 460px;
   }
-  &__form {
-    margin-top: 40px;
-  }
 
-  @include ScreenSizeLaptop {
+  @include ScreenSizeTablet {
     &__head {
       @include base;
     }
@@ -70,10 +68,17 @@ export default {
       @include h3;
     }
   }
+  @include ScreenSizeTabletMini {
+    gap: 30px;
+    &__wrapper {
+      max-width: $maxWhidthItem;
+    }
+  }
   @include ScreenSizeMobile {
+    gap: 30px;
     flex-direction: column;
     &__wrapper {
-      // max-width: 315px;
+      max-width: $maxWhidthItem;
       align-self: center;
       padding-top: 0;
       padding-left: 30px;
@@ -81,12 +86,6 @@ export default {
     &__placeholder {
       width: 100%;
       height: 230px;
-    }
-    &__form {
-      width: 100%;
-      // input {
-      //   width: 100%;
-      // }
     }
   }
 }

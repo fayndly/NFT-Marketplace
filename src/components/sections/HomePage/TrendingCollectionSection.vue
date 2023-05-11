@@ -11,14 +11,18 @@
         :nfts="collection.nfts"
         :artist="collection.artist"
         :name="collection.name"
+        :isAdaptive="getScreenSize <= 834"
       />
     </gridWrapper>
   </sectionWrapper>
 </template>
 
 <script>
+import screenHandler from "@/mixins/screenHandler";
+
 export default {
   name: "TrendingCollectionSection",
+  mixins: [screenHandler],
   data() {
     return {
       collections: [
@@ -128,13 +132,7 @@ export default {
 
 <style lang="scss" scoped>
 .cards-wrapper {
-  // &:nth-first-child(-n + 2) {
-  //   display: none;
-  // }
-  // @include ScreenSizePC {
-  //   width: 1050px;
-  // }
-  @include ScreenSizeLaptop {
+  @include ScreenSizeTablet {
     .collection-card:nth-child(n + 3) {
       display: none;
     }

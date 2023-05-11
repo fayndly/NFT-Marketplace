@@ -11,43 +11,48 @@
         </p>
       </div>
       <ButtonDefault
+        v-if="getScreenSize > 834"
         class="hello-section__button"
         text="Get Started"
         icon="RocketLaunch"
         type="secondary"
         modifier="filled"
+        @clickButton="this.$router.push('/create-account')"
       />
-      <AdditionalInfo class="hello-section__additional-info" />
+      <AdditionalInfo
+        v-if="getScreenSize > 834"
+        class="hello-section__additional-info"
+      />
     </div>
     <highlightedNFT
-      class="hello-section__nft-card"
+      class="hello-section__highlighted-nft"
       image="/images/content/ufo.webp"
       name="Space Walking"
     />
     <ButtonDefault
-      class="hello-section__button-bottom"
+      v-if="getScreenSize <= 834"
+      class="hello-section__button-mobile"
       text="Get Started"
       icon="RocketLaunch"
       type="secondary"
       modifier="filled"
+      :isAdaptive="true"
+      @clickButton="this.$router.push('/create-account')"
     />
-    <AdditionalInfo class="hello-section__additional-info-bottom" />
+    <AdditionalInfo
+      v-if="getScreenSize <= 834"
+      :isAdaptive="true"
+      class="hello-section__additional-info-mobile"
+    />
   </sectionWrapper>
 </template>
 
 <script>
+import screenHandler from "@/mixins/screenHandler";
+
 export default {
   name: "HelloSection",
-
-  data() {
-    return {
-      categories: [
-        {
-          name: "hello",
-        },
-      ],
-    };
-  },
+  mixins: [screenHandler],
 };
 </script>
 
@@ -57,7 +62,6 @@ export default {
     flex-direction: row;
     gap: 30px;
   }
-
   &__text {
     flex-basis: 50%;
     display: flex;
@@ -75,22 +79,11 @@ export default {
   }
   &__button {
   }
-  &__button-bottom {
-    display: none;
-    width: 100%;
-    max-width: 450px;
-  }
-  &__additional-info-bottom {
-    display: none;
-    width: 100%;
-    max-width: 350px;
-  }
-  &__nft-card {
+  &__highlighted-nft {
     width: 50%;
-    // height: 330px;
   }
 
-  @include ScreenSizeLaptop {
+  @include ScreenSizeTablet {
     &__headline {
       @include h3;
     }
@@ -114,27 +107,9 @@ export default {
     &__subhead {
       margin-top: 10px;
     }
-    &__button {
-      display: none;
-    }
-    &__additional-info {
-      display: none;
-    }
-    &__additional-info-bottom {
-      display: flex;
-      align-self: center;
+    &__highlighted-nft {
       width: 100%;
-      max-width: 350px;
-    }
-    &__button-bottom {
-      display: flex;
-      align-self: center;
-      width: 100%;
-      max-width: 350px;
-    }
-    &__nft-card {
-      width: 100%;
-      max-width: 100%;
+      max-width: $maxWhidthItem;
       align-self: center;
     }
   }

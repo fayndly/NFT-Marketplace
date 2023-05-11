@@ -41,19 +41,24 @@
   font-size: $fontSiseBodyText;
 }
 
-@mixin ScreenSizePC {
+@mixin adaptive {
+  width: 100%;
+  max-width: $maxWhidthItem;
+}
+
+@mixin ScreenSizeDesktop {
   @media screen and (width >= 1200px) {
     @content;
   }
 }
 
-@mixin ScreenSizeLaptop {
+@mixin ScreenSizeTablet {
   @media screen and (width < 1200px) {
     @content;
   }
 }
 
-@mixin ScreenSizeLaptopMini {
+@mixin ScreenSizeTabletMini {
   @media screen and (width < 834px) and (width > 425px) {
     @content;
   }

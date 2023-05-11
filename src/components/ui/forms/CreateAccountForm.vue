@@ -1,6 +1,7 @@
 <template>
   <form
     class="create-account-form"
+    :class="{ 'create-account-form--adaptive': isAdaptive }"
     target="_blank"
     name="create_account"
     autocomplete="on"
@@ -45,6 +46,12 @@
 <script>
 export default {
   name: "CreateAccountForm",
+  props: {
+    isAdaptive: {
+      type: Boolean,
+      default: false,
+    },
+  },
 };
 </script>
 
@@ -63,6 +70,9 @@ export default {
   &__button {
     margin-top: 15px;
     width: 100% !important;
+  }
+  &--adaptive {
+    @include adaptive;
   }
 }
 </style>

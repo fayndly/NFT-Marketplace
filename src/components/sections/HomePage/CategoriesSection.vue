@@ -8,6 +8,8 @@
         :image="categoria.image"
         :name="categoria.name"
         :key="categoria.key"
+        :isMobile="getScreenDevice == 'tablet'"
+        :isAdaptive="getScreenSize <= 834"
       />
     </gridWrapper>
   </sectionWrapper>
@@ -15,9 +17,12 @@
 
 <script>
 import HeaderSection from "../../ui/HeaderSection.vue";
+import screenHandler from "@/mixins/screenHandler";
+
 export default {
   name: "CategoriesSection",
   components: { HeaderSection },
+  mixins: [screenHandler],
   data() {
     return {
       categories: [

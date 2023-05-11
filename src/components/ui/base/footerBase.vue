@@ -7,7 +7,11 @@
         >
           <div class="footer-column__head">
             <router-link to="/">
-              <img src="/images/content/Logo.png" alt="Logo" />
+              <img
+                class="footer__logo"
+                :src="getImageFromPublic('/images/content/Logo.png')"
+                alt="Logo"
+              />
             </router-link>
           </div>
           <div class="footer-column__content">
@@ -75,13 +79,18 @@
 </template>
 
 <script>
+import getImages from "@/mixins/getImages";
 import screenHandler from "@/mixins/screenHandler";
+
 export default {
   name: "footerBase",
-  mixins: [screenHandler],
+  mixins: [screenHandler, getImages],
   computed: {
     isAdaptive() {
-      if (this.ScreenSize == "desctop" || this.ScreenSize == "laptop") {
+      if (
+        this.getScreenDevice == "desktop" ||
+        this.getScreenDevice == "tablet"
+      ) {
         return false;
       } else {
         return true;
@@ -108,6 +117,11 @@ export default {
   background-color: $colorBgTextSilverBlack;
   border-top: 2px solid $colorBgTextBlack;
 
+  &__logo {
+    width: 100%;
+    max-width: 245px;
+  }
+
   &__content {
     width: 1050px;
   }
@@ -126,7 +140,7 @@ export default {
     @include caption;
     color: #cccccc;
   }
-  @include ScreenSizeLaptop {
+  @include ScreenSizeTablet {
     &__top {
       flex-direction: column;
       gap: 30px;
@@ -193,7 +207,7 @@ export default {
   &__subscribe-form {
     max-width: 420px;
   }
-  @include ScreenSizeLaptop {
+  @include ScreenSizeTablet {
     width: 100%;
 
     &--marketplace-info {

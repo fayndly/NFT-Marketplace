@@ -1,10 +1,19 @@
 <template>
-  <div class="nft-card" @click="openPage('Nft')">
+  <div
+    class="nft-card"
+    :class="{ 'nft-card--adaptive': isAdaptive }"
+    @click="openPage('Nft')"
+  >
     <img :src="imagePath" alt="" class="nft-card__image" />
     <div class="nft-card__info">
       <div class="nft-card__artist-info">
         <div class="nft-card__nft-name">{{ name }}</div>
-        <artistCard class="nft-card__artist" :size="'small'" />
+        <artistCard
+          class="nft-card__artist"
+          :size="'small'"
+          id="12354"
+          :fill="false"
+        />
       </div>
       <div class="nft-card__additional-info">
         <div class="nft-card__price">
@@ -38,6 +47,10 @@ export default {
     },
     highest_bid: {
       type: Number,
+    },
+    isAdaptive: {
+      type: Boolean,
+      default: false,
     },
     artist: {},
   },
@@ -108,6 +121,10 @@ export default {
 
     font-family: $fontSpaceMono;
     @include base;
+  }
+
+  &--adaptive {
+    @include adaptive;
   }
 }
 

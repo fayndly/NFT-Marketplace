@@ -2,10 +2,11 @@
   <sectionWrapper class="NFTHighlight">
     <div class="NFTHighlight__info">
       <div class="NFTHighlight__nft-info">
-        <artistCard size="small" />
+        <artistCard size="small" id="123" />
         <p class="NFTHighlight__name-nft">Magic Mashrooms</p>
         <ButtonDefault
-          class="NFTHighlight__button NFTHighlight__button-top"
+          v-if="getScreenSize > 834"
+          class="NFTHighlight__button"
           type="secondary"
           modifier="filled"
           icon="Eye"
@@ -15,26 +16,29 @@
       <AuctionTimer
         class="NFTHighlight__timer"
         endTime="Sep 5, 2024 15:37:25"
+        :isAdaptive="getScreenSize <= 834"
       />
       <ButtonDefault
-        class="NFTHighlight__button NFTHighlight__button-bottom"
+        v-if="getScreenSize <= 834"
+        class="NFTHighlight__button"
         type="secondary"
         modifier="filled"
         icon="Eye"
         text="See NFT"
+        :isAdaptive="true"
       />
     </div>
   </sectionWrapper>
 </template>
 
 <script>
+import screenHandler from "@/mixins/screenHandler";
 import AuctionTimer from "../../ui/AuctionTimer.vue";
+
 export default {
   name: "NFTHighlightSection",
   components: { AuctionTimer },
-  data() {
-    return {};
-  },
+  mixins: [screenHandler],
 };
 </script>
 
@@ -48,6 +52,7 @@ export default {
   background-size: cover;
   position: relative;
   align-items: flex-end;
+
   &::after {
     content: "";
     z-index: 0;
@@ -76,7 +81,6 @@ export default {
     word-wrap: break-word;
   }
   &__button {
-    width: fit-content;
     background-color: #fff;
     &:deep(.button__text) {
       color: $colorBgTextBlack;
@@ -86,14 +90,7 @@ export default {
     }
   }
 
-  &__button-bottom {
-    display: none;
-    width: 100%;
-    align-self: center;
-    max-width: 350px;
-  }
-
-  @include ScreenSizeLaptop {
+  @include ScreenSizeTablet {
     &__name-nft {
       @include h3;
     }
@@ -104,18 +101,6 @@ export default {
       flex-direction: column;
       align-items: flex-start;
       gap: 30px;
-    }
-    &__timer {
-      box-sizing: border-box;
-      width: 100%;
-      max-width: 350px;
-      align-self: center;
-    }
-    &__button-top {
-      display: none;
-    }
-    &__button-bottom {
-      display: flex;
     }
   }
 }

@@ -1,0 +1,2 @@
+import "./getImages";
+import "./screenHandler";

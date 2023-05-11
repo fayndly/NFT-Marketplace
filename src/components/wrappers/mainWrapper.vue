@@ -20,10 +20,10 @@ export default {
   flex-grow: 1;
   transition: all 0.3s ease-in-out;
 
-  @include ScreenSizePC {
+  @include ScreenSizeDesktop {
     margin-top: 100px;
   }
-  @include ScreenSizeLaptop {
+  @include ScreenSizeTablet {
     margin-top: 54px;
   }
 }

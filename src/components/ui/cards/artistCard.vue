@@ -48,7 +48,8 @@ export default {
       type: Number,
     },
     id: {
-      type: Number,
+      type: String,
+      default: "123",
     },
   },
   computed: {

@@ -9,15 +9,6 @@ import ConnectWalletSection from "@/components/sections/ConnectPages/ConnectWall
 export default {
   name: "ConnectWalletPage",
   components: { ConnectWalletSection },
-  data() {
-    return {
-      categories: [
-        {
-          name: "hello",
-        },
-      ],
-    };
-  },
 };
 </script>
 

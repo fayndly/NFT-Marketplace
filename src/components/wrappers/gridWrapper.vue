@@ -16,7 +16,15 @@ export default {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: center;
   gap: 30px;
+
+  @include ScreenSizeTabletMini {
+    justify-content: center;
+    // flex-direction: column;
+  }
+  @include ScreenSizeMobile {
+    justify-content: center;
+    // flex-direction: column;
+  }
 }
 </style>

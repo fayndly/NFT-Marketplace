@@ -21,7 +21,7 @@ export default {
   width: 100%;
   padding: 80px 0px;
 
-  @include ScreenSizeLaptop {
+  @include ScreenSizeTablet {
     padding: 40px 0px;
   }
   @include ScreenSizeMobile {
@@ -33,15 +33,14 @@ export default {
     flex-direction: column;
     gap: 60px;
 
-    @include ScreenSizePC {
+    @include ScreenSizeDesktop {
       width: 1050px;
     }
-    @include ScreenSizeLaptop {
+    @include ScreenSizeTablet {
       width: 690px;
     }
-    @include ScreenSizeLaptopMini {
-      width: 500px !important;
-      // background-color: black;
+    @include ScreenSizeTabletMini {
+      max-width: $maxWhidthItem;
     }
     @include ScreenSizeMobile {
       width: 100%;

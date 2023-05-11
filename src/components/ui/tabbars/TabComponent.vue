@@ -1,25 +1,39 @@
 <template>
-  <div class="tab" @click="clickTab">
-    <p class="tab__text">{{ text }}</p>
-    <p class="tab__counter" v-if="counter">{{ counter }}</p>
-  </div>
+  <router-link :to="getPathTo" class="tab">
+    <p class="tab__text">{{ name }}</p>
+    <p class="tab__counter" v-if="haveCounter">{{ counter }}</p>
+  </router-link>
 </template>
 
 <script>
 export default {
   name: "TabComponent",
   props: {
-    text: {
+    nameRouteTo: {
       type: String,
+      default: "/",
+    },
+    name: {
+      type: String,
+      default: "text",
+    },
+    haveCounter: {
+      type: Boolean,
+      default: true,
     },
     counter: {
       type: Number,
-      default: 11,
+      default: 0,
     },
   },
-  methods: {
-    clickTab() {
-      this.$emit("clickTab", this.text);
+  data() {
+    return {
+      userId: this.$route.params["id"],
+    };
+  },
+  computed: {
+    getPathTo() {
+      return { name: this.nameRouteTo, params: { id: this.userId } };
     },
   },
 };
@@ -60,16 +74,28 @@ export default {
     }
     border-bottom-color: $colorBgTextSilverBlack;
   }
-  &--active {
-    .tab__text {
-      color: #fff;
-    }
-    .tab__counter {
-      background-color: $colorBgTextSilverWhite;
-    }
-    border-bottom-color: $colorBgTextSilverWhite;
+
+  @include ScreenSizeTablet {
+    @include base;
   }
-  &--active:hover {
+
+  @include ScreenSizeMobile {
+    &__counter {
+      display: none;
+    }
+  }
+}
+
+.router-link-active {
+  .tab__text {
+    color: #fff;
+  }
+  .tab__counter {
+    background-color: $colorBgTextSilverWhite;
+  }
+  border-bottom-color: $colorBgTextSilverWhite;
+
+  &:hover {
     border-bottom-color: $colorBgTextSilverWhite;
   }
 }

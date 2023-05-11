@@ -1,5 +1,5 @@
 <template>
-  <div class="auction-timer">
+  <div class="auction-timer" :class="{ 'auction-timer--adaptive': isAdaptive }">
     <p class="auction-timer__name">Auction ends in:</p>
     <div class="auction-timer__timer">
       <div class="auction-timer__time">
@@ -39,6 +39,10 @@ export default {
     endTime: {
       type: String,
     },
+    isAdaptive: {
+      type: Boolean,
+      default: false,
+    },
   },
   setup(props) {
     const hours = ref(0);
@@ -66,7 +70,7 @@ export default {
 
 <style lang="scss" scoped>
 .auction-timer {
-  width: 250px;
+  width: 295px;
 
   padding: 30px;
 
@@ -74,6 +78,7 @@ export default {
   background: rgba(59, 59, 59, 0.5);
   backdrop-filter: blur(5px);
   color: #fff;
+  box-sizing: border-box;
 
   user-select: none;
 
@@ -103,5 +108,9 @@ export default {
     margin-top: 30px;
     width: 100%;
   }
+}
+
+.auction-timer--adaptive {
+  @include adaptive;
 }
 </style>

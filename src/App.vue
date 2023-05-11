@@ -11,17 +11,14 @@
 <script>
 export default {
   name: "App",
-  data() {
-    return {};
-  },
-
   created() {
     this.checkResize();
     window.addEventListener("resize", this.checkResize);
   },
   methods: {
     checkResize() {
-      this.$store.dispatch("checkSize");
+      this.$store.dispatch("checkScreenSize");
+      this.$store.dispatch("checkScreenDevice");
     },
   },
 };

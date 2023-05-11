@@ -1,7 +1,7 @@
 <template>
   <section class="connect-wallet">
     <img
-      src="/images/content/ufo.webp"
+      :src="getImageFromPublic('/images/content/ufo.webp')"
       alt=""
       class="connect-wallet__placeholder"
     />
@@ -14,20 +14,33 @@
         </p>
       </div>
       <div class="connect-wallet__buttons">
-        <ButtonWallet icon="Metamask" text="Metamask" />
-        <ButtonWallet icon="WalletConnect" text="Wallet Connect" />
-        <ButtonWallet icon="Coinbase" text="Coinbase" />
+        <ButtonWallet
+          icon="Metamask"
+          text="Metamask"
+          :isAdaptive="getScreenSize <= 834"
+        />
+        <ButtonWallet
+          icon="WalletConnect"
+          text="Wallet Connect"
+          :isAdaptive="getScreenSize <= 834"
+        />
+        <ButtonWallet
+          icon="Coinbase"
+          text="Coinbase"
+          :isAdaptive="getScreenSize <= 834"
+        />
       </div>
     </div>
   </section>
 </template>
 
 <script>
+import getImages from "@/mixins/getImages";
+import screenHandler from "@/mixins/screenHandler";
+
 export default {
   name: "ConnectWalletSection",
-  data() {
-    return {};
-  },
+  mixins: [getImages, screenHandler],
 };
 </script>
 
@@ -66,7 +79,7 @@ export default {
     flex-direction: column;
     gap: 20px;
   }
-  @include ScreenSizeLaptop {
+  @include ScreenSizeTablet {
     &__head {
       @include base;
     }
@@ -74,10 +87,17 @@ export default {
       @include h3;
     }
   }
+  @include ScreenSizeTabletMini {
+    gap: 30px;
+    &__wrapper {
+      max-width: $maxWhidthItem;
+    }
+  }
   @include ScreenSizeMobile {
+    gap: 30px;
     flex-direction: column;
     &__wrapper {
-      // max-width: 315px;
+      max-width: $maxWhidthItem;
       align-self: center;
       padding-top: 0;
       padding-left: 30px;
@@ -85,11 +105,6 @@ export default {
     &__placeholder {
       width: 100%;
       height: 230px;
-    }
-    &__buttons {
-      button {
-        width: 100%;
-      }
     }
   }
 }

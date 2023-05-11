@@ -10,7 +10,7 @@
           modifier="outlined"
           icon="Eye"
           text="See All"
-          @clickButton="console.log('hi')"
+          @clickButton="this.$router.push('/marketplace')"
         />
       </template>
     </HeaderSection>
@@ -23,24 +23,29 @@
         :name="nft.name"
         :price="nft.price"
         :highest_bid="nft.highest_bid"
+        :isAdaptive="getScreenSize <= 834"
       />
     </gridWrapper>
     <ButtonDefault
-      class="button-bottom"
+      v-if="getScreenSize <= 834"
       type="secondary"
       modifier="outlined"
       icon="Eye"
       text="See All"
-      @clickButton="console.log('hi')"
+      :isAdaptive="true"
+      @clickButton="this.$router.push('/marketplace')"
     />
   </sectionWrapper>
 </template>
 
 <script>
 import HeaderSection from "../../ui/HeaderSection.vue";
+import screenHandler from "@/mixins/screenHandler";
+
 export default {
   name: "DiscoverNFTsSection",
   components: { HeaderSection },
+  mixins: [screenHandler],
   data() {
     return {
       nfts: [
@@ -75,23 +80,21 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.button-bottom {
-  display: none;
-  width: 100%;
-  max-width: 350px;
-  align-self: center;
-  @include ScreenSizeMobile {
-    display: flex;
-  }
-}
-
 .cards-wrapper {
-  @include ScreenSizeLaptop {
+  @include ScreenSizeTablet {
     .nft-card:nth-child(n + 3) {
       display: none;
     }
   }
+  @include ScreenSizeTabletMini {
+    .nft-card:nth-child(n + 4) {
+      display: none;
+    }
+  }
   @include ScreenSizeMobile {
+    .nft-card:nth-child(n + 4) {
+      display: none;
+    }
   }
 }
 </style>

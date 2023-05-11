@@ -25,5 +25,15 @@ export default {
   border-radius: 20px;
   background-color: $colorBgTextSilverBlack;
   @include base;
+  transition: transform $AnimationDuration $AnimationDelay;
+
+  cursor: pointer;
+  user-select: none;
+}
+
+@media (any-hover: hover) {
+  .tag:hover {
+    transform: scale($ScaleValueMin);
+  }
 }
 </style>

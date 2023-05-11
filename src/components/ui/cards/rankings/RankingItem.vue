@@ -1,11 +1,11 @@
 <template>
-  <div class="ranking-item">
+  <div class="ranking-item" @click="openPage('Artist')">
     <div class="ranking-item__rank-artist">
       <p class="ranking-item__rank">{{ number }}</p>
       <div class="ranking-item__artist">
         <avatarWrapper
           class="ranking-item__artist-photo"
-          size="medium"
+          :size="getSizeAvatar"
           :image="artist.photo"
         />
         <p class="ranking-item__artist-name">{{ artist.name }}</p>
@@ -26,6 +26,8 @@
 </template>
 
 <script>
+import screenHandler from "@/mixins/screenHandler";
+
 export default {
   name: "RankingItem",
   props: {
@@ -43,6 +45,26 @@ export default {
     },
     volume: {
       type: Number,
+    },
+  },
+  mixins: [screenHandler],
+  computed: {
+    getSizeAvatar() {
+      let size;
+      if (this.getScreenSize <= 1200) {
+        size = "small";
+      } else {
+        size = "medium";
+      }
+      return size;
+    },
+  },
+  methods: {
+    openPage(name) {
+      this.$router.push({
+        name: name,
+        params: { id: 123 },
+      });
     },
   },
 };
@@ -106,6 +128,48 @@ export default {
   &__stats-sold {
   }
   &__stats-volume {
+  }
+
+  @include ScreenSizeDesktop {
+  }
+  @include ScreenSizeTablet {
+    &__rank {
+      width: 24px;
+      height: 24px;
+      background-color: transparent;
+    }
+    &__stats-sold {
+      display: none;
+    }
+  }
+  @include ScreenSizeTabletMini {
+    &__artist-name {
+      @include base;
+    }
+    &__stats-change {
+      display: none;
+    }
+    &__stats-item {
+      @include caption;
+    }
+  }
+  @include ScreenSizeMobile {
+    &__artist-name {
+      @include base;
+    }
+    &__stats-item {
+      @include caption;
+    }
+    &__rank {
+      @include caption;
+    }
+    &__stats-change {
+      display: none;
+    }
+    &__stats-volume {
+      text-align: end;
+      width: auto;
+    }
   }
 }
 </style>
