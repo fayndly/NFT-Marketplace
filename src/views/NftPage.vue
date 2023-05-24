@@ -2,71 +2,60 @@
   <mainWrapper>
     <sectionWrapper
       class="placeholder-section"
-      :style="`background-image: url(${getPlaceholderImage})`"
+      :style="`background-image: url(${nft.image_path})`"
     ></sectionWrapper>
     <sectionWrapper class="nft">
       <div class="nft__info">
         <div class="nft__headline">
-          <h2 class="nft__name">Animakid</h2>
-          <p class="nft__uploaded">Minted on Sep 30, 2022</p>
+          <h2 class="nft__name">{{ nft.name }}</h2>
+          <p class="nft__uploaded">Minted on {{ nft.date_mounted }}</p>
         </div>
         <AuctionTimer
           v-if="getScreenSize < 834"
           class="nft__timer-mobile"
-          endTime="Sep 5, 2024 15:37:25"
+          :endTime="nft.date_auction_ends"
           :button="true"
           :isAdaptive="getScreenSize <= 834"
         />
         <div class="nft__info-item">
           <p class="nft__info-haedline">Created By</p>
-          <artistCard size="small" :fill="false" />
+          <artistCard
+            class="nft-card__artist"
+            size="small"
+            :id="nft.id_creator"
+            :fill="false"
+          />
         </div>
-        <div class="nft__info-item">
+        <div class="nft__info-item" v-if="nft.description.length">
           <p class="nft__info-haedline">Description</p>
-          <p class="nft__info-text">
-            The Orbitians is a collection of 10,000 unique NFTs on the Ethereum
-            blockchain,<br /><br />There are all sorts of beings in the NFT
-            Universe. The most advanced and friendly of the bunch are Orbitians.
-            <br /><br />They live in a metal space machines, high up in the sky
-            and only have one foot on Earth. These Orbitians are a peaceful
-            race, but they have been at war with a group of invaders for many
-            generations. The invaders are called Upside-Downs, because of their
-            inverted bodies that live on the ground, yet do not know any other
-            way to be. Upside-Downs believe that they will be able to win this
-            war if they could only get an eye into Orbitian territory, so
-            they've taken to make human beings their target.
-          </p>
+          <p class="nft__info-text" v-html="nft.description"></p>
         </div>
-        <div class="nft__info-item">
+        <div class="nft__info-item" v-if="nft.details.length">
           <p class="nft__info-haedline">Details</p>
           <div class="nft__more-info-details">
-            <div class="nft-info-detail">
+            <a
+              v-for="(detail, index) in nft.details"
+              :key="index"
+              :href="detail.link"
+              class="nft-info-detail"
+            >
               <IconComponent
                 path="Globe"
                 color="silver"
                 class="nft-info-detail__icon"
               />
-              <p class="nft-info-detail__text">View on Etherscan</p>
-            </div>
-            <div class="nft-info-detail">
-              <IconComponent
-                path="Globe"
-                color="silver"
-                class="nft-info-detail__icon"
-              />
-              <p class="nft-info-detail__text">View Original</p>
-            </div>
+              <p class="nft-info-detail__text">{{ detail.name }}</p>
+            </a>
           </div>
         </div>
-        <div class="nft__info-item">
+        <div class="nft__info-item" v-if="nft.tags.length">
           <p class="nft__info-haedline">Tags</p>
           <div class="nft__more-info-tags">
-            <TagComponent name="Animation" />
-            <TagComponent name="illustration" />
-            <TagComponent name="moon" />
-            <TagComponent name="sun" />
-            <TagComponent name="sunday" />
-            <TagComponent name="aquamarin" />
+            <TagComponent
+              v-for="(tag, index) in nft.tags"
+              :key="index"
+              :name="tag"
+            />
           </div>
         </div>
       </div>
@@ -121,20 +110,16 @@ import HeaderSection from "@/components/ui/HeaderSection.vue";
 import AuctionTimer from "@/components/ui/AuctionTimer.vue";
 import getImages from "@/mixins/getImages";
 import screenHandler from "@/mixins/screenHandler";
+
 export default {
   name: "NftPage",
   components: { AuctionTimer, HeaderSection, TagComponent },
   mixins: [getImages, screenHandler],
-  computed: {
-    getPlaceholderImage() {
-      return "https://assets.raribleuserdata.com/prod/v1/image/t_image_big/aHR0cHM6Ly9pcGZzLmlvL2lwZnMvUW1SWG9oclY0c051MlN0amIzbzVVOGFrZXZXalQxSFhFUzVQOXg3cldGNTI3Ng==";
-    },
-  },
   data() {
     return {
       nfts: [
         {
-          id: 123,
+          id: "kshuiye345jkge",
           imagePath:
             "https://assets.raribleuserdata.com/prod/v1/image/t_image_big/aHR0cHM6Ly9pcGZzLmlvL2lwZnMvUW1SWG9oclY0c051MlN0amIzbzVVOGFrZXZXalQxSFhFUzVQOXg3cldGNTI3Ng==",
           name: "cap robot1",
@@ -142,7 +127,7 @@ export default {
           highest_bid: 123,
         },
         {
-          id: 234,
+          id: "dfjkghioue354789534",
           imagePath:
             "https://assets.raribleuserdata.com/prod/v1/image/t_image_big/aHR0cHM6Ly9pcGZzLmlvL2lwZnMvUW1SWG9oclY0c051MlN0amIzbzVVOGFrZXZXalQxSFhFUzVQOXg3cldGNTI3Ng==",
           name: "cap robot1",
@@ -150,7 +135,7 @@ export default {
           highest_bid: 4323,
         },
         {
-          id: 345,
+          id: "lkdfgjkwgh4785y8934",
           imagePath:
             "https://assets.raribleuserdata.com/prod/v1/image/t_image_big/aHR0cHM6Ly9pcGZzLmlvL2lwZnMvUW1SWG9oclY0c051MlN0amIzbzVVOGFrZXZXalQxSFhFUzVQOXg3cldGNTI3Ng==",
           name: "cap robot1",
@@ -158,7 +143,7 @@ export default {
           highest_bid: 435,
         },
         {
-          id: 475855,
+          id: "jihfui3y94574egir234",
           imagePath:
             "https://assets.raribleuserdata.com/prod/v1/image/t_image_big/aHR0cHM6Ly9pcGZzLmlvL2lwZnMvUW1SWG9oclY0c051MlN0amIzbzVVOGFrZXZXalQxSFhFUzVQOXg3cldGNTI3Ng==",
           name: "cap robot1",
@@ -166,9 +151,13 @@ export default {
           highest_bid: 435,
         },
       ],
+      nft: {},
     };
   },
-  methods: {},
+  created() {
+    this.nft = this.$store.getters.getNftPage(this.$route.params.id);
+    console.log(this.nft);
+  },
 };
 </script>
 

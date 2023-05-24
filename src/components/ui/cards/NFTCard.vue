@@ -10,19 +10,21 @@
         <div class="nft-card__nft-name">{{ name }}</div>
         <artistCard
           class="nft-card__artist"
-          :size="'small'"
-          id="12354"
+          size="small"
+          :id="getArtistCard.id"
           :fill="false"
+          :photo="getArtistCard.avatar"
+          :name="getArtistCard.name"
         />
       </div>
       <div class="nft-card__additional-info">
         <div class="nft-card__price">
           <p class="nft-card__title">Price</p>
-          <p class="nft-card__value">{{ price }} ETH</p>
+          <p class="nft-card__value">{{ price.toFixed(2) }} ETH</p>
         </div>
         <div class="nft-card__highest-bid">
           <p class="nft-card__title">Highest Bid</p>
-          <p class="nft-card__value">{{ highest_bid }} wETH</p>
+          <p class="nft-card__value">{{ highest_bid.toFixed(2) }} wETH</p>
         </div>
       </div>
     </div>
@@ -34,7 +36,7 @@ export default {
   name: "NFTCard",
   props: {
     id: {
-      type: Number,
+      type: String,
     },
     imagePath: {
       type: String,
@@ -52,7 +54,9 @@ export default {
       type: Boolean,
       default: false,
     },
-    artist: {},
+    artistId: {
+      type: String,
+    },
   },
   methods: {
     openPage(name) {
@@ -60,6 +64,11 @@ export default {
         name: name,
         params: { id: this.id },
       });
+    },
+  },
+  computed: {
+    getArtistCard() {
+      return this.$store.getters.getArtistCard(this.artistId);
     },
   },
 };

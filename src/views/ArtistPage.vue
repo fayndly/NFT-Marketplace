@@ -26,7 +26,7 @@
         </div>
         <AdditionalInfo
           class="artist__additional-info"
-          :stats="getStats"
+          :stats="getStats()"
           :isAdaptive="getScreenSize <= 834"
         />
         <div class="artist__info-bio">
@@ -35,43 +35,6 @@
         </div>
         <div class="artist__info-links">
           <p class="artist__info-haedline">Links</p>
-          <!-- <div class="artist__info-links-wrapper">
-            <a  href="https://opensea.io/">
-              <IconComponent
-                class="artist__info-links-wrapper-icon"
-                path="Globe"
-                color="silver"
-              />
-            </a>
-            <a href="https://discord.com/">
-              <IconComponent
-                class="artist__info-links-wrapper-icon"
-                path="DiscordLogo"
-                color="silver"
-              />
-            </a>
-            <a href="https://www.youtube.com/">
-              <IconComponent
-                class="artist__info-links-wrapper-icon"
-                path="YoutubeLogo"
-                color="silver"
-              />
-            </a>
-            <a href="https://twitter.com/">
-              <IconComponent
-                class="artist__info-links-wrapper-icon"
-                path="TwitterLogo"
-                color="silver"
-              />
-            </a>
-            <a href="https://www.instagram.com/">
-              <IconComponent
-                class="artist__info-links-wrapper-icon"
-                path="InstagramLogo"
-                color="silver"
-              />
-            </a>
-          </div> -->
           <div class="artist__info-links-wrapper">
             <a v-for="link in artist.links" :href="link.link" :key="link.link">
               <IconComponent
@@ -99,13 +62,19 @@
       </div>
     </sectionWrapper>
     <sectionWrapper class="tabbar-wrapper">
-      <TabBar :tabs="tabs" :haveCounters="true" />
+      <TabBar :tabs="getTabs()" :haveCounters="true" />
     </sectionWrapper>
     <sectionWrapper class="section-list">
-      <gridWrapper class="card-wrapper">
-        <router-view />
-        <!-- <router-view></router-view> -->
-      </gridWrapper>
+      <router-view
+        :artistNftsCreated="artist.nfts_created"
+        :artistNftsOwned="artist.nfts_owned"
+        :artistCollections="artist.collections"
+        v-slot="{ Component }"
+      >
+        <transition name="fade" mode="out-in">
+          <component :is="Component" />
+        </transition>
+      </router-view>
     </sectionWrapper>
   </mainWrapper>
 </template>
@@ -114,221 +83,93 @@
 import TabBar from "@/components/ui/tabbars/TabBar.vue";
 import screenHandler from "@/mixins/screenHandler";
 
+import { mapGetters } from "vuex";
+
 export default {
   name: "ArtistPage",
   components: { TabBar },
   mixins: [screenHandler],
   data() {
     return {
-      tabs: [
-        { name: "Created", nameRouteTo: "ArtistCreated" },
-        { name: "Owned", nameRouteTo: "ArtistOwned" },
-        { name: "Collections", nameRouteTo: "ArtistCollection" },
-      ],
-      artist: {},
-      nfts_created: [
-        {
-          id: 123,
-          imagePath:
-            "https://assets.raribleuserdata.com/prod/v1/image/t_image_big/aHR0cHM6Ly9pcGZzLmlvL2lwZnMvUW1SWG9oclY0c051MlN0amIzbzVVOGFrZXZXalQxSFhFUzVQOXg3cldGNTI3Ng==",
-          name: "cap robot1",
-          price: 1234,
-          highest_bid: 123,
+      artist: {
+        id: "0x4da48ac48b782a7c01e70065e4a51faf2c3f7b09",
+        avatar_image_path:
+          "https://assets.raribleuserdata.com/prod/v1/image/t_avatar_big/aHR0cHM6Ly9pcGZzLmlvL2lwZnMvUW1lY1NzZk12UmNVcm15ZEJZZlJ5anBSaXNZTUdEQVhtb0FXR1BZSlJLV0E0WA==",
+        placeholder_image_path:
+          "https://ipfs.io/ipfs/QmTFgShYexRPZBstsJ5abwVLZncq62h2w8ksJZBttMB1cR",
+        name: "LIRONA",
+        address: "0x4da48...7b09",
+        stats: {
+          stats_volume: 258225,
+          stats_sold: 93,
+          stats_followers: 21928,
+          stats_change: 1.5432751521244161,
+          stats_volume_rankings: 9.892418560388744,
         },
-        {
-          id: 234,
-          imagePath:
-            "https://assets.raribleuserdata.com/prod/v1/image/t_image_big/aHR0cHM6Ly9pcGZzLmlvL2lwZnMvUW1SWG9oclY0c051MlN0amIzbzVVOGFrZXZXalQxSFhFUzVQOXg3cldGNTI3Ng==",
-          name: "cap robot1",
-          price: 234,
-          highest_bid: 4323,
-        },
-        {
-          id: 345,
-          imagePath:
-            "https://assets.raribleuserdata.com/prod/v1/image/t_image_big/aHR0cHM6Ly9pcGZzLmlvL2lwZnMvUW1SWG9oclY0c051MlN0amIzbzVVOGFrZXZXalQxSFhFUzVQOXg3cldGNTI3Ng==",
-          name: "cap robot1",
-          price: 345,
-          highest_bid: 435,
-        },
-      ],
-      nfts_owned: [
-        {
-          id: 123,
-          imagePath:
-            "https://assets.raribleuserdata.com/prod/v1/image/t_image_big/aHR0cHM6Ly9pcGZzLmlvL2lwZnMvUW1SWG9oclY0c051MlN0amIzbzVVOGFrZXZXalQxSFhFUzVQOXg3cldGNTI3Ng==",
-          name: "cap robot1",
-          price: 1234,
-          highest_bid: 123,
-        },
-        {
-          id: 234,
-          imagePath:
-            "https://assets.raribleuserdata.com/prod/v1/image/t_image_big/aHR0cHM6Ly9pcGZzLmlvL2lwZnMvUW1SWG9oclY0c051MlN0amIzbzVVOGFrZXZXalQxSFhFUzVQOXg3cldGNTI3Ng==",
-          name: "cap robot1",
-          price: 234,
-          highest_bid: 4323,
-        },
-        {
-          id: 345,
-          imagePath:
-            "https://assets.raribleuserdata.com/prod/v1/image/t_image_big/aHR0cHM6Ly9pcGZzLmlvL2lwZnMvUW1SWG9oclY0c051MlN0amIzbzVVOGFrZXZXalQxSFhFUzVQOXg3cldGNTI3Ng==",
-          name: "cap robot1",
-          price: 345,
-          highest_bid: 435,
-        },
-        {
-          id: 234534,
-          imagePath:
-            "https://assets.raribleuserdata.com/prod/v1/image/t_image_big/aHR0cHM6Ly9pcGZzLmlvL2lwZnMvUW1SWG9oclY0c051MlN0amIzbzVVOGFrZXZXalQxSFhFUzVQOXg3cldGNTI3Ng==",
-          name: "cap robot1",
-          price: 1234,
-          highest_bid: 123,
-        },
-        {
-          id: 2356567332,
-          imagePath:
-            "https://assets.raribleuserdata.com/prod/v1/image/t_image_big/aHR0cHM6Ly9pcGZzLmlvL2lwZnMvUW1SWG9oclY0c051MlN0amIzbzVVOGFrZXZXalQxSFhFUzVQOXg3cldGNTI3Ng==",
-          name: "cap robot1",
-          price: 234,
-          highest_bid: 4323,
-        },
-        {
-          id: 56456,
-          imagePath:
-            "https://assets.raribleuserdata.com/prod/v1/image/t_image_big/aHR0cHM6Ly9pcGZzLmlvL2lwZnMvUW1SWG9oclY0c051MlN0amIzbzVVOGFrZXZXalQxSFhFUzVQOXg3cldGNTI3Ng==",
-          name: "cap robot1",
-          price: 345,
-          highest_bid: 435,
-        },
-        {
-          id: 235547567123,
-          imagePath:
-            "https://assets.raribleuserdata.com/prod/v1/image/t_image_big/aHR0cHM6Ly9pcGZzLmlvL2lwZnMvUW1SWG9oclY0c051MlN0amIzbzVVOGFrZXZXalQxSFhFUzVQOXg3cldGNTI3Ng==",
-          name: "cap robot1",
-          price: 1234,
-          highest_bid: 123,
-        },
-        {
-          id: 6778546457,
-          imagePath:
-            "https://assets.raribleuserdata.com/prod/v1/image/t_image_big/aHR0cHM6Ly9pcGZzLmlvL2lwZnMvUW1SWG9oclY0c051MlN0amIzbzVVOGFrZXZXalQxSFhFUzVQOXg3cldGNTI3Ng==",
-          name: "cap robot1",
-          price: 234,
-          highest_bid: 4323,
-        },
-        {
-          id: 563452467,
-          imagePath:
-            "https://assets.raribleuserdata.com/prod/v1/image/t_image_big/aHR0cHM6Ly9pcGZzLmlvL2lwZnMvUW1SWG9oclY0c051MlN0amIzbzVVOGFrZXZXalQxSFhFUzVQOXg3cldGNTI3Ng==",
-          name: "cap robot1",
-          price: 345,
-          highest_bid: 435,
-        },
-      ],
-      collections: [
-        {
-          nfts: [
-            {
-              image:
-                "https://assets.raribleuserdata.com/prod/v1/image/t_image_big/aHR0cHM6Ly9pcGZzLmlvL2lwZnMvUW1SWG9oclY0c051MlN0amIzbzVVOGFrZXZXalQxSFhFUzVQOXg3cldGNTI3Ng==",
-              id: 125467546354,
-            },
-            {
-              image:
-                "https://assets.raribleuserdata.com/prod/v1/image/t_image_big/aHR0cHM6Ly9pcGZzLmlvL2lwZnMvUW1SWG9oclY0c051MlN0amIzbzVVOGFrZXZXalQxSFhFUzVQOXg3cldGNTI3Ng==",
-              id: 56856235,
-            },
-            {
-              image:
-                "https://assets.raribleuserdata.com/prod/v1/image/t_image_big/aHR0cHM6Ly9pcGZzLmlvL2lwZnMvUW1SWG9oclY0c051MlN0amIzbzVVOGFrZXZXalQxSFhFUzVQOXg3cldGNTI3Ng==",
-              id: 456546734,
-            },
-            {
-              image:
-                "https://assets.raribleuserdata.com/prod/v1/image/t_image_big/aHR0cHM6Ly9pcGZzLmlvL2lwZnMvUW1SWG9oclY0c051MlN0amIzbzVVOGFrZXZXalQxSFhFUzVQOXg3cldGNTI3Ng==",
-              id: 546753,
-            },
-          ],
-          artist: {
-            photo:
-              "https://assets.raribleuserdata.com/prod/v1/image/t_avatar_big/aHR0cHM6Ly9pLnNlYWRuLmlvL2djcy9maWxlcy8xNjE5YjAzM2M0NTNmZTM2YzVkOWUyYWM0NTEzNzlhNy5wbmc/dz01MDAmYXV0bz1mb3JtYXQ=",
-            name: "Roboform",
+        nfts_created: [
+          "0xed5af388653567af2f388e6224dc7c4b3241c544:3427",
+          "0xed5af388653567af2f388e6224dc7c4b3241c544:9697",
+          "0xed5af388653567af2f388e6224dc7c4b3241c544:6500",
+          "0xed5af388653567af2f388e6224dc7c4b3241c544:1952",
+          "0xed5af388653567af2f388e6224dc7c4b3241c544:3984",
+          "0xed5af388653567af2f388e6224dc7c4b3241c544:1640",
+          "0xed5af388653567af2f388e6224dc7c4b3241c544:1208",
+          "0xed5af388653567af2f388e6224dc7c4b3241c544:7995",
+          "0xed5af388653567af2f388e6224dc7c4b3241c544:6413",
+          "0xed5af388653567af2f388e6224dc7c4b3241c544:6717",
+          "0xed5af388653567af2f388e6224dc7c4b3241c544:8869",
+          "0xed5af388653567af2f388e6224dc7c4b3241c544:3234",
+          "0xed5af388653567af2f388e6224dc7c4b3241c544:4954",
+          "0xed5af388653567af2f388e6224dc7c4b3241c544:8017",
+          "0xed5af388653567af2f388e6224dc7c4b3241c544:1156",
+          "0xed5af388653567af2f388e6224dc7c4b3241c544:4230",
+          "0xed5af388653567af2f388e6224dc7c4b3241c544:3124",
+          "0xed5af388653567af2f388e6224dc7c4b3241c544:566",
+        ],
+        nfts_owned: [
+          "0x60e4d786628fea6478f785a6d7e704777c86a7c6:2691",
+          "0x60e4d786628fea6478f785a6d7e704777c86a7c6:8927",
+          "0x60e4d786628fea6478f785a6d7e704777c86a7c6:26616",
+          "0x60e4d786628fea6478f785a6d7e704777c86a7c6:9409",
+          "0x60e4d786628fea6478f785a6d7e704777c86a7c6:378",
+          "0x60e4d786628fea6478f785a6d7e704777c86a7c6:6539",
+          "0x60e4d786628fea6478f785a6d7e704777c86a7c6:334",
+          "0x60e4d786628fea6478f785a6d7e704777c86a7c6:28738",
+          "0x60e4d786628fea6478f785a6d7e704777c86a7c6:2277",
+          "0x60e4d786628fea6478f785a6d7e704777c86a7c6:25292",
+          "0x60e4d786628fea6478f785a6d7e704777c86a7c6:6328",
+          "0x60e4d786628fea6478f785a6d7e704777c86a7c6:5020",
+          "0x60e4d786628fea6478f785a6d7e704777c86a7c6:25910",
+          "0x60e4d786628fea6478f785a6d7e704777c86a7c6:2324",
+          "0x60e4d786628fea6478f785a6d7e704777c86a7c6:6658",
+          "0x60e4d786628fea6478f785a6d7e704777c86a7c6:13602",
+          "0x60e4d786628fea6478f785a6d7e704777c86a7c6:13",
+          "0x60e4d786628fea6478f785a6d7e704777c86a7c6:11064",
+          "0x60e4d786628fea6478f785a6d7e704777c86a7c6:6257",
+          "0x60e4d786628fea6478f785a6d7e704777c86a7c6:5984",
+          "0x60e4d786628fea6478f785a6d7e704777c86a7c6:8588",
+          "0x60e4d786628fea6478f785a6d7e704777c86a7c6:1399",
+          "0x60e4d786628fea6478f785a6d7e704777c86a7c6:9846",
+          "0x60e4d786628fea6478f785a6d7e704777c86a7c6:24536",
+          "0x60e4d786628fea6478f785a6d7e704777c86a7c6:22964",
+        ],
+        collections: ["0xed5af388653567af2f388e6224dc7c4b3241c544"],
+        bio: "LIŔONA is a creator of minimalistic ⨯ bold graphic and digital artwork. ✹ Artist / Creative Director ✹ #NFT minting ",
+        links: [
+          {
+            name: "site",
+            link: "http://www.lirona.me",
           },
-          name: "Samurai robots",
-          id: 27346821423,
-        },
-        {
-          nfts: [
-            {
-              image:
-                "https://assets.raribleuserdata.com/prod/v1/image/t_image_big/aHR0cHM6Ly9pcGZzLmlvL2lwZnMvUW1SWG9oclY0c051MlN0amIzbzVVOGFrZXZXalQxSFhFUzVQOXg3cldGNTI3Ng==",
-              id: 38974589723,
-            },
-            {
-              image:
-                "https://assets.raribleuserdata.com/prod/v1/image/t_image_big/aHR0cHM6Ly9pcGZzLmlvL2lwZnMvUW1SWG9oclY0c051MlN0amIzbzVVOGFrZXZXalQxSFhFUzVQOXg3cldGNTI3Ng==",
-              id: 2364786278364,
-            },
-            {
-              image:
-                "https://assets.raribleuserdata.com/prod/v1/image/t_image_big/aHR0cHM6Ly9pcGZzLmlvL2lwZnMvUW1SWG9oclY0c051MlN0amIzbzVVOGFrZXZXalQxSFhFUzVQOXg3cldGNTI3Ng==",
-              id: 12309123,
-            },
-            {
-              image:
-                "https://assets.raribleuserdata.com/prod/v1/image/t_image_big/aHR0cHM6Ly9pcGZzLmlvL2lwZnMvUW1SWG9oclY0c051MlN0amIzbzVVOGFrZXZXalQxSFhFUzVQOXg3cldGNTI3Ng==",
-              id: 485768712,
-            },
-            {
-              image:
-                "https://assets.raribleuserdata.com/prod/v1/image/t_image_big/aHR0cHM6Ly9pcGZzLmlvL2lwZnMvUW1SWG9oclY0c051MlN0amIzbzVVOGFrZXZXalQxSFhFUzVQOXg3cldGNTI3Ng==",
-              id: 28937478365,
-            },
-            {
-              image:
-                "https://assets.raribleuserdata.com/prod/v1/image/t_image_big/aHR0cHM6Ly9pcGZzLmlvL2lwZnMvUW1SWG9oclY0c051MlN0amIzbzVVOGFrZXZXalQxSFhFUzVQOXg3cldGNTI3Ng==",
-              id: 1290389089,
-            },
-          ],
-          artist: {
-            photo:
-              "https://assets.raribleuserdata.com/prod/v1/image/t_avatar_big/aHR0cHM6Ly9pLnNlYWRuLmlvL2djcy9maWxlcy8xNjE5YjAzM2M0NTNmZTM2YzVkOWUyYWM0NTEzNzlhNy5wbmc/dz01MDAmYXV0bz1mb3JtYXQ=",
-            name: "Black Null",
+          {
+            name: "twitter",
+            link: "https://twitter.com/iamlirona",
           },
-          name: "Slime",
-          id: 34858273428350,
-        },
-        {
-          nfts: [
-            {
-              image:
-                "https://assets.raribleuserdata.com/prod/v1/image/t_image_big/aHR0cHM6Ly9pcGZzLmlvL2lwZnMvUW1SWG9oclY0c051MlN0amIzbzVVOGFrZXZXalQxSFhFUzVQOXg3cldGNTI3Ng==",
-              id: 234346322,
-            },
-            {
-              image:
-                "https://assets.raribleuserdata.com/prod/v1/image/t_image_big/aHR0cHM6Ly9pcGZzLmlvL2lwZnMvUW1SWG9oclY0c051MlN0amIzbzVVOGFrZXZXalQxSFhFUzVQOXg3cldGNTI3Ng==",
-              id: 4564735346,
-            },
-            {
-              image:
-                "https://assets.raribleuserdata.com/prod/v1/image/t_image_big/aHR0cHM6Ly9pcGZzLmlvL2lwZnMvUW1SWG9oclY0c051MlN0amIzbzVVOGFrZXZXalQxSFhFUzVQOXg3cldGNTI3Ng==",
-              id: 78634534,
-            },
-          ],
-          artist: {
-            photo:
-              "https://assets.raribleuserdata.com/prod/v1/image/t_avatar_big/aHR0cHM6Ly9pLnNlYWRuLmlvL2djcy9maWxlcy8xNjE5YjAzM2M0NTNmZTM2YzVkOWUyYWM0NTEzNzlhNy5wbmc/dz01MDAmYXV0bz1mb3JtYXQ=",
-            name: "Run",
-          },
-          name: "Running Basketbaal",
-          id: 23645369457,
-        },
-      ],
+        ],
+      },
     };
   },
-  computed: {
+  computed: { ...mapGetters(["getArtistPage"]) },
+  methods: {
     getStats() {
       return [
         {
@@ -345,8 +186,25 @@ export default {
         },
       ];
     },
-  },
-  methods: {
+    getTabs() {
+      return [
+        {
+          name: "Created",
+          nameRouteTo: "ArtistCreated",
+          counter: this.artist.nfts_created.length,
+        },
+        {
+          name: "Owned",
+          nameRouteTo: "ArtistOwned",
+          counter: this.artist.nfts_owned.length,
+        },
+        {
+          name: "Collections",
+          nameRouteTo: "ArtistCollection",
+          counter: this.artist.collections.length,
+        },
+      ];
+    },
     getLinkIcone(name) {
       if (name === "twitter") {
         return "TwitterLogo";
@@ -375,13 +233,27 @@ export default {
       }
     },
   },
-  created() {
-    this.artist = this.$store.getters.getArtistPage(this.$route.params.id);
+  mounted() {
+    this.artist = this.getArtistPage(this.$route.params.id);
+    this.$data.artist = this.artist;
   },
 };
 </script>
 
 <style lang="scss" scoped>
+.fade-enter-active {
+  transition: opacity 0.3s ease;
+}
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.fade-enter-from {
+  opacity: 0;
+}
+.fade-leave-to {
+  opacity: 0;
+}
 .artist {
   padding-top: 90px;
   padding-bottom: 40px;

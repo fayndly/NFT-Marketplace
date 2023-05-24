@@ -19,9 +19,9 @@
       <artistCard
         v-for="(artist, index) in topArtists"
         :key="artist.id"
-        :photo="artist.avatar_image_path"
+        :photo="artist.avatar"
         :name="artist.name"
-        :total_sales="artist.stats.stats_volume"
+        :total_sales="artist.stats.stats_volume_rankings.toFixed(2)"
         :number="index + 1"
         :id="artist.id"
       />
@@ -30,9 +30,9 @@
       <artistCard
         v-for="(artist, index) in topArtists"
         :key="artist.id"
-        :photo="artist.avatar_image_path"
+        :photo="artist.avatar"
         :name="artist.name"
-        :total_sales="artist.stats.stats_volume"
+        :total_sales="artist.stats.stats_volume_rankings.toFixed(2)"
         :number="index + 1"
         :id="artist.id"
         size="big"
@@ -63,7 +63,7 @@ export default {
       topArtists: {},
     };
   },
-  mounted() {
+  created() {
     this.topArtists = this.$store.getters.getTopRatedArtists;
   },
 };

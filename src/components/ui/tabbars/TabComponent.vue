@@ -26,14 +26,18 @@ export default {
       default: 0,
     },
   },
-  data() {
-    return {
-      userId: this.$route.params["id"],
-    };
-  },
   computed: {
     getPathTo() {
-      return { name: this.nameRouteTo, params: { id: this.userId } };
+      let pathLink;
+      if (this.$route.params["id"]) {
+        pathLink = {
+          name: this.nameRouteTo,
+          params: { id: this.$route.params["id"] },
+        };
+      } else {
+        pathLink = { name: this.nameRouteTo };
+      }
+      return pathLink;
     },
   },
 };

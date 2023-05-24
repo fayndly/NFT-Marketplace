@@ -5,8 +5,8 @@
       :key="tab.key"
       :name="tab.name"
       :nameRouteTo="tab.nameRouteTo"
-      :haveCounter="true"
-      :counter="10"
+      :haveCounter="haveCounters"
+      :counter="tab.counter"
     />
   </div>
 </template>

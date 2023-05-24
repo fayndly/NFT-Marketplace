@@ -25,10 +25,10 @@
           />
         </div>
         <AdditionalInfo
-          :slots="[
-            { head: 'Volume', value: '250k+' },
-            { head: 'NFTs Sold', value: '50+' },
-            { head: 'Followers', value: '3000+' },
+          :stats="[
+            { head: 'Floor', value: '10.13 ETH' },
+            { head: 'Volume', value: '631.3K ETH' },
+            { head: 'Items', value: '19.5K' },
           ]"
           class="collection__additional-info"
           :isAdaptive="getScreenSize <= 834"

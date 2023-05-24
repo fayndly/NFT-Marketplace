@@ -1,46 +1,16 @@
 <template>
   <mainWrapper>
-    <sectionWrapper class="hello-section">
-      <highlightedNFT
-        class="test"
-        image="/images/content/ufo.webp"
-        name="Space Walking"
-        :size="getScreanSize"
-      />
-    </sectionWrapper>
+    <DiscoverNFTsSection />
   </mainWrapper>
 </template>
 
 <script>
-import screenHandler from "@/mixins/screenHandler";
+import DiscoverNFTsSection from "@/components/sections/HomePage/DiscoverNFTsSection.vue";
+
 export default {
   name: "TestPage",
-  mixins: [screenHandler],
-  computed: {
-    getScreanSize() {
-      if (this.getScreenDevice == "tablet") {
-        return "adaptive";
-      }
-      return false;
-    },
-  },
+  components: { DiscoverNFTsSection },
 };
 </script>
 
-<style lang="scss">
-.hello-section {
-  &:deep(.section__content) {
-    flex-direction: row;
-    gap: 30px;
-  }
-  @include ScreenSizeMobile {
-    &:deep(.section__content) {
-      flex-direction: column;
-      gap: 40px;
-    }
-  }
-}
-.test {
-  align-self: center;
-}
-</style>
+<style lang="scss"></style>

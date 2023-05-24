@@ -5,7 +5,9 @@ import highlightedNFT from "@/components/ui/cards/highlightedNFT";
 import collectionCard from "@/components/ui/cards/collectionCard";
 import infoCard from "@/components/ui/cards/infoCard";
 
-export default [
+import rankings from "./rankings";
+
+const components = [
   artistCard,
   categoryCard,
   NFTCard,
@@ -13,3 +15,7 @@ export default [
   collectionCard,
   infoCard,
 ];
+
+components.push(...rankings);
+
+export default components;

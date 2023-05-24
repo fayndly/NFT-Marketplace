@@ -29,7 +29,38 @@ const routes = [
   {
     path: "/rankings",
     name: "Rankings",
+    redirect: () => `/rankings/rankingsToday`,
     component: () => import("@/views/RankingsPage.vue"),
+    children: [
+      {
+        path: "rankingsToday",
+        name: "RankingsToday",
+        props: true,
+        component: () =>
+          import("@/components/routeChildren/rankings/RankingsToday.vue"),
+      },
+      {
+        path: "rankingWeek",
+        name: "RankingWeek",
+        props: true,
+        component: () =>
+          import("@/components/routeChildren/rankings/RankingWeek.vue"),
+      },
+      {
+        path: "rankingsMonth",
+        name: "RankingsMonth",
+        props: true,
+        component: () =>
+          import("@/components/routeChildren/rankings/RankingsMonth.vue"),
+      },
+      {
+        path: "rankingsAllTime",
+        name: "RankingsAllTime",
+        props: true,
+        component: () =>
+          import("@/components/routeChildren/rankings/RankingsAllTime.vue"),
+      },
+    ],
   },
   {
     path: "/artist/:id",
@@ -41,17 +72,20 @@ const routes = [
       {
         path: "created",
         name: "ArtistCreated",
+        props: true,
         component: () =>
           import("@/components/routeChildren/artist/ArtistCreated.vue"),
       },
       {
         path: "owned",
         name: "ArtistOwned",
+        props: true,
         component: () =>
           import("@/components/routeChildren/artist/ArtistOwned.vue"),
       },
       {
         path: "collection",
+        props: true,
         name: "ArtistCollection",
         component: () =>
           import("@/components/routeChildren/artist/ArtistCollection.vue"),

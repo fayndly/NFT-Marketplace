@@ -1,0 +1,606 @@
+[
+	{
+		"id": "0x4da48ac48b782a7c01e70065e4a51faf2c3f7b09",
+		"avatar_image_path": "https://assets.raribleuserdata.com/prod/v1/image/t_avatar_big/aHR0cHM6Ly9pcGZzLmlvL2lwZnMvUW1lY1NzZk12UmNVcm15ZEJZZlJ5anBSaXNZTUdEQVhtb0FXR1BZSlJLV0E0WA==",
+		"placeholder_image_path": "https://ipfs.io/ipfs/QmTFgShYexRPZBstsJ5abwVLZncq62h2w8ksJZBttMB1cR",
+		"name": "LIRONA",
+		"address": "0x4da48...7b09",
+		"stats": {
+			"stats_volume": 258225,
+			"stats_sold": 93,
+			"stats_followers": 21928,
+			"stats_change": 1.5432751521244161,
+			"stats_volume_rankings": 9.892418560388744
+		},
+		"nfts_created": [
+			"0xed5af388653567af2f388e6224dc7c4b3241c544:3427",
+			"0xed5af388653567af2f388e6224dc7c4b3241c544:9697",
+			"0xed5af388653567af2f388e6224dc7c4b3241c544:6500",
+			"0xed5af388653567af2f388e6224dc7c4b3241c544:1952",
+			"0xed5af388653567af2f388e6224dc7c4b3241c544:3984",
+			"0xed5af388653567af2f388e6224dc7c4b3241c544:1640",
+			"0xed5af388653567af2f388e6224dc7c4b3241c544:1208",
+			"0xed5af388653567af2f388e6224dc7c4b3241c544:7995",
+			"0xed5af388653567af2f388e6224dc7c4b3241c544:6413",
+			"0xed5af388653567af2f388e6224dc7c4b3241c544:6717",
+			"0xed5af388653567af2f388e6224dc7c4b3241c544:8869",
+			"0xed5af388653567af2f388e6224dc7c4b3241c544:3234",
+			"0xed5af388653567af2f388e6224dc7c4b3241c544:4954",
+			"0xed5af388653567af2f388e6224dc7c4b3241c544:8017",
+			"0xed5af388653567af2f388e6224dc7c4b3241c544:1156",
+			"0xed5af388653567af2f388e6224dc7c4b3241c544:4230",
+			"0xed5af388653567af2f388e6224dc7c4b3241c544:3124",
+			"0xed5af388653567af2f388e6224dc7c4b3241c544:566"
+		],
+		"nfts_owned": [
+			"0x60e4d786628fea6478f785a6d7e704777c86a7c6:2691",
+			"0x60e4d786628fea6478f785a6d7e704777c86a7c6:8927",
+			"0x60e4d786628fea6478f785a6d7e704777c86a7c6:26616",
+			"0x60e4d786628fea6478f785a6d7e704777c86a7c6:9409",
+			"0x60e4d786628fea6478f785a6d7e704777c86a7c6:378",
+			"0x60e4d786628fea6478f785a6d7e704777c86a7c6:6539",
+			"0x60e4d786628fea6478f785a6d7e704777c86a7c6:334",
+			"0x60e4d786628fea6478f785a6d7e704777c86a7c6:28738",
+			"0x60e4d786628fea6478f785a6d7e704777c86a7c6:2277",
+			"0x60e4d786628fea6478f785a6d7e704777c86a7c6:25292",
+			"0x60e4d786628fea6478f785a6d7e704777c86a7c6:6328",
+			"0x60e4d786628fea6478f785a6d7e704777c86a7c6:5020",
+			"0x60e4d786628fea6478f785a6d7e704777c86a7c6:25910",
+			"0x60e4d786628fea6478f785a6d7e704777c86a7c6:2324",
+			"0x60e4d786628fea6478f785a6d7e704777c86a7c6:6658",
+			"0x60e4d786628fea6478f785a6d7e704777c86a7c6:13602",
+			"0x60e4d786628fea6478f785a6d7e704777c86a7c6:13",
+			"0x60e4d786628fea6478f785a6d7e704777c86a7c6:11064",
+			"0x60e4d786628fea6478f785a6d7e704777c86a7c6:6257",
+			"0x60e4d786628fea6478f785a6d7e704777c86a7c6:5984",
+			"0x60e4d786628fea6478f785a6d7e704777c86a7c6:8588",
+			"0x60e4d786628fea6478f785a6d7e704777c86a7c6:1399",
+			"0x60e4d786628fea6478f785a6d7e704777c86a7c6:9846",
+			"0x60e4d786628fea6478f785a6d7e704777c86a7c6:24536",
+			"0x60e4d786628fea6478f785a6d7e704777c86a7c6:22964"
+		],
+		"collections": ["0xed5af388653567af2f388e6224dc7c4b3241c544"],
+		"bio": "LIŔONA is a creator of minimalistic ⨯ bold graphic and digital artwork. ✹ Artist / Creative Director ✹ #NFT minting ",
+		"links": [
+			{
+				"name": "site",
+				"link": "http://www.lirona.me"
+			},
+			{
+				"name": "twitter",
+				"link": "https://twitter.com/iamlirona"
+			}
+		]
+	},
+	{
+		"id": "0xc3c9fdee83ad8c7b29b5ce2c6b8d19fa116c0e74",
+		"avatar_image_path": "https://assets.raribleuserdata.com/prod/v1/image/t_avatar_big/aHR0cHM6Ly9pcGZzLmlvL2lwZnMvUW1XaVdIbXVyTTFWVnNjM01QOWt0QXhqZ3MxOXBtOWlMQ0E0Tko2am9WUU44dw==",
+		"placeholder_image_path": "https://ipfs.io/ipfs/QmZALubift53vRjwGD73mADuhx4HmffQQMXMyySWirPJT3",
+		"name": "RΛMIN NΛSIBOV",
+		"address": "0xc3c9f...0e74",
+		"stats": {
+			"stats_volume": 172795,
+			"stats_sold": 13,
+			"stats_followers": 14596,
+			"stats_change": 2.568871238764986,
+			"stats_volume_rankings": 22.422894656567422
+		},
+		"nfts_created": [],
+		"nfts_owned": [],
+		"collections": [],
+		"bio": "� Designer I Legendary Collection Creator � ",
+		"links": [
+			{
+				"name": "instagram",
+				"link": "https://www.instagram.com/raminnasibov"
+			},
+			{
+				"name": "twitter",
+				"link": "https://twitter.com/raminnasibov"
+			}
+		]
+	},
+	{
+		"id": "0x8d003a32c0968bc252039dd3a9b56676fdc8a764",
+		"avatar_image_path": "https://assets.raribleuserdata.com/prod/v1/image/t_avatar_big/aHR0cHM6Ly9pcGZzLmlvL2lwZnMvUW1aUDJ4cER0ZFpUM3BDZW9SeHd5VGVidDdpVlIyc3hrTmVpS3JXSE5CVzVxWA==",
+		"placeholder_image_path": "https://ipfs.io/ipfs/QmWjq2t3HjMjsR7s9vEJX7Cpa3v4JfvbsLL85EvXdMU18c",
+		"name": "LUSKY",
+		"address": "0x8d003...a764",
+		"stats": {
+			"stats_volume": 149253,
+			"stats_sold": 86,
+			"stats_followers": 14108,
+			"stats_change": 2.950412240145432,
+			"stats_volume_rankings": 19.710215474356946
+		},
+		"nfts_created": [],
+		"nfts_owned": [],
+		"collections": [],
+		"bio": "Hello. I'm Lusky.<br/>www.instagram.com/lusky.co.uk ",
+		"links": [
+			{
+				"name": "site",
+				"link": "http://www.lusky.co.uk"
+			},
+			{
+				"name": "twitter",
+				"link": "https://twitter.com/LuscombeLusky"
+			}
+		]
+	},
+	{
+		"id": "0x24856890515299d77f0a3f344921f3860a82877b",
+		"avatar_image_path": "https://assets.raribleuserdata.com/prod/v1/image/t_avatar_big/aHR0cHM6Ly9pcGZzLmlvL2lwZnMvUW1UdXJ1WG5VYmNaTEN5SmdVeDFVYWtSODE2NDg4b2M3OGlDM0J4dmYzTkZqdg==",
+		"placeholder_image_path": "https://ipfs.io/ipfs/bafkreicyfkxn6f7s4z5m2izpkbtywn6mjgqqn4wqhm4f7evxvuy7f3ern4",
+		"name": "Alpha7music",
+		"address": "0x24856...877b",
+		"stats": {
+			"stats_volume": 254209,
+			"stats_sold": 76,
+			"stats_followers": 22124,
+			"stats_change": 2.7717294504874364,
+			"stats_volume_rankings": 7.758047558293642
+		},
+		"nfts_created": [],
+		"nfts_owned": [],
+		"collections": [],
+		"bio": "World First Virtual Metaverse Music Card PRESENTED WITH  ALPHA7MUSIC  also named as A7.<br/><br/>INSTAGRAM managed by @Nft__advertise<br/>Official instagram page  @alpha7music<br/>Link :-https://instagram.com/alpha7music?igshid=YmMyMTA2M2Y=<br/><br/>Buy Your Xclusive A7 card to avilaible a high-quality premium nft subscription",
+		"links": [
+			{
+				"name": "twitter",
+				"link": "https://twitter.com/Alpha7music_nft"
+			}
+		]
+	},
+	{
+		"id": "0x7deaab1525efa9bdaeaff3ba922ed6fe38e33b52",
+		"avatar_image_path": "https://assets.raribleuserdata.com/prod/v1/image/t_avatar_big/aHR0cHM6Ly9pcGZzLmlvL2lwZnMvUW1kaHRra0w0elZjOUR3cXFSRVVzSENXV3BraDNuM0JCa0dqc0pFakN2WDFrcA==",
+		"placeholder_image_path": "https://ipfs.io/ipfs/bafkreicwooi6npegpbh4cmgahjr7ceij4mmbwtysv26decbfoqn7vuouxq",
+		"name": "OCENE",
+		"address": "0x7deaa...3b52",
+		"stats": {
+			"stats_volume": 29554,
+			"stats_sold": 94,
+			"stats_followers": 22063,
+			"stats_change": 0.9549207201779493,
+			"stats_volume_rankings": 20.307752475343804
+		},
+		"nfts_created": [],
+		"nfts_owned": [],
+		"collections": [],
+		"bio": "A new Queen of Ocean is OCENE<br/><br/>INSTAGRAM @Nft__advertise ",
+		"links": [
+			{
+				"name": "twitter",
+				"link": "https://twitter.com/Ocenequeen"
+			}
+		]
+	},
+	{
+		"id": "0x07b1e38bebba010a4d232683feb919d101c957d7",
+		"avatar_image_path": "https://assets.raribleuserdata.com/prod/v1/image/t_avatar_big/aHR0cHM6Ly9pcGZzLmlvL2lwZnMvUW1VWmdVcmQyd0NuZTU3VXNLdWcxNnBHRk5WNmhDSEdmRG5TZEFBTFMzQ1lSOA==",
+		"placeholder_image_path": "https://ipfs.io/ipfs/bafybeiegbj4buxw6tfvnr56imz2yuj5adlxoul3di24zh6fsf3nrmpjoou",
+		"name": "METAGE",
+		"address": "0x07b1e...57d7",
+		"stats": {
+			"stats_volume": 109030,
+			"stats_sold": 26,
+			"stats_followers": 21629,
+			"stats_change": 1.4906682251192773,
+			"stats_volume_rankings": 24.485344720014393
+		},
+		"nfts_created": [],
+		"nfts_owned": [],
+		"collections": [],
+		"bio": "A virtual AR system based on black light<br/><br/>INSTAGRAM @Nft__advertise ",
+		"links": [
+			{
+				"name": "twitter",
+				"link": "https://twitter.com/metage10"
+			}
+		]
+	},
+	{
+		"id": "0xd8936e602e38dfee5d6466865068b94b1943debf",
+		"avatar_image_path": "https://assets.raribleuserdata.com/prod/v1/image/t_avatar_big/aHR0cHM6Ly9pcGZzLmlvL2lwZnMvYmFma3JlaWZucDQ2bXVobGU0c3NubWhtb3BiNmkzdWkzcnF1aXhzcG16cWpnM2NhM3d3eGxzdWpnemU=",
+		"placeholder_image_path": "https://ipfs.io/ipfs/QmXotJPB2ypPcCPUuDn4Q6QXbnqKuWdzvqKodoDrLu29yM",
+		"name": "Forexus",
+		"address": "0xd8936...debf",
+		"stats": {
+			"stats_volume": 218282,
+			"stats_sold": 20,
+			"stats_followers": 21302,
+			"stats_change": 1.3245659742306277,
+			"stats_volume_rankings": 21.525457748008826
+		},
+		"nfts_created": [],
+		"nfts_owned": [],
+		"collections": [],
+		"bio": "Graphic Artist creating NFTs with Adobe Photoshop, Adobe After Effects (Element 3D) and Cinema 4d! ",
+		"links": [
+			{
+				"name": "site",
+				"link": "https://linktr.ee/forexus"
+			},
+			{
+				"name": "twitter",
+				"link": "https://twitter.com/0x_forexus"
+			}
+		]
+	},
+	{
+		"id": "0x36ed2d75a82e180e0871456b15c239b73b4ee9f4",
+		"avatar_image_path": "https://assets.raribleuserdata.com/prod/v1/image/t_avatar_big/aHR0cHM6Ly9pcGZzLmlvL2lwZnMvUW1XWlVFc3lVZ0hWemRVcnExM0NjQzJqbWdrcTRZZUhhSFJ3Q2VBd2dDS2RaWg==",
+		"placeholder_image_path": "https://ipfs.io/ipfs/QmXZzLGB5a4YsPZjMHsTC59GL33b6qookZ9RriMfQuGBSb",
+		"name": "Dikasso",
+		"address": "0x36ed2...e9f4",
+		"stats": {
+			"stats_volume": 200532,
+			"stats_sold": 60,
+			"stats_followers": 18939,
+			"stats_change": 1.2229115511013524,
+			"stats_volume_rankings": 12.012375392554176
+		},
+		"nfts_created": [],
+		"nfts_owned": [],
+		"collections": [],
+		"bio": "<------ this way up ------> ",
+		"links": [
+			{
+				"name": "site",
+				"link": "https://sketchfab.com/pARkesy84"
+			},
+			{
+				"name": "twitter",
+				"link": "https://twitter.com/Dikasso_"
+			}
+		]
+	},
+	{
+		"id": "0x2b92376dc4f1cd3f7c07ecfc3579354b2f20abff",
+		"avatar_image_path": "https://assets.raribleuserdata.com/prod/v1/image/t_avatar_big/aHR0cHM6Ly9pcGZzLmlvL2lwZnMvUW1XQWhRSnZHY1VaWTF0bmZKWk56bzFFWlhOWmpSa1ZRcmJ4WEtyVEMzRldFWA==",
+		"placeholder_image_path": "https://ipfs.io/ipfs/Qmc6zCkzJYoLbn4wiCdqtaBUvtNRTuZuQiHdjDeFdd6PgP",
+		"name": "FutureNow Art Gallery",
+		"address": "0x2b923...abff",
+		"stats": {
+			"stats_volume": 64142,
+			"stats_sold": 64,
+			"stats_followers": 14578,
+			"stats_change": 2.690079123626208,
+			"stats_volume_rankings": 25.884614252562717
+		},
+		"nfts_created": [],
+		"nfts_owned": [],
+		"collections": [],
+		"bio": "Take a look at our Created tab below to view our secondary sale offers from current collectors and our in-house designers.<br/><br/>Enjoy collecting!",
+		"links": [
+			{
+				"name": "site",
+				"link": "https://opensea.io/collection/futurenow-art"
+			}
+		]
+	},
+	{
+		"id": "0xf56345338cb4cddaf915ebef3bfde63e70fe3053",
+		"avatar_image_path": "https://assets.raribleuserdata.com/prod/v1/image/t_avatar_big/aHR0cHM6Ly9pcGZzLmlvL2lwZnMvUW1hakdLYzRhOXZmb295QmRaRFo1Q0dna1BHZnRSYXo1RWlod0J5b2p6b3lWdw==",
+		"placeholder_image_path": "https://ipfs.io/ipfs/QmSYHqdLnLRdRE69Q3LUYeNAKjnNCazfoPv4q2Fdk9MbGH",
+		"name": "Bored Elon",
+		"address": "0xf5634...3053",
+		"stats": {
+			"stats_volume": 125794,
+			"stats_sold": 16,
+			"stats_followers": 13471,
+			"stats_change": 2.623567968318466,
+			"stats_volume_rankings": 6.33667750943236
+		},
+		"nfts_created": [],
+		"nfts_owned": [],
+		"collections": [],
+		"bio": "Arts and inventions from Elon in his downtime. A futuristic hyper-PARODY creator and Martian explorer. I also accept MARS COINS for my wares. Please reach out on Twitter first or boredelon(at)gmail(dot)com ",
+		"links": [
+			{
+				"name": "site",
+				"link": "http://www.BoredElon.com"
+			},
+			{
+				"name": "twitter",
+				"link": "https://twitter.com/boredelonmusk"
+			}
+		]
+	},
+	{
+		"id": "0x564ee0b9acb7ec7847930551b7c8ce1962255ab1",
+		"avatar_image_path": "https://assets.raribleuserdata.com/prod/v1/image/t_avatar_big/aHR0cHM6Ly9pcGZzLmlvL2lwZnMvUW1YYnlaaGVDbzZOdm5nYnNSZGQ1SDhaVEJSenF1VWE3M05LOXNWRjZQaFN5TA==",
+		"placeholder_image_path": "https://ipfs.io/ipfs/QmWXVN8gZE1SFKUPsoZ55N8xkwawX8LXXfTsKotRZQunaz",
+		"name": "Hodler Lab",
+		"address": "0x564ee...5ab1",
+		"stats": {
+			"stats_volume": 56354,
+			"stats_sold": 95,
+			"stats_followers": 11661,
+			"stats_change": 2.1786518450454824,
+			"stats_volume_rankings": 15.170154573076468
+		},
+		"nfts_created": [],
+		"nfts_owned": [],
+		"collections": [],
+		"bio": "Creators of Crypto Hodlers NFT ",
+		"links": [
+			{
+				"name": "site",
+				"link": "https://cryptohodlers.io"
+			},
+			{
+				"name": "twitter",
+				"link": "https://twitter.com/card4rt"
+			}
+		]
+	},
+	{
+		"id": "0xd95d60f2b6107c4e69d80fa15fddf1853541b8da",
+		"avatar_image_path": "https://assets.raribleuserdata.com/prod/v1/image/t_avatar_big/aHR0cHM6Ly9pcGZzLmlvL2lwZnMvUW1UUVh1TURCTXRyR1RiTFFpQnZwem9aYThCWDJmNmE2S2Z4NnZ2R3JzdE5vOA==",
+		"placeholder_image_path": "https://ipfs.io/ipfs/QmRLixCZypiKkLKbv942Y6Lw758Ku7yEsTwTPodgcjVnpp",
+		"name": "ForFunArt13",
+		"address": "0xd95d6...b8da",
+		"stats": {
+			"stats_volume": 76857,
+			"stats_sold": 4,
+			"stats_followers": 11686,
+			"stats_change": 1.8286124642653614,
+			"stats_volume_rankings": 7.6937739395104074
+		},
+		"nfts_created": [],
+		"nfts_owned": [],
+		"collections": [],
+		"bio": "Hi! I'm a Concept Artist and Visual Developer with intensive experience, most markedly I enjoying working on illustration design and concept art. I LOVE ART! And Born to make ART! Rare NFT Art!<br/><br/>Limited editions!�<br/><br/>More artworks coming soon!!! ���<br/><br/>portfolio: https://forfunart13.artstation.com/",
+		"links": [
+			{
+				"name": "intagram",
+				"link": "https://www.instagram.com/forfunart13"
+			},
+			{
+				"name": "twitter",
+				"link": "https://twitter.com/ForFunArt13"
+			}
+		]
+	},
+	{
+		"id": "0x0a690b298f84d12414f5c8db7de1ece5a4605877",
+		"avatar_image_path": "https://assets.raribleuserdata.com/prod/v1/image/t_avatar_big/aHR0cHM6Ly9pcGZzLmlvL2lwZnMvUW1SRlZoR014M1dyZjJXNFJjUlc0R1JjZVZkSzE5OGszQ1QzdmZWM2pVZ0pwNw==",
+		"placeholder_image_path": "https://ipfs.io/ipfs/QmU6ZPZ4kw5oYg23VeKMk7VQHXC5SEyHzdgtLo8SeefSgE",
+		"name": "Redlioneye Gazette",
+		"address": "0x0a690...5877",
+		"stats": {
+			"stats_volume": 85089,
+			"stats_sold": 17,
+			"stats_followers": 11128,
+			"stats_change": 2.6693101300940105,
+			"stats_volume_rankings": 16.016934301992386
+		},
+		"nfts_created": [],
+		"nfts_owned": [],
+		"collections": [],
+		"bio": "1st Ever NFT Publication<br/>NFT/Cryptoart DEFI History recorded weekly in a Gossip Mag format ",
+		"links": [
+			{
+				"name": "site",
+				"link": "https://redlion.news"
+			},
+			{
+				"name": "twitter",
+				"link": "https://twitter.com/redlioneye13"
+			}
+		]
+	},
+	{
+		"id": "0xcbd91c03a0081fab88404e78681344f52da9bed4",
+		"avatar_image_path": "https://assets.raribleuserdata.com/prod/v1/image/t_avatar_big/aHR0cHM6Ly9pcGZzLmlvL2lwZnMvUW1WSFVSUHBBY0JTSlhzYnZ6QXRtSlJ2UzhpOVBNRXBQN21BOUdMWUgyWnVQMg==",
+		"placeholder_image_path": "https://ipfs.io/ipfs/QmfXjewGmEzKEunvQcNbJMzhW1zCDy6aiJL5i4ev5JJGZF",
+		"name": "BZip",
+		"address": "0xcbd91...bed4",
+		"stats": {
+			"stats_volume": 292821,
+			"stats_sold": 29,
+			"stats_followers": 9858,
+			"stats_change": 2.9625512551623236,
+			"stats_volume_rankings": 26.15574776146144
+		},
+		"nfts_created": [],
+		"nfts_owned": [],
+		"collections": [],
+		"bio": "NFT Creator and Collector<br/>Looking to bring together a strong community.<br/><br/>Earnings go toward buying new collectables.<br/>All prices up for negotiation DM me on Twitter.",
+		"links": [
+			{
+				"name": "twitter",
+				"link": "https://www.twitter.com/BZipNFT"
+			}
+		]
+	},
+	{
+		"id": "0xe0ae1774c6ff647f2afc16be4b7fd0af0ebf662a",
+		"avatar_image_path": "https://assets.raribleuserdata.com/prod/v1/image/t_avatar_big/aHR0cHM6Ly9pcGZzLmlvL2lwZnMvUW1kZjdQYWRWYXl2aXlFTFF2V21xcmk4MjI4WVRMR1NhQlE5YWtUWm9pS1BGVw==",
+		"placeholder_image_path": "https://ipfs.io/ipfs/QmcW6LFpJHG2Eq87EQZvuBT7URqrrsTf3tqdfj18b2smf7",
+		"name": "p.klbr",
+		"address": "0xe0ae1...662a",
+		"stats": {
+			"stats_volume": 186646,
+			"stats_sold": 48,
+			"stats_followers": 9934,
+			"stats_change": 1.5622102694009927,
+			"stats_volume_rankings": 25.177938525490248
+		},
+		"nfts_created": [],
+		"nfts_owned": [],
+		"collections": [],
+		"bio": "[Photograph]",
+		"links": [
+			{
+				"name": "instagram",
+				"link": "https://www.instagram.com/philemon.klbr"
+			},
+			{
+				"name": "twitter",
+				"link": "https://twitter.com/pklbr"
+			}
+		]
+	},
+	{
+		"id": "0x27899282184a2c3a18b54766d6435fee75910a70",
+		"avatar_image_path": "https://assets.raribleuserdata.com/prod/v1/image/t_avatar_big/aHR0cHM6Ly9pcGZzLmlvL2lwZnMvUW1YOEVOcmZ1aHZtTUttWFZpYW9KdFR2WDRFZ2JhdkRZdHFlRnBnR2h0dE12TQ==",
+		"placeholder_image_path": "https://ipfs.io/ipfs/QmWPHW3fKzQCJAVft9MURPX8SDtBH7XEvHG2mj3xPuVQ9D",
+		"name": "bull will",
+		"address": "0x27899...0a70",
+		"stats": {
+			"stats_volume": 103302,
+			"stats_sold": 22,
+			"stats_followers": 9619,
+			"stats_change": 0.6110439228586735,
+			"stats_volume_rankings": 24.766613712315205
+		},
+		"nfts_created": [],
+		"nfts_owned": [],
+		"collections": [],
+		"bio": "The future is coming.",
+		"links": [
+			{
+				"name": "site",
+				"link": "https://bull-will.tumblr.com/"
+			},
+			{
+				"name": "twitter",
+				"link": "https://twitter.com/bull_will_art"
+			}
+		]
+	},
+	{
+		"id": "0xfa7167458d3c76e78c7da9c0b1601aaab1c6f417",
+		"avatar_image_path": "https://assets.raribleuserdata.com/prod/v1/image/t_avatar_big/aHR0cHM6Ly9pcGZzLmlvL2lwZnMvUW1kU0NwSmI5TUVqdE1WVlQ5M2Foa1gybW80WFI5bUdtYVdxelM1QTZOVGJXag==",
+		"placeholder_image_path": "https://ipfs.io/ipfs/QmWAYZYnEyn1hsYtQwrjXeuaehdMeRzUtQWpJY6gSXFZsV",
+		"name": "autodidact",
+		"address": "0xfa716...f417",
+		"stats": {
+			"stats_volume": 28663,
+			"stats_sold": 96,
+			"stats_followers": 9490,
+			"stats_change": 1.618974366218114,
+			"stats_volume_rankings": 19.00939100801825
+		},
+		"nfts_created": [],
+		"nfts_owned": [],
+		"collections": [],
+		"bio": "Anonymous Digital Artist  - Autodidact<br/><br/>“Three o'clock is always too late or too early for anything you want to do.”<br/><br/>Los Angeles ",
+		"links": []
+	},
+	{
+		"id": "0xab3e5a900663ea8c573b8f893d540d331fbab9f5",
+		"avatar_image_path": "https://assets.raribleuserdata.com/prod/v1/image/t_avatar_big/aHR0cHM6Ly9pcGZzLmlvL2lwZnMvUW1WSnFqZFp4UENUQWpwSFRWTDhTSFZHV01yUmVNREFkNUxOYTFwcldHeVpjWQ==",
+		"placeholder_image_path": "https://ipfs.io/ipfs/QmZm2bW6yh3p9dMMuDFSGquMdcscYkixfziUUX927ULh2G",
+		"name": "Trym_Ruud",
+		"address": "0xab3e5...b9f5",
+		"stats": {
+			"stats_volume": 216379,
+			"stats_sold": 90,
+			"stats_followers": 9400,
+			"stats_change": 2.1029516985630647,
+			"stats_volume_rankings": 16.175652486234767
+		},
+		"nfts_created": [],
+		"nfts_owned": [],
+		"collections": [],
+		"bio": "Rude boys collection in progress!<br/><br/>https://www.instagram.com/trym.ruud/ ",
+		"links": [
+			{
+				"name": "site",
+				"link": "https://www.rudeboys.io/"
+			},
+			{
+				"name": "twitter",
+				"link": "https://twitter.com/TrymRuud"
+			}
+		]
+	},
+	{
+		"id": "0xb985ccd9ff90db256b15f7feeca5a6040d734597",
+		"avatar_image_path": "https://assets.raribleuserdata.com/prod/v1/image/t_avatar_big/aHR0cHM6Ly9pcGZzLmlvL2lwZnMvUW1mOHlkMnUxVkpFTjFtejc5MW5QNTNyTm5tS2p6UkdlRkxyUUhhOVFtSnI2Ug==",
+		"placeholder_image_path": "https://ipfs.io/ipfs/bafkreihqbo624phlisdkdm6xgu2uicoytqq4yqq4ci3z73mgvrdjtmxluq",
+		"name": "MarkTheHabibi",
+		"address": "0xb985c...4597",
+		"stats": {
+			"stats_volume": 92646,
+			"stats_sold": 26,
+			"stats_followers": 9262,
+			"stats_change": 1.2003525662216237,
+			"stats_volume_rankings": 12.693104842832588
+		},
+		"nfts_created": [],
+		"nfts_owned": [],
+		"collections": [],
+		"bio": "A Habibi making Habibis. ",
+		"links": [
+			{
+				"name": "site",
+				"link": "https://habibi.family"
+			},
+			{
+				"name": "twitter",
+				"link": "https://twitter.com/MarkTheHabibi"
+			}
+		]
+	},
+	{
+		"id": "0xf06c4d194a041da763736a5e946c711fd7792c93",
+		"avatar_image_path": "https://assets.raribleuserdata.com/prod/v1/image/t_avatar_big/aHR0cHM6Ly9pcGZzLmlvL2lwZnMvUW1hRjRFeEc2TXNzcFRHVG1FWVR2aHg3OWJGM1pjYVBzbTVEc1pSa3lQdDdjYQ==",
+		"placeholder_image_path": "https://ipfs.io/ipfs/QmPE7JVLpF4oBdi2iZ7sL4DNTaUAsfHRPZUeotxo9gDrEU",
+		"name": "Diana",
+		"address": "0xf06c4...2c93",
+		"stats": {
+			"stats_volume": 250087,
+			"stats_sold": 95,
+			"stats_followers": 8827,
+			"stats_change": 2.970168784353901,
+			"stats_volume_rankings": 8.503667466058552
+		},
+		"nfts_created": [],
+		"nfts_owned": [],
+		"collections": [],
+		"bio": "https://opensea.io/Diana ",
+		"links": [
+			{
+				"name": "site",
+				"link": "https://opensea.io/Diana"
+			},
+			{
+				"name": "twitter",
+				"link": "https://twitter.com/DianaNFT"
+			}
+		]
+	},
+	{
+		"id": "0x19f180e2562b89d8e445f5bb779cfe13999e7263",
+		"avatar_image_path": "https://assets.raribleuserdata.com/prod/v1/image/t_avatar_big/aHR0cHM6Ly9pcGZzLmlvL2lwZnMvUW1WTDdrMllLUnRwamF6d3BWcnZ4WXlnSjVjZkg3aGJWbTZzUGpBQm9nWjhETQ==",
+		"placeholder_image_path": "https://ipfs.io/ipfs/QmbxHPduR4FfMMkcZ6cR4Ts6qhQCoXQNTuQYxVQ7TXujvW",
+		"name": "Dizplazer",
+		"address": "0x19f18...7263",
+		"stats": {
+			"stats_volume": 79997,
+			"stats_sold": 88,
+			"stats_followers": 8905,
+			"stats_change": 1.5474116914625364,
+			"stats_volume_rankings": 8.76186342612188
+		},
+		"nfts_created": [],
+		"nfts_owned": [],
+		"collections": [],
+		"bio": "Crypto Artist & Motion/Graphic Designer<br/><br/>linktr.ee/dizplazer\n ",
+		"links": [
+			{
+				"name": "instagram",
+				"link": "https://www.instagram.com/dizplazer"
+			},
+			{
+				"name": "twitter",
+				"link": "https://twitter.com/dizplazer"
+			}
+		]
+	}
+]

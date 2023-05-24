@@ -6,20 +6,20 @@
         <avatarWrapper
           class="ranking-item__artist-photo"
           :size="getSizeAvatar"
-          :image="artist.photo"
+          :image="artist.avatar_image_path"
         />
         <p class="ranking-item__artist-name">{{ artist.name }}</p>
       </div>
     </div>
     <div class="ranking-item__stats">
       <p class="ranking-item__stats-item ranking-item__stats-change">
-        +{{ change }}%
+        +{{ change.toFixed(2) }}%
       </p>
       <p class="ranking-item__stats-item ranking-item__stats-sold">
         {{ sold }}
       </p>
       <p class="ranking-item__stats-item ranking-item__stats-volume">
-        {{ volume }} ETH
+        {{ volume.toFixed(2) }} ETH
       </p>
     </div>
   </div>

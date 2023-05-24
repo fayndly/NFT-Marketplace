@@ -42,7 +42,7 @@ export default {
       default: "John Harlow",
     },
     total_sales: {
-      type: Number,
+      type: String,
     },
     number: {
       type: Number,

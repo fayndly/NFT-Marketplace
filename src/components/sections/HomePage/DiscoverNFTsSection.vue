@@ -14,12 +14,12 @@
         />
       </template>
     </HeaderSection>
-    <gridWrapper class="cards-wrapper">
+    <gridWrapper class="cards-wrapper" v-if="nfts[0] != undefined">
       <NFTCard
         v-for="nft in nfts"
         :key="nft.id"
         :id="nft.id"
-        :imagePath="nft.imagePath"
+        :imagePath="nft.image_path"
         :name="nft.name"
         :price="nft.price"
         :highest_bid="nft.highest_bid"
@@ -42,39 +42,20 @@
 import HeaderSection from "../../ui/HeaderSection.vue";
 import screenHandler from "@/mixins/screenHandler";
 
+import { mapGetters } from "vuex";
+
 export default {
   name: "DiscoverNFTsSection",
   components: { HeaderSection },
+  computed: { ...mapGetters(["getDiscoverNFTs"]) },
   mixins: [screenHandler],
   data() {
     return {
-      nfts: [
-        {
-          id: 123,
-          imagePath:
-            "https://assets.raribleuserdata.com/prod/v1/image/t_image_big/aHR0cHM6Ly9pcGZzLmlvL2lwZnMvUW1SWG9oclY0c051MlN0amIzbzVVOGFrZXZXalQxSFhFUzVQOXg3cldGNTI3Ng==",
-          name: "cap robot1",
-          price: 1234,
-          highest_bid: 123,
-        },
-        {
-          id: 234,
-          imagePath:
-            "https://assets.raribleuserdata.com/prod/v1/image/t_image_big/aHR0cHM6Ly9pcGZzLmlvL2lwZnMvUW1SWG9oclY0c051MlN0amIzbzVVOGFrZXZXalQxSFhFUzVQOXg3cldGNTI3Ng==",
-          name: "cap robot1",
-          price: 234,
-          highest_bid: 4323,
-        },
-        {
-          id: 345,
-          imagePath:
-            "https://assets.raribleuserdata.com/prod/v1/image/t_image_big/aHR0cHM6Ly9pcGZzLmlvL2lwZnMvUW1SWG9oclY0c051MlN0amIzbzVVOGFrZXZXalQxSFhFUzVQOXg3cldGNTI3Ng==",
-          name: "cap robot1",
-          price: 345,
-          highest_bid: 435,
-        },
-      ],
+      nfts: [],
     };
+  },
+  mounted() {
+    this.nfts = this.getDiscoverNFTs;
   },
 };
 </script>

@@ -1,2 +1,0 @@
-"use strict";(self["webpackChunknft_marketplace"]=self["webpackChunknft_marketplace"]||[]).push([[155],{5155:function(n,e,t){t.r(e),t.d(e,{default:function(){return f}});var a=t(3396);const u=(0,a._)("h1",null,"PageNotFound",-1);function r(n,e,t,r,c,l){const o=(0,a.up)("mainWrapper");return(0,a.wg)(),(0,a.j4)(o,null,{default:(0,a.w5)((()=>[u])),_:1})}var c={name:"PageNotFound"},l=t(89);const o=(0,l.Z)(c,[["render",r]]);var f=o}}]);
-//# sourceMappingURL=155.536169b9.js.map
