@@ -6,9 +6,9 @@
         <avatarWrapper
           class="ranking-item__artist-photo"
           :size="getSizeAvatar"
-          :image="artist.avatar_image_path"
+          :image="artistAvatar"
         />
-        <p class="ranking-item__artist-name">{{ artist.name }}</p>
+        <p class="ranking-item__artist-name">{{ artistName }}</p>
       </div>
     </div>
     <div class="ranking-item__stats">
@@ -34,8 +34,14 @@ export default {
     number: {
       type: Number,
     },
-    artist: {
-      type: Object,
+    artistId: {
+      type: String,
+    },
+    artistAvatar: {
+      type: String,
+    },
+    artistName: {
+      type: String,
     },
     change: {
       type: Number,
@@ -63,7 +69,7 @@ export default {
     openPage(name) {
       this.$router.push({
         name: name,
-        params: { id: 123 },
+        params: { id: this.artistId },
       });
     },
   },

@@ -15,7 +15,7 @@ export default {
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
+  align-items: normal;
   gap: 30px;
 
   @include ScreenSizeTabletMini {

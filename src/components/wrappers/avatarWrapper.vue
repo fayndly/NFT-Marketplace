@@ -1,6 +1,6 @@
 <template>
   <img
-    :src="image"
+    v-lazy="image"
     :alt="image"
     class="avatar-wrapper"
     :class="`avatar-wrapper--${this.size}`"

@@ -1,28 +1,67 @@
 <template>
-  <listWrapper class="rankings">
-    <RankingHeader />
-    <RankingItem
-      v-for="(ranking, index) in rankingsMonth"
-      :key="index"
-      :number="index + 1"
-      :artist="ranking"
-      :change="ranking.stats.stats_change"
-      :sold="ranking.stats.stats_sold"
-      :volume="ranking.stats.stats_volume_rankings"
+  <sectionWrapper class="section-list">
+    <loaderSection
+      v-if="loading || loadingError"
+      :isLoading="loading"
+      :isError="loadingError"
+      :errorText="loadingErrorText"
     />
-  </listWrapper>
+    <listWrapper class="rankings" v-else-if="!loadingError">
+      <RankingHeader />
+      <RankingItem
+        v-for="(ranking, index) in rankingsMonth"
+        :key="index"
+        :number="index + 1"
+        :artistId="ranking.id"
+        :artistName="ranking.name"
+        :artistAvatar="ranking.avatar"
+        :change="ranking.stats.stats_change"
+        :sold="ranking.stats.stats_sold"
+        :volume="ranking.stats.stats_volume_rankings"
+      />
+    </listWrapper>
+  </sectionWrapper>
 </template>
 
 <script>
 import screenHandler from "@/mixins/screenHandler";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
-  name: "RankingsToday",
+  name: "RankingsMonth",
   mixins: [screenHandler],
-  props: {
-    rankingsMonth: {
-      type: Array,
-    },
+  methods: { ...mapActions(["fetchRankingTopRatedArtists"]) },
+  computed: { ...mapGetters(["getRankingTopRatedArtists"]) },
+  data() {
+    return {
+      rankingsMonth: null,
+      loading: true,
+      loadingError: false,
+      loadingErrorText: Error(""),
+    };
+  },
+  async mounted() {
+    await this.fetchRankingTopRatedArtists("thisMonth")
+      .then(() => {
+        this.rankingsMonth = this.getRankingTopRatedArtists("thisMonth");
+        this.loading = false;
+      })
+      .catch((err) => {
+        this.loadingError = true;
+        this.loadingErrorText = err;
+        console.log(err);
+      });
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.section-list {
+  padding-top: 0;
+  padding-bottom: 0;
+  & :deep(.section__content) {
+    gap: 0;
+    margin-bottom: 40px;
+  }
+}
+</style>

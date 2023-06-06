@@ -90,58 +90,6 @@
 		]
 	},
 	{
-		"id": "0xb7f7f6c52f2e2fdb1963eab30438024864c313f6",
-		"name": "Wrapped Cryptopunks",
-		"creatorId": "0x8d003a32c0968bc252039dd3a9b56676fdc8a764",
-		"adress": "0xb7f...13f6",
-		"description": "Wrapped Punks are ERC721 Tokens, each one backed 1:1 by an original Cryptopunk by Larvalabs.<br/><br/>Buy an original Cryptopunk at https://larvalabs.com/cryptopunks<br/><br/>Turn your Original Cryptopunk into an ERC721 at https://wrappedpunks.com/<br/><br/>CryptoPunks launched as a fixed set of 10,000 items in mid-2017 and became one of the inspirations for the ERC-721 standard.",
-		"details": [
-			{
-				"name": "site",
-				"link": "https://wrappedpunks.com/"
-			},
-			{
-				"name": "discord",
-				"link": "https://discord.gg/Bvf5m9k"
-			},
-			{
-				"name": "instagram",
-				"link": "https://twitter.com/arkgalleryDAO"
-			}
-		],
-		"stats": {
-			"floor": 15.71846902669218,
-			"volume": 450164.6381960914,
-			"items": 22
-		},
-		"avatar_path": "https://assets.raribleuserdata.com/prod/v1/image/t_avatar_big/aHR0cHM6Ly9pcGZzLmlvL2lwZnMvUW1OcXl0cHFmYWVhZlRIVmJmZkdVNXZwWGNwOUN5UkZ4YVQ5N0Z1cmhzblE3eg==",
-		"placeholder_path": "https://ipfs.io/ipfs/QmaLi63zn9drDVH3Wku22kxZ1sLF5VjLnTHdy8CGC2CtNU",
-		"nfts": [
-			"0xb7f7f6c52f2e2fdb1963eab30438024864c313f6:1860",
-			"0xb7f7f6c52f2e2fdb1963eab30438024864c313f6:8542",
-			"0xb7f7f6c52f2e2fdb1963eab30438024864c313f6:5151",
-			"0xb7f7f6c52f2e2fdb1963eab30438024864c313f6:489",
-			"0xb7f7f6c52f2e2fdb1963eab30438024864c313f6:9993",
-			"0xb7f7f6c52f2e2fdb1963eab30438024864c313f6:9992",
-			"0xb7f7f6c52f2e2fdb1963eab30438024864c313f6:9986",
-			"0xb7f7f6c52f2e2fdb1963eab30438024864c313f6:9985",
-			"0xb7f7f6c52f2e2fdb1963eab30438024864c313f6:9984",
-			"0xb7f7f6c52f2e2fdb1963eab30438024864c313f6:9983",
-			"0xb7f7f6c52f2e2fdb1963eab30438024864c313f6:9976",
-			"0xb7f7f6c52f2e2fdb1963eab30438024864c313f6:9973",
-			"0xb7f7f6c52f2e2fdb1963eab30438024864c313f6:9971",
-			"0xb7f7f6c52f2e2fdb1963eab30438024864c313f6:9970",
-			"0xb7f7f6c52f2e2fdb1963eab30438024864c313f6:9962",
-			"0xb7f7f6c52f2e2fdb1963eab30438024864c313f6:9958",
-			"0xb7f7f6c52f2e2fdb1963eab30438024864c313f6:9954",
-			"0xb7f7f6c52f2e2fdb1963eab30438024864c313f6:9950",
-			"0xb7f7f6c52f2e2fdb1963eab30438024864c313f6:9946",
-			"0xb7f7f6c52f2e2fdb1963eab30438024864c313f6:9945",
-			"0xb7f7f6c52f2e2fdb1963eab30438024864c313f6:9944",
-			"0xb7f7f6c52f2e2fdb1963eab30438024864c313f6:9942"
-		]
-	},
-	{
 		"id": "0x5d42b127e432797ba9baec121c0f2ea16ee81375",
 		"name": "Fancy-Nouns",
 		"creatorId": "0x24856890515299d77f0a3f344921f3860a82877b",

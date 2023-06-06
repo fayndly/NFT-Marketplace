@@ -2,6 +2,7 @@ import base from "@/components/ui/base";
 import cards from "@/components/ui/cards";
 import forms from "@/components/ui/forms";
 import buttons from "@/components/ui/buttons";
+import loaders from "@/components/ui/loaders";
 import IconComponent from "@/components/ui/IconComponent.vue";
 import AdditionalInfo from "@/components/ui/AdditionalInfo.vue";
 import HeaderSection from "@/components/ui/HeaderSection.vue";
@@ -14,5 +15,6 @@ components.push(...base);
 components.push(...cards);
 components.push(...forms);
 components.push(...buttons);
+components.push(...loaders);
 
 export default components;

@@ -100,7 +100,6 @@ export default {
   &__info {
     display: flex;
     flex-direction: column;
-    align-items: center;
 
     gap: 5px;
   }
@@ -147,6 +146,13 @@ export default {
   min-height: 240px;
 
   gap: 20px;
+  .artist-card__name {
+    text-align: center;
+  }
+
+  .artist-card__info {
+    align-items: center;
+  }
 }
 
 .artist-card--big {

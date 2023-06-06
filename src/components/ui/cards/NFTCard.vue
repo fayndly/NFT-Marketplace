@@ -2,19 +2,24 @@
   <div
     class="nft-card"
     :class="{ 'nft-card--adaptive': isAdaptive }"
-    @click="openPage('Nft')"
+    @click="
+      $router.push({
+        name: 'Nft',
+        params: { id },
+      })
+    "
   >
-    <img :src="imagePath" alt="" class="nft-card__image" />
+    <img v-lazy="image" alt="" class="nft-card__image" />
     <div class="nft-card__info">
       <div class="nft-card__artist-info">
         <div class="nft-card__nft-name">{{ name }}</div>
         <artistCard
           class="nft-card__artist"
           size="small"
-          :id="getArtistCard.id"
+          :id="artist.id"
           :fill="false"
-          :photo="getArtistCard.avatar"
-          :name="getArtistCard.name"
+          :photo="artist.avatar"
+          :name="artist.name"
         />
       </div>
       <div class="nft-card__additional-info">
@@ -24,7 +29,7 @@
         </div>
         <div class="nft-card__highest-bid">
           <p class="nft-card__title">Highest Bid</p>
-          <p class="nft-card__value">{{ highest_bid.toFixed(2) }} wETH</p>
+          <p class="nft-card__value">{{ highestBid.toFixed(2) }} wETH</p>
         </div>
       </div>
     </div>
@@ -38,7 +43,7 @@ export default {
     id: {
       type: String,
     },
-    imagePath: {
+    image: {
       type: String,
     },
     name: {
@@ -47,28 +52,15 @@ export default {
     price: {
       type: Number,
     },
-    highest_bid: {
+    highestBid: {
       type: Number,
     },
     isAdaptive: {
       type: Boolean,
       default: false,
     },
-    artistId: {
-      type: String,
-    },
-  },
-  methods: {
-    openPage(name) {
-      this.$router.push({
-        name: name,
-        params: { id: this.id },
-      });
-    },
-  },
-  computed: {
-    getArtistCard() {
-      return this.$store.getters.getArtistCard(this.artistId);
+    artist: {
+      type: Object,
     },
   },
 };
@@ -92,6 +84,10 @@ export default {
 
   &__image {
     flex-grow: 1;
+    width: 330px;
+    height: 300px;
+    object-fit: cover;
+    object-position: center;
   }
   &__info {
     padding: 20px 30px 25px 30px;
@@ -134,6 +130,10 @@ export default {
 
   &--adaptive {
     @include adaptive;
+    .nft-card__image {
+      width: 100%;
+      height: 100%;
+    }
   }
 }
 

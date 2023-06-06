@@ -54,17 +54,22 @@
 import screenHandler from "@/mixins/screenHandler";
 import HeaderSection from "../../ui/HeaderSection.vue";
 
+import { mapGetters, mapActions } from "vuex";
+
 export default {
   name: "TopCreatorsSection",
   components: { HeaderSection },
   mixins: [screenHandler],
+  methods: { ...mapActions(["fetchTopRatedArtists"]) },
   data() {
     return {
-      topArtists: {},
+      topArtists: null,
     };
   },
-  created() {
-    this.topArtists = this.$store.getters.getTopRatedArtists;
+  computed: { ...mapGetters(["getTopRatedArtists"]) },
+  async mounted() {
+    await this.fetchTopRatedArtists();
+    this.topArtists = this.getTopRatedArtists;
   },
 };
 </script>

@@ -1,11 +1,21 @@
 <template>
-  <mainWrapper>
+  <loaderPage
+    v-if="loadingPage"
+    :isLoading="loadingPage"
+    :isError="loadingPageError"
+    :errorText="loadingPageErrorText"
+  />
+  <mainWrapper v-else>
     <sectionWrapper
       class="placeholder-section"
       :style="`background-image: url(${artist.placeholder_image_path})`"
     ></sectionWrapper>
     <sectionWrapper class="artist">
-      <img :src="artist.avatar_image_path" alt="" class="artist__avatar" />
+      <img
+        v-lazy="artist.avatar_image_path"
+        alt="artist.avatar_image_path"
+        class="artist__avatar"
+      />
       <div class="artist__info">
         <h2 class="artist__name">{{ artist.name }}</h2>
         <div class="artist__CTAs-mobile" v-if="getScreenSize <= 1200">
@@ -64,18 +74,11 @@
     <sectionWrapper class="tabbar-wrapper">
       <TabBar :tabs="getTabs()" :haveCounters="true" />
     </sectionWrapper>
-    <sectionWrapper class="section-list">
-      <router-view
-        :artistNftsCreated="artist.nfts_created"
-        :artistNftsOwned="artist.nfts_owned"
-        :artistCollections="artist.collections"
-        v-slot="{ Component }"
-      >
-        <transition name="fade" mode="out-in">
-          <component :is="Component" />
-        </transition>
-      </router-view>
-    </sectionWrapper>
+    <router-view v-slot="{ Component }">
+      <transition name="fade" mode="out-in">
+        <component :is="Component" />
+      </transition>
+    </router-view>
   </mainWrapper>
 </template>
 
@@ -83,7 +86,7 @@
 import TabBar from "@/components/ui/tabbars/TabBar.vue";
 import screenHandler from "@/mixins/screenHandler";
 
-import { mapGetters } from "vuex";
+import { mapActions } from "vuex";
 
 export default {
   name: "ArtistPage",
@@ -91,85 +94,18 @@ export default {
   mixins: [screenHandler],
   data() {
     return {
-      artist: {
-        id: "0x4da48ac48b782a7c01e70065e4a51faf2c3f7b09",
-        avatar_image_path:
-          "https://assets.raribleuserdata.com/prod/v1/image/t_avatar_big/aHR0cHM6Ly9pcGZzLmlvL2lwZnMvUW1lY1NzZk12UmNVcm15ZEJZZlJ5anBSaXNZTUdEQVhtb0FXR1BZSlJLV0E0WA==",
-        placeholder_image_path:
-          "https://ipfs.io/ipfs/QmTFgShYexRPZBstsJ5abwVLZncq62h2w8ksJZBttMB1cR",
-        name: "LIRONA",
-        address: "0x4da48...7b09",
-        stats: {
-          stats_volume: 258225,
-          stats_sold: 93,
-          stats_followers: 21928,
-          stats_change: 1.5432751521244161,
-          stats_volume_rankings: 9.892418560388744,
-        },
-        nfts_created: [
-          "0xed5af388653567af2f388e6224dc7c4b3241c544:3427",
-          "0xed5af388653567af2f388e6224dc7c4b3241c544:9697",
-          "0xed5af388653567af2f388e6224dc7c4b3241c544:6500",
-          "0xed5af388653567af2f388e6224dc7c4b3241c544:1952",
-          "0xed5af388653567af2f388e6224dc7c4b3241c544:3984",
-          "0xed5af388653567af2f388e6224dc7c4b3241c544:1640",
-          "0xed5af388653567af2f388e6224dc7c4b3241c544:1208",
-          "0xed5af388653567af2f388e6224dc7c4b3241c544:7995",
-          "0xed5af388653567af2f388e6224dc7c4b3241c544:6413",
-          "0xed5af388653567af2f388e6224dc7c4b3241c544:6717",
-          "0xed5af388653567af2f388e6224dc7c4b3241c544:8869",
-          "0xed5af388653567af2f388e6224dc7c4b3241c544:3234",
-          "0xed5af388653567af2f388e6224dc7c4b3241c544:4954",
-          "0xed5af388653567af2f388e6224dc7c4b3241c544:8017",
-          "0xed5af388653567af2f388e6224dc7c4b3241c544:1156",
-          "0xed5af388653567af2f388e6224dc7c4b3241c544:4230",
-          "0xed5af388653567af2f388e6224dc7c4b3241c544:3124",
-          "0xed5af388653567af2f388e6224dc7c4b3241c544:566",
-        ],
-        nfts_owned: [
-          "0x60e4d786628fea6478f785a6d7e704777c86a7c6:2691",
-          "0x60e4d786628fea6478f785a6d7e704777c86a7c6:8927",
-          "0x60e4d786628fea6478f785a6d7e704777c86a7c6:26616",
-          "0x60e4d786628fea6478f785a6d7e704777c86a7c6:9409",
-          "0x60e4d786628fea6478f785a6d7e704777c86a7c6:378",
-          "0x60e4d786628fea6478f785a6d7e704777c86a7c6:6539",
-          "0x60e4d786628fea6478f785a6d7e704777c86a7c6:334",
-          "0x60e4d786628fea6478f785a6d7e704777c86a7c6:28738",
-          "0x60e4d786628fea6478f785a6d7e704777c86a7c6:2277",
-          "0x60e4d786628fea6478f785a6d7e704777c86a7c6:25292",
-          "0x60e4d786628fea6478f785a6d7e704777c86a7c6:6328",
-          "0x60e4d786628fea6478f785a6d7e704777c86a7c6:5020",
-          "0x60e4d786628fea6478f785a6d7e704777c86a7c6:25910",
-          "0x60e4d786628fea6478f785a6d7e704777c86a7c6:2324",
-          "0x60e4d786628fea6478f785a6d7e704777c86a7c6:6658",
-          "0x60e4d786628fea6478f785a6d7e704777c86a7c6:13602",
-          "0x60e4d786628fea6478f785a6d7e704777c86a7c6:13",
-          "0x60e4d786628fea6478f785a6d7e704777c86a7c6:11064",
-          "0x60e4d786628fea6478f785a6d7e704777c86a7c6:6257",
-          "0x60e4d786628fea6478f785a6d7e704777c86a7c6:5984",
-          "0x60e4d786628fea6478f785a6d7e704777c86a7c6:8588",
-          "0x60e4d786628fea6478f785a6d7e704777c86a7c6:1399",
-          "0x60e4d786628fea6478f785a6d7e704777c86a7c6:9846",
-          "0x60e4d786628fea6478f785a6d7e704777c86a7c6:24536",
-          "0x60e4d786628fea6478f785a6d7e704777c86a7c6:22964",
-        ],
-        collections: ["0xed5af388653567af2f388e6224dc7c4b3241c544"],
-        bio: "LIŔONA is a creator of minimalistic ⨯ bold graphic and digital artwork. ✹ Artist / Creative Director ✹ #NFT minting ",
-        links: [
-          {
-            name: "site",
-            link: "http://www.lirona.me",
-          },
-          {
-            name: "twitter",
-            link: "https://twitter.com/iamlirona",
-          },
-        ],
-      },
+      loadingPage: true,
+      loadingNfts: true,
+      loadingPageError: false,
+      loadingNftsError: false,
+      loadingPageErrorText: Error(""),
+      loadingNftsErrorText: Error(""),
+
+      artist: {},
     };
   },
-  computed: { ...mapGetters(["getArtistPage"]) },
   methods: {
+    ...mapActions(["getArtistPage", "getArtistPageCards"]),
     getStats() {
       return [
         {
@@ -233,9 +169,17 @@ export default {
       }
     },
   },
-  mounted() {
-    this.artist = this.getArtistPage(this.$route.params.id);
-    this.$data.artist = this.artist;
+  async mounted() {
+    await this.getArtistPage(this.$route.params.id)
+      .then((result) => {
+        this.artist = result;
+        this.loadingPage = false;
+      })
+      .catch((err) => {
+        this.loadingPageError = true;
+        this.loadingPageErrorText = err;
+        console.log(err);
+      });
   },
 };
 </script>
@@ -374,15 +318,6 @@ export default {
   }
 }
 
-.section-list {
-  background-color: $colorBgTextSilverBlack;
-  padding-top: 0;
-  padding-bottom: 0;
-  & :deep(.section__content) {
-    gap: 0;
-  }
-}
-
 .tabbar-wrapper {
   padding: 0;
 }
@@ -396,6 +331,15 @@ export default {
   @include ScreenSizeTablet {
   }
   @include ScreenSizeMobile {
+  }
+}
+
+.section-list {
+  background-color: $colorBgTextSilverBlack;
+  padding-top: 0;
+  padding-bottom: 0;
+  & :deep(.section__content) {
+    gap: 0;
   }
 }
 

@@ -9,28 +9,17 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
-
 export default {
   name: "App",
   methods: {
-    ...mapActions(["fetchNfts", "fetchArtists"]),
     checkResize() {
       this.$store.dispatch("checkScreenSize");
       this.$store.dispatch("checkScreenDevice");
     },
   },
-  async created() {
+  created() {
     this.checkResize();
     window.addEventListener("resize", this.checkResize);
-
-    await this.fetchNfts();
-    await this.fetchArtists();
-  },
-  computed: { ...mapGetters(["getNfts", "getArtists"]) },
-  mounted() {
-    console.log(this.getNfts);
-    console.log(this.getArtists);
   },
 };
 </script>

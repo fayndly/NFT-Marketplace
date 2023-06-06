@@ -1,9 +1,21 @@
 <template>
-  <sectionWrapper class="NFTHighlight">
+  <sectionWrapper
+    class="NFTHighlight"
+    v-if="nftHighlight"
+    :style="'background-image: url(' + nftHighlight.image_path + ')'"
+  >
     <div class="NFTHighlight__info">
       <div class="NFTHighlight__nft-info">
-        <artistCard size="small" id="123" />
-        <p class="NFTHighlight__name-nft">Magic Mashrooms</p>
+        <artistCard
+          :photo="nftHighlight.creator.avatar"
+          :name="nftHighlight.creator.name"
+          :total_sales="
+            nftHighlight.creator.stats.stats_volume_rankings.toFixed(2)
+          "
+          :id="nftHighlight.creator.id"
+          size="small"
+        />
+        <p class="NFTHighlight__name-nft">{{ nftHighlight.name }}</p>
         <ButtonDefault
           v-if="getScreenSize > 834"
           class="NFTHighlight__button"
@@ -11,11 +23,19 @@
           modifier="filled"
           icon="Eye"
           text="See NFT"
+          @clickButton="
+            $router.push({
+              name: 'Nft',
+              params: {
+                id: nftHighlight.id,
+              },
+            })
+          "
         />
       </div>
       <AuctionTimer
         class="NFTHighlight__timer"
-        endTime="Sep 5, 2024 15:37:25"
+        :endTime="nftHighlight.date_auction_ends"
         :isAdaptive="getScreenSize <= 834"
       />
       <ButtonDefault
@@ -26,6 +46,14 @@
         icon="Eye"
         text="See NFT"
         :isAdaptive="true"
+        @clickButton="
+          $router.push({
+            name: 'Nft',
+            params: {
+              id: nftHighlight.id,
+            },
+          })
+        "
       />
     </div>
   </sectionWrapper>
@@ -34,18 +62,29 @@
 <script>
 import screenHandler from "@/mixins/screenHandler";
 import AuctionTimer from "../../ui/AuctionTimer.vue";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "NFTHighlightSection",
+  data() {
+    return {
+      nftHighlight: null,
+    };
+  },
   components: { AuctionTimer },
   mixins: [screenHandler],
+  methods: { ...mapActions(["fetchNFTHighlight"]) },
+  computed: { ...mapGetters(["getNFTHighlight"]) },
+  async mounted() {
+    await this.fetchNFTHighlight();
+    this.nftHighlight = this.getNFTHighlight;
+  },
 };
 </script>
 
 <style lang="scss" scoped>
 .NFTHighlight {
   height: 640px;
-  background-image: url("https://assets.raribleuserdata.com/prod/v1/image/t_image_big/aHR0cHM6Ly9pcGZzLmlvL2lwZnMvUW1SWG9oclY0c051MlN0amIzbzVVOGFrZXZXalQxSFhFUzVQOXg3cldGNTI3Ng==");
   background-position: center;
   background-repeat: no-repeat;
   // background-origin: content-box;
@@ -78,7 +117,8 @@ export default {
   }
   &__name-nft {
     @include h2;
-    word-wrap: break-word;
+    // word-wrap: break-word;
+    word-break: break-word;
   }
   &__button {
     background-color: #fff;

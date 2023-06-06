@@ -19,7 +19,24 @@ const routes = [
   {
     path: "/marketplace",
     name: "Marketplace",
+    redirect: () => `/marketplace/marketplace-nfts`,
     component: () => import("@/views/MarketPlacePage.vue"),
+    children: [
+      {
+        path: "marketplace-nfts",
+        name: "MarketplaceNfts",
+        component: () =>
+          import("@/components/routeChildren/marketplace/MarketplaceNfts.vue"),
+      },
+      {
+        path: "marketplace-collections",
+        name: "MarketplaceCollections",
+        component: () =>
+          import(
+            "@/components/routeChildren/marketplace/MarketplaceCollections.vue"
+          ),
+      },
+    ],
   },
   {
     path: "/",
@@ -29,34 +46,30 @@ const routes = [
   {
     path: "/rankings",
     name: "Rankings",
-    redirect: () => `/rankings/rankingsToday`,
+    redirect: () => `/rankings/today`,
     component: () => import("@/views/RankingsPage.vue"),
     children: [
       {
-        path: "rankingsToday",
+        path: "today",
         name: "RankingsToday",
-        props: true,
         component: () =>
           import("@/components/routeChildren/rankings/RankingsToday.vue"),
       },
       {
-        path: "rankingWeek",
+        path: "this-week",
         name: "RankingWeek",
-        props: true,
         component: () =>
           import("@/components/routeChildren/rankings/RankingWeek.vue"),
       },
       {
-        path: "rankingsMonth",
+        path: "this-month",
         name: "RankingsMonth",
-        props: true,
         component: () =>
           import("@/components/routeChildren/rankings/RankingsMonth.vue"),
       },
       {
-        path: "rankingsAllTime",
+        path: "all-time",
         name: "RankingsAllTime",
-        props: true,
         component: () =>
           import("@/components/routeChildren/rankings/RankingsAllTime.vue"),
       },
@@ -65,27 +78,23 @@ const routes = [
   {
     path: "/artist/:id",
     name: "Artist",
-    // redirect: "/artist/:id/created",
     redirect: (to) => `/artist/${to.params.id}/created`,
     component: () => import("@/views/ArtistPage.vue"),
     children: [
       {
         path: "created",
         name: "ArtistCreated",
-        props: true,
         component: () =>
           import("@/components/routeChildren/artist/ArtistCreated.vue"),
       },
       {
         path: "owned",
         name: "ArtistOwned",
-        props: true,
         component: () =>
           import("@/components/routeChildren/artist/ArtistOwned.vue"),
       },
       {
         path: "collection",
-        props: true,
         name: "ArtistCollection",
         component: () =>
           import("@/components/routeChildren/artist/ArtistCollection.vue"),
@@ -117,13 +126,8 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
-  scrollBehavior(to) {
-    if (to.hash) {
-      return {
-        el: to.hash,
-        behavior: "smooth",
-      };
-    }
+  scrollBehavior() {
+    return { top: 0 };
   },
 });
 

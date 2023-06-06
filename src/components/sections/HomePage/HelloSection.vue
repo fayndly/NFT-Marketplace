@@ -25,9 +25,13 @@
       />
     </div>
     <highlightedNFT
+      v-if="highlightedNftCard"
       class="hello-section__highlighted-nft"
-      image="/images/content/ufo.webp"
-      name="Space Walking"
+      :image="highlightedNftCard.image"
+      :name="highlightedNftCard.name"
+      :artist="highlightedNftCard.creator"
+      :id="highlightedNftCard.id"
+      :isAdaptive="getScreenSize <= 834"
     />
     <ButtonDefault
       v-if="getScreenSize <= 834"
@@ -49,10 +53,22 @@
 
 <script>
 import screenHandler from "@/mixins/screenHandler";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "HelloSection",
   mixins: [screenHandler],
+  methods: { ...mapActions(["fetchHighlightedNft"]) },
+  computed: { ...mapGetters(["getHighlightedNft"]) },
+  data() {
+    return {
+      highlightedNftCard: null,
+    };
+  },
+  async mounted() {
+    await this.fetchHighlightedNft();
+    this.highlightedNftCard = this.getHighlightedNft;
+  },
 };
 </script>
 
@@ -79,8 +95,11 @@ export default {
   }
   &__button {
   }
-  &__highlighted-nft {
-    width: 50%;
+
+  @include ScreenSizeDesktop {
+    &__highlighted-nft {
+      align-self: center;
+    }
   }
 
   @include ScreenSizeTablet {
@@ -106,11 +125,6 @@ export default {
     }
     &__subhead {
       margin-top: 10px;
-    }
-    &__highlighted-nft {
-      width: 100%;
-      max-width: $maxWhidthItem;
-      align-self: center;
     }
   }
 }

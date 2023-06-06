@@ -1,25 +1,35 @@
 <template>
   <div
     class="highlighted-nft"
-    :class="{ 'highlighted-nft-adaptive': size == 'adaptive' }"
+    :class="{ 'highlighted-nft--adaptive': isAdaptive }"
+    @click="
+      $router.push({
+        name: 'Nft',
+        params: { id },
+      })
+    "
   >
-    <img
-      :src="getImageFromPublic(image)"
-      alt=""
-      class="highlighted-nft__image"
-    />
+    <img v-lazy="image" alt="" class="highlighted-nft__image" />
     <div class="highlighted-nft__info">
       <p class="highlighted-nft__name">{{ name }}</p>
-      <artistCard class="highlighted-nft__artist" :size="'small'" />
+      <artistCard
+        size="small"
+        :id="artist.id"
+        :fill="false"
+        :photo="artist.avatar"
+        :name="artist.name"
+      />
     </div>
   </div>
 </template>
 
 <script>
-import getImages from "@/mixins/getImages";
 export default {
   name: "highlightedNFT",
   props: {
+    id: {
+      type: String,
+    },
     image: {
       type: String,
     },
@@ -27,57 +37,56 @@ export default {
       type: String,
     },
     artist: {
-      type: String,
+      type: Object,
     },
-    size: {
-      type: String,
+    isAdaptive: {
+      type: Boolean,
     },
   },
-  mixins: [getImages],
 };
 </script>
 
 <style lang="scss" scoped>
 .highlighted-nft {
   width: 510px;
-
-  display: flex;
-  flex-direction: column;
+  height: 510px;
+  background-color: $colorBgTextSilverBlack;
   border-radius: 20px;
   overflow: hidden;
-  background-color: $colorBgTextSilverBlack;
 
   &__image {
     display: block;
-    flex-grow: 1;
     width: 100%;
-    height: 100%;
+    height: 400px;
     object-fit: cover;
     object-position: center;
   }
   &__info {
-    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 22px 20px;
   }
   &__name {
     @include h5;
   }
-  &__artist {
-    margin-top: 10px;
-    padding: 0;
+
+  @include ScreenSizeTablet {
+    width: 330px;
+    height: fit-content;
+    &__image {
+      width: 100%;
+      height: 280px;
+    }
   }
 
-  &-adaptive {
+  &--adaptive {
+    @include adaptive;
     width: 100%;
-    max-width: $maxWhidthItem;
+    .highlighted-nft__image {
+      width: 100%;
+      height: 330px;
+    }
   }
-
-  // @include ScreenSizeLaptop {
-  //   width: 330px;
-  //   // height: 330px;
-  // }
-  // @include ScreenSizeMobile {
-  //   width: 100%;
-  //   // height: 330px;
-  // }
 }
 </style>

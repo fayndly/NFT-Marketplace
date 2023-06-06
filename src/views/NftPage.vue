@@ -1,5 +1,11 @@
 <template>
-  <mainWrapper>
+  <loaderPage
+    v-if="loadingPage"
+    :isLoading="loadingPage"
+    :isError="loadingPageError"
+    :errorText="loadingPageErrorText"
+  />
+  <mainWrapper v-else>
     <sectionWrapper
       class="placeholder-section"
       :style="`background-image: url(${nft.image_path})`"
@@ -22,7 +28,9 @@
           <artistCard
             class="nft-card__artist"
             size="small"
-            :id="nft.id_creator"
+            :id="nft.creator.id"
+            :photo="nft.creator.avatar"
+            :name="nft.creator.name"
             :fill="false"
           />
         </div>
@@ -76,18 +84,29 @@
             modifier="outlined"
             icon="ArrowRight"
             text="Go To Artist Page"
+            @clickButton="
+              $router.push({ name: 'Artist', params: { id: nft.id_creator } })
+            "
           />
         </template>
       </HeaderSection>
-      <gridWrapper>
+      <loaderSection
+        v-if="loadingNfts || loadingNftsError"
+        :isLoading="loadingNfts"
+        :isError="loadingNftsError"
+        :errorText="loadingNftsErrorText"
+      />
+      <gridWrapper v-else-if="!loadingNftsError">
         <NFTCard
           v-for="nft in nfts"
           :key="nft.id"
           :id="nft.id"
-          :imagePath="nft.imagePath"
+          :image="nft.image"
           :name="nft.name"
           :price="nft.price"
-          :highest_bid="nft.highest_bid"
+          :highestBid="nft.highestBid"
+          :artistId="nft.creatorId"
+          :artist="nft.creator"
           :isAdaptive="getScreenSize <= 834"
         />
         <ButtonDefault
@@ -98,6 +117,9 @@
           icon="ArrowRight"
           text="Go To Artist Page"
           :isAdaptive="true"
+          @clickButton="
+            $router.push({ name: 'Artist', params: { id: nft.id_creator } })
+          "
         />
       </gridWrapper>
     </sectionWrapper>
@@ -111,52 +133,58 @@ import AuctionTimer from "@/components/ui/AuctionTimer.vue";
 import getImages from "@/mixins/getImages";
 import screenHandler from "@/mixins/screenHandler";
 
+import { mapActions } from "vuex";
+
 export default {
   name: "NftPage",
   components: { AuctionTimer, HeaderSection, TagComponent },
   mixins: [getImages, screenHandler],
+
   data() {
     return {
-      nfts: [
-        {
-          id: "kshuiye345jkge",
-          imagePath:
-            "https://assets.raribleuserdata.com/prod/v1/image/t_image_big/aHR0cHM6Ly9pcGZzLmlvL2lwZnMvUW1SWG9oclY0c051MlN0amIzbzVVOGFrZXZXalQxSFhFUzVQOXg3cldGNTI3Ng==",
-          name: "cap robot1",
-          price: 1234,
-          highest_bid: 123,
-        },
-        {
-          id: "dfjkghioue354789534",
-          imagePath:
-            "https://assets.raribleuserdata.com/prod/v1/image/t_image_big/aHR0cHM6Ly9pcGZzLmlvL2lwZnMvUW1SWG9oclY0c051MlN0amIzbzVVOGFrZXZXalQxSFhFUzVQOXg3cldGNTI3Ng==",
-          name: "cap robot1",
-          price: 234,
-          highest_bid: 4323,
-        },
-        {
-          id: "lkdfgjkwgh4785y8934",
-          imagePath:
-            "https://assets.raribleuserdata.com/prod/v1/image/t_image_big/aHR0cHM6Ly9pcGZzLmlvL2lwZnMvUW1SWG9oclY0c051MlN0amIzbzVVOGFrZXZXalQxSFhFUzVQOXg3cldGNTI3Ng==",
-          name: "cap robot1",
-          price: 345,
-          highest_bid: 435,
-        },
-        {
-          id: "jihfui3y94574egir234",
-          imagePath:
-            "https://assets.raribleuserdata.com/prod/v1/image/t_image_big/aHR0cHM6Ly9pcGZzLmlvL2lwZnMvUW1SWG9oclY0c051MlN0amIzbzVVOGFrZXZXalQxSFhFUzVQOXg3cldGNTI3Ng==",
-          name: "cap robot1",
-          price: 345,
-          highest_bid: 435,
-        },
-      ],
+      loadingPage: true,
+      loadingNfts: true,
+      loadingPageError: false,
+      loadingNftsError: false,
+      loadingPageErrorText: Error(""),
+      loadingNftsErrorText: Error(""),
+      nfts: [],
       nft: {},
     };
   },
-  created() {
-    this.nft = this.$store.getters.getNftPage(this.$route.params.id);
-    console.log(this.nft);
+
+  watch: {
+    $route(to, from) {
+      if (to.params.id !== from.params.id) {
+        location.reload();
+      }
+    },
+  },
+
+  methods: { ...mapActions(["getNftPage", "getNftCardsByCreator"]) },
+
+  async mounted() {
+    await this.getNftPage(this.$route.params.id)
+      .then((result) => {
+        this.nft = result;
+        this.loadingPage = false;
+      })
+      .catch((err) => {
+        this.loadingPageError = true;
+        this.loadingPageErrorText = err;
+        console.log(err);
+      });
+
+    await this.getNftCardsByCreator(this.nft.id_creator)
+      .then((result) => {
+        this.nfts = result;
+        this.loadingNfts = false;
+      })
+      .catch((err) => {
+        console.log(err);
+        this.loadingNftsError = true;
+        this.loadingNftsErrorText = err;
+      });
   },
 };
 </script>

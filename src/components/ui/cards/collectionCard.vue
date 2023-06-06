@@ -5,48 +5,41 @@
   >
     <div class="collection-card__preview-nfts">
       <img
-        :src="nfts[0]['image']"
+        v-lazy="nfts[0]"
         alt="collection-item"
         class="collection-card__nft-item collection-card__nft-big"
-        @click="openPage(nfts[0]['id'])"
+        @click="openPage(id)"
       />
       <div class="collection-card__list-nfts">
         <img
-          :src="nfts[1]['image']"
+          v-lazy="nfts[1]"
           alt="collection-item"
           class="collection-card__nft-item collection-card__nft-small"
-          @click="openPage(nfts[1]['id'])"
+          @click="openPage(id)"
         />
         <img
-          :src="nfts[2]['image']"
+          v-lazy="nfts[2]"
           alt="collection-item"
           class="collection-card__nft-item collection-card__nft-small"
-          @click="openPage(nfts[2]['id'])"
-        />
-        <img
-          v-if="nfts.length === 4"
-          :src="nfts[3]['image']"
-          alt="collection-item"
-          class="collection-card__nft-item collection-card__nft-small"
-          @click="openPage(nfts[3]['id'])"
+          @click="openPage(id)"
         />
         <p
           class="collection-card__nft-item collection-card__nft-small collection-card__nft-more-couter"
-          @click="openPage(nfts[0]['id'])"
-          v-if="nfts.length > 4"
+          @click="openPage(id)"
         >
-          {{ nfts.length - 3 }}+
+          {{ quality - 3 }}+
         </p>
       </div>
     </div>
     <div class="collection-card__artist-info">
-      <p class="collection-card__name" @click="openPage(1234)">{{ name }}</p>
+      <p class="collection-card__name" @click="openPage(id)">{{ name }}</p>
       <artistCard
-        size="small"
         class="collection-card__artist"
+        size="small"
+        :id="artist.id"
         :fill="false"
+        :photo="artist.avatar"
         :name="artist.name"
-        :photo="artist.photo"
       />
     </div>
   </div>
@@ -56,14 +49,20 @@
 export default {
   name: "collectionCard",
   props: {
+    id: {
+      type: String,
+    },
     nfts: {
-      type: Object,
+      type: Array,
     },
     artist: {
       type: Object,
     },
     name: {
       type: String,
+    },
+    quality: {
+      type: Number,
     },
     isAdaptive: {
       type: Boolean,

@@ -19,10 +19,12 @@
         v-for="nft in nfts"
         :key="nft.id"
         :id="nft.id"
-        :imagePath="nft.image_path"
+        :image="nft.image"
         :name="nft.name"
         :price="nft.price"
-        :highest_bid="nft.highest_bid"
+        :highestBid="nft.highestBid"
+        :artistId="nft.creatorId"
+        :artist="nft.creator"
         :isAdaptive="getScreenSize <= 834"
       />
     </gridWrapper>
@@ -42,19 +44,21 @@
 import HeaderSection from "../../ui/HeaderSection.vue";
 import screenHandler from "@/mixins/screenHandler";
 
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "DiscoverNFTsSection",
-  components: { HeaderSection },
-  computed: { ...mapGetters(["getDiscoverNFTs"]) },
-  mixins: [screenHandler],
   data() {
     return {
       nfts: [],
     };
   },
-  mounted() {
+  components: { HeaderSection },
+  computed: { ...mapGetters(["getDiscoverNFTs"]) },
+  methods: { ...mapActions(["fetchDiscoverNFTs"]) },
+  mixins: [screenHandler],
+  async mounted() {
+    await this.fetchDiscoverNFTs();
     this.nfts = this.getDiscoverNFTs;
   },
 };

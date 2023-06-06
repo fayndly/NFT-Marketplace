@@ -1,45 +1,60 @@
 <template>
-  <mainWrapper>
+  <loaderPage
+    v-if="loadingPage"
+    :isLoading="loadingPage"
+    :isError="loadingPageError"
+    :errorText="loadingPageErrorText"
+  />
+  <mainWrapper v-else>
     <sectionWrapper
       class="placeholder-section"
-      :style="`background-image: url(${collection.placeholderImage})`"
+      :style="`background-image: url(${collectionPage.placeholder_path})`"
     ></sectionWrapper>
     <sectionWrapper class="collection">
-      <img :src="collection.avatarImage" alt="" class="collection__avatar" />
+      <img
+        v-lazy="collectionPage.avatar_path"
+        alt=""
+        class="collection__avatar"
+      />
       <div class="collection__info">
-        <h2 class="collection__name">DeGods</h2>
+        <h2 class="collection__name">{{ collectionPage.name }}</h2>
         <div class="collection__CTAs-mobile" v-if="getScreenSize <= 1200">
           <ButtonDefault
             type="secondary"
             modifier="filled"
             icon="Copy"
-            text="0xc0E3...B79C"
+            :text="collectionPage.adress"
             :isAdaptive="getScreenSize <= 834"
+            @clickButton="
+              copyText('inputCreatorIdTop', collectionPage.creatorId)
+            "
           />
+          <input type="text" ref="inputCreatorIdTop" style="display: none" />
           <ButtonDefault
             type="secondary"
             modifier="outlined"
             icon="User"
-            text="0x28b23...41f5"
+            :text="getSmallAddress(collectionPage.creatorId)"
+            @clickButton="
+              $router.push({
+                name: 'Artist',
+                params: { id: collectionPage.creatorId },
+              })
+            "
             :isAdaptive="getScreenSize <= 834"
           />
         </div>
         <AdditionalInfo
-          :stats="[
-            { head: 'Floor', value: '10.13 ETH' },
-            { head: 'Volume', value: '631.3K ETH' },
-            { head: 'Items', value: '19.5K' },
-          ]"
           class="collection__additional-info"
+          :stats="getStats"
           :isAdaptive="getScreenSize <= 834"
         />
         <div class="collection__info-bio">
           <p class="collection__info-haedline">Description</p>
-          <p class="collection__info-text">
-            DeGods is a digital art collection and global community of creators,
-            developers, entrepreneurs, athletes, artists, experimenters and
-            innovators.
-          </p>
+          <p
+            class="collection__info-text"
+            v-html="collectionPage.description"
+          />
         </div>
         <div class="collection__info-links">
           <p class="collection__info-haedline">Links</p>
@@ -73,30 +88,57 @@
           type="secondary"
           modifier="filled"
           icon="Copy"
-          text="0xc0E3...B79C"
+          :text="collectionPage.adress"
+          @clickButton="
+            copyText('inputCreatorIdBottom', collectionPage.creatorId)
+          "
         />
+        <input type="text" ref="inputCreatorIdBottom" style="display: none" />
         <ButtonDefault
           type="secondary"
           modifier="outlined"
           icon="User"
-          text="0x28b23...41f5"
+          :text="getSmallAddress(collectionPage.creatorId)"
+          @clickButton="
+            $router.push({
+              name: 'Artist',
+              params: { id: collectionPage.creatorId },
+            })
+          "
         />
       </div>
     </sectionWrapper>
     <sectionWrapper>
       <HeaderSection headerName="More from this collection" />
-      <gridWrapper>
+      <loaderSection
+        v-if="loadingNfts || loadingNftsError"
+        :isLoading="loadingNfts"
+        :isError="loadingNftsError"
+        :errorText="loadingNftsErrorText"
+      />
+      <gridWrapper v-else-if="!loadingNftsError">
         <NFTCard
           v-for="nft in nfts"
           :key="nft.id"
           :id="nft.id"
-          :imagePath="nft.imagePath"
+          :image="nft.image"
           :name="nft.name"
           :price="nft.price"
-          :highest_bid="nft.highest_bid"
+          :highestBid="nft.highestBid"
+          :artistId="nft.creatorId"
+          :artist="nft.creator"
           :isAdaptive="getScreenSize <= 834"
         />
       </gridWrapper>
+      <ButtonDefault
+        v-if="showButtonMore()"
+        style="align-self: center"
+        type="secondary"
+        modifier="outlined"
+        text="More nfts"
+        :isAdaptive="getScreenSize <= 834"
+        @clickButton="loadMoreNfts()"
+      />
     </sectionWrapper>
   </mainWrapper>
 </template>
@@ -104,6 +146,7 @@
 <script>
 import screenHandler from "@/mixins/screenHandler";
 import HeaderSection from "@/components/ui/HeaderSection.vue";
+import { mapActions } from "vuex";
 
 export default {
   name: "CollectionPage",
@@ -111,58 +154,115 @@ export default {
   mixins: [screenHandler],
   data() {
     return {
-      tabs: [
-        { name: "Created", nameRouteTo: "ArtistCreated" },
-        { name: "Owned", nameRouteTo: "ArtistOwned" },
-        { name: "Collections", nameRouteTo: "ArtistCollection" },
-      ],
-      activeTab: "Created",
-      collection: {
-        avatarImage:
-          "https://assets.raribleuserdata.com/prod/v1/image/t_avatar_big/aHR0cHM6Ly9pLnNlYWRuLmlvL2djcy9maWxlcy8xNjE5YjAzM2M0NTNmZTM2YzVkOWUyYWM0NTEzNzlhNy5wbmc/dz01MDAmYXV0bz1mb3JtYXQ=",
-        placeholderImage:
-          "https://assets.raribleuserdata.com/prod/v1/image/t_avatar_big/aHR0cHM6Ly9pLnNlYWRuLmlvL2djcy9maWxlcy8xNjE5YjAzM2M0NTNmZTM2YzVkOWUyYWM0NTEzNzlhNy5wbmc/dz01MDAmYXV0bz1mb3JtYXQ=",
-      },
-      nfts: [
-        {
-          id: 123,
-          imagePath:
-            "https://assets.raribleuserdata.com/prod/v1/image/t_image_big/aHR0cHM6Ly9pcGZzLmlvL2lwZnMvUW1SWG9oclY0c051MlN0amIzbzVVOGFrZXZXalQxSFhFUzVQOXg3cldGNTI3Ng==",
-          name: "cap robot1",
-          price: 1234,
-          highest_bid: 123,
-        },
-        {
-          id: 234,
-          imagePath:
-            "https://assets.raribleuserdata.com/prod/v1/image/t_image_big/aHR0cHM6Ly9pcGZzLmlvL2lwZnMvUW1SWG9oclY0c051MlN0amIzbzVVOGFrZXZXalQxSFhFUzVQOXg3cldGNTI3Ng==",
-          name: "cap robot1",
-          price: 234,
-          highest_bid: 4323,
-        },
-        {
-          id: 345,
-          imagePath:
-            "https://assets.raribleuserdata.com/prod/v1/image/t_image_big/aHR0cHM6Ly9pcGZzLmlvL2lwZnMvUW1SWG9oclY0c051MlN0amIzbzVVOGFrZXZXalQxSFhFUzVQOXg3cldGNTI3Ng==",
-          name: "cap robot1",
-          price: 345,
-          highest_bid: 435,
-        },
-        {
-          id: 475855,
-          imagePath:
-            "https://assets.raribleuserdata.com/prod/v1/image/t_image_big/aHR0cHM6Ly9pcGZzLmlvL2lwZnMvUW1SWG9oclY0c051MlN0amIzbzVVOGFrZXZXalQxSFhFUzVQOXg3cldGNTI3Ng==",
-          name: "cap robot1",
-          price: 345,
-          highest_bid: 435,
-        },
-      ],
+      loadingPage: true,
+      loadingNfts: true,
+      loadingPageError: false,
+      loadingNftsError: false,
+      loadingPageErrorText: Error(""),
+      loadingNftsErrorText: Error(""),
+
+      collectionPage: null,
+      nfts: null,
+
+      nftsCounter: 6,
     };
   },
-  methods: {
-    openTab(text) {
-      this.activeTab = text;
+  computed: {
+    getStats() {
+      const valueFloor = this.collectionPage.stats.floor;
+      const valueVolume = this.collectionPage.stats.volume;
+      const valueItems = this.collectionPage.stats.items;
+      return [
+        {
+          head: "Floor",
+          value: valueFloor.toFixed(2),
+        },
+        {
+          head: "Volume",
+          value: this.getStatsValue(valueVolume),
+        },
+        {
+          head: "Items",
+          value: valueItems,
+        },
+      ];
     },
+  },
+  methods: {
+    ...mapActions(["getCollectionPage", "getCollectionNftCards"]),
+    getStatsValue(value) {
+      if (value > 1000000) {
+        const ret_val = value * 0.001;
+        return `${ret_val.toFixed(0)}m+`;
+      }
+      if (value > 1000) {
+        const ret_val = value * 0.001;
+        return `${ret_val.toFixed(0)}k+`;
+      }
+      if (value > 100) {
+        return `100+`;
+      }
+      if (value > 50) {
+        return `50+`;
+      } else {
+        return value;
+      }
+    },
+    copyText(refInput, value) {
+      this.$refs[refInput].value = value;
+      this.$refs[refInput].select();
+      document.execCommand("copy");
+    },
+    getSmallAddress(address) {
+      return `${address.slice(0, 4)}...${address.slice(-4)}`;
+    },
+
+    showButtonMore() {
+      if (this.nfts) {
+        return (
+          !this.loadingNftsError &
+          (this.collectionPage.nfts.length > this.nftsCounter)
+        );
+      }
+      return;
+    },
+
+    async loadCollectionPage() {
+      await this.getCollectionPage(this.$route.params.id)
+        .then((result) => {
+          this.collectionPage = result;
+          this.loadingPage = false;
+        })
+        .catch((err) => {
+          console.log(err);
+          this.loadingNftsError = true;
+          this.loadingNftsErrorText = err;
+        });
+    },
+    async loadCollectionNftCards() {
+      await this.getCollectionNftCards({
+        id: this.collectionPage.id,
+        quantity: this.nftsCounter,
+      })
+        .then((result) => {
+          this.nfts = result;
+          this.loadingNfts = false;
+        })
+        .catch((err) => {
+          console.log(err);
+          this.loadingNftsError = true;
+          this.loadingNftsErrorText = err;
+        });
+    },
+
+    async loadMoreNfts() {
+      this.nftsCounter += 6;
+      await this.loadCollectionNftCards();
+    },
+  },
+  async mounted() {
+    await this.loadCollectionPage();
+    await this.loadCollectionNftCards();
   },
 };
 </script>
