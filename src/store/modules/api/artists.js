@@ -41,70 +41,45 @@ export const artists = {
       return state.artists;
     },
 
-    async getArtistPageCards({ dispatch }, args) {
+    async getArtistPageCards(
+      { dispatch },
+      arr = { artistId: "123", cardType: "createdNfts", limitStep: 9, page: 0 }
+    ) {
       const data = await dispatch("fetchArtists");
-      const artistPage = data.find((value) => value.id === args.artistId);
+      const artistPage = data.find((value) => value.id === arr.artistId);
 
       if (artistPage) {
         let cardIds;
         let actionName;
-        let countArg;
         const cards = [];
 
-        if (args.cardType === "collections") {
+        if (arr.cardType === "collections") {
           cardIds = artistPage.collections;
           actionName = "getCollectionCard";
-        } else if (args.cardType === "ownedNfts") {
+        } else if (arr.cardType === "ownedNfts") {
           cardIds = artistPage.nfts_owned;
           actionName = "getNftCard";
-        } else if (args.cardType === "createdNfts") {
+        } else if (arr.cardType === "createdNfts") {
           cardIds = artistPage.nfts_created;
           actionName = "getNftCard";
         }
 
-        if (cardIds.length >= args.quantity) {
-          countArg = args.quantity;
-        } else {
-          countArg = cardIds.length;
+        const pages = [];
+        for (let i = 0; i < cardIds.length; i += arr.limitStep) {
+          pages.push(cardIds.slice(i, i + arr.limitStep));
         }
-        for (let i = 0; i < countArg; i++) {
-          cards.push(await dispatch(actionName, cardIds[i]));
+        const page = pages[arr.page];
+
+        if (page) {
+          for (let i = 0; i < page.length; i++) {
+            const cardId = page[i];
+            cards.push(await dispatch(actionName, cardId));
+          }
+        } else {
+          return null;
+          // throw new Error("Artist cards was not found");
         }
         return cards;
-
-        // if (args.cardType === "collections") {
-        //   const collections = artistPage.collections;
-        //   const collectionCards = [];
-        //   if (collections.length >= args.quantity) {
-        //     for (let i = 0; i < args.quantity; i++) {
-        //       console.log(collections[i]);
-        //       collectionCards.push(
-        //         await dispatch("getCollectionCard", collections[i])
-        //       );
-        //     }
-        //   } else {
-        //     for (let i = 0; i < collections.length; i++) {
-        //       collectionCards.push(
-        //         await dispatch("getCollectionCard", collections[i])
-        //       );
-        //     }
-        //   }
-        //   return collectionCards;
-        // } else if (args.cardType === "ownedNfts") {
-        //   const nfts = artistPage.nfts_owned;
-        //   const nftCards = [];
-        //   for (let i = 0; i < args.quantity; i++) {
-        //     nftCards.push(await dispatch("getNftCard", nfts[i]));
-        //   }
-        //   return nftCards;
-        // } else if (args.cardType === "createdNfts") {
-        //   const nfts = artistPage.nfts_created;
-        //   const nftCards = [];
-        //   for (let i = 0; i < args.quantity; i++) {
-        //     nftCards.push(await dispatch("getNftCard", nfts[i]));
-        //   }
-        //   return nftCards;
-        // }
       }
       throw new Error("Artist was not found");
     },
@@ -201,8 +176,8 @@ export const artists = {
     upadateTopRatedArtists(state, upadateArtists) {
       state.topRatedArtists = upadateArtists;
     },
-    upadateRankingTopRatedArtists(state, args) {
-      state.rankingTopRatedArtist[args.timeSet] = args.upadateArtists;
+    upadateRankingTopRatedArtists(state, arr) {
+      state.rankingTopRatedArtist[arr.timeSet] = arr.upadateArtists;
     },
   },
 };

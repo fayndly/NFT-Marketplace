@@ -59,7 +59,7 @@
         <div class="nft__info-item" v-if="nft.tags.length">
           <p class="nft__info-haedline">Tags</p>
           <div class="nft__more-info-tags">
-            <TagComponent
+            <ButtonTag
               v-for="(tag, index) in nft.tags"
               :key="index"
               :name="tag"
@@ -127,7 +127,6 @@
 </template>
 
 <script>
-import TagComponent from "@/components/ui/TagComponent.vue";
 import HeaderSection from "@/components/ui/HeaderSection.vue";
 import AuctionTimer from "@/components/ui/AuctionTimer.vue";
 import getImages from "@/mixins/getImages";
@@ -137,7 +136,7 @@ import { mapActions } from "vuex";
 
 export default {
   name: "NftPage",
-  components: { AuctionTimer, HeaderSection, TagComponent },
+  components: { AuctionTimer, HeaderSection },
   mixins: [getImages, screenHandler],
 
   data() {
@@ -191,8 +190,8 @@ export default {
 
 <style lang="scss" scoped>
 .nft {
-  padding-top: 40px;
-  padding-bottom: 40px;
+  padding-top: 40px !important;
+  padding-bottom: 40px !important;
   & :deep(.section__content) {
     flex-direction: row;
     justify-content: space-between;
@@ -203,9 +202,8 @@ export default {
     flex-direction: column;
     gap: 30px;
   }
-  &__headline {
-  }
   &__name {
+    word-break: break-word;
   }
   &__uploaded {
     margin-top: 10px;
@@ -234,8 +232,7 @@ export default {
   }
   &__info-text {
     @include body-text;
-  }
-  &__auction-timer {
+    word-break: break-word;
   }
   &__timer {
     height: fit-content;
@@ -258,8 +255,6 @@ export default {
     &__info {
       gap: 20px;
     }
-  }
-  @include ScreenSizeMobile {
   }
 }
 

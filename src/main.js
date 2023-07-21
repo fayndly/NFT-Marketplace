@@ -3,12 +3,16 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import components from "@/components";
+import VIntersection from "./directives/VIntersection";
 import VueLazyload from "vue-lazyload";
 
 const app = createApp(App);
 components.forEach((component) => {
   app.component(component.name, component);
 });
+
+app.directive("intersection", VIntersection);
+
 app.use(store);
 app.use(VueLazyload, {
   preLoad: 1.3,

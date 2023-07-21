@@ -1,133 +1,166 @@
 import { createRouter, createWebHistory } from "vue-router";
 
+import HomePage from "@/views/HomePage.vue";
+import ConnectWalletPage from "@/views/ConnectWalletPage.vue";
+import CreateAccountPage from "@/views/CreateAccountPage.vue";
+
+import MarketPlacePage from "@/views/MarketPlacePage.vue";
+import MarketplaceNfts from "@/components/routeChildren/marketplace/MarketplaceNfts.vue";
+import MarketplaceCollections from "@/components/routeChildren/marketplace/MarketplaceCollections.vue";
+
+import RankingsPage from "@/views/RankingsPage.vue";
+import RankingsToday from "@/components/routeChildren/rankings/RankingsToday.vue";
+import RankingWeek from "@/components/routeChildren/rankings/RankingWeek.vue";
+import RankingsMonth from "@/components/routeChildren/rankings/RankingsMonth.vue";
+import RankingsAllTime from "@/components/routeChildren/rankings/RankingsAllTime.vue";
+
+import ArtistPage from "@/views/ArtistPage.vue";
+import ArtistCreated from "@/components/routeChildren/artist/ArtistCreated.vue";
+import ArtistOwned from "@/components/routeChildren/artist/ArtistOwned.vue";
+import ArtistCollection from "@/components/routeChildren/artist/ArtistCollection.vue";
+
+import NftPage from "@/views/NftPage.vue";
+import CollectionPage from "@/views/CollectionPage.vue";
+import TestPage from "@/views/TestPage.vue";
+import PageNotFound from "@/views/PageNotFound.vue";
+
 const routes = [
   {
     path: "/",
     name: "home",
-    component: () => import("@/views/HomePage.vue"),
+    component: HomePage,
+    meta: { scrollToTop: true },
   },
   {
     path: "/connect-wallet",
     name: "Connect wallet",
-    component: () => import("@/views/ConnectWalletPage.vue"),
+    component: ConnectWalletPage,
+    meta: { scrollToTop: true },
   },
   {
     path: "/create-account",
     name: "Create account",
-    component: () => import("@/views/CreateAccountPage.vue"),
+    component: CreateAccountPage,
+    meta: { scrollToTop: true },
   },
   {
-    path: "/marketplace",
+    path: "/marketplace/:query?",
     name: "Marketplace",
-    redirect: () => `/marketplace/marketplace-nfts`,
-    component: () => import("@/views/MarketPlacePage.vue"),
+    redirect: { name: "MarketplaceNfts" },
+    component: MarketPlacePage,
+    meta: { scrollToTop: true },
     children: [
       {
-        path: "marketplace-nfts",
+        props: true,
+        meta: { scrollToTop: false },
+        path: "nfts",
         name: "MarketplaceNfts",
-        component: () =>
-          import("@/components/routeChildren/marketplace/MarketplaceNfts.vue"),
+        component: MarketplaceNfts,
       },
       {
-        path: "marketplace-collections",
+        props: true,
+        meta: { scrollToTop: false },
+        path: "collections",
         name: "MarketplaceCollections",
-        component: () =>
-          import(
-            "@/components/routeChildren/marketplace/MarketplaceCollections.vue"
-          ),
+        component: MarketplaceCollections,
       },
     ],
   },
   {
-    path: "/",
-    name: "home",
-    component: () => import("@/views/HomePage.vue"),
-  },
-  {
     path: "/rankings",
     name: "Rankings",
-    redirect: () => `/rankings/today`,
-    component: () => import("@/views/RankingsPage.vue"),
+    redirect: { name: "RankingsToday" },
+    component: RankingsPage,
+    meta: { scrollToTop: true },
     children: [
       {
+        meta: { scrollToTop: false },
         path: "today",
         name: "RankingsToday",
-        component: () =>
-          import("@/components/routeChildren/rankings/RankingsToday.vue"),
+        component: RankingsToday,
       },
       {
+        meta: { scrollToTop: false },
+
         path: "this-week",
         name: "RankingWeek",
-        component: () =>
-          import("@/components/routeChildren/rankings/RankingWeek.vue"),
+        component: RankingWeek,
       },
       {
+        meta: { scrollToTop: false },
         path: "this-month",
         name: "RankingsMonth",
-        component: () =>
-          import("@/components/routeChildren/rankings/RankingsMonth.vue"),
+        component: RankingsMonth,
       },
       {
+        meta: { scrollToTop: false },
         path: "all-time",
         name: "RankingsAllTime",
-        component: () =>
-          import("@/components/routeChildren/rankings/RankingsAllTime.vue"),
+        component: RankingsAllTime,
       },
     ],
   },
   {
     path: "/artist/:id",
     name: "Artist",
-    redirect: (to) => `/artist/${to.params.id}/created`,
-    component: () => import("@/views/ArtistPage.vue"),
+    redirect: { name: "ArtistCreated" },
+    component: ArtistPage,
+    meta: { scrollToTop: true },
     children: [
       {
         path: "created",
         name: "ArtistCreated",
-        component: () =>
-          import("@/components/routeChildren/artist/ArtistCreated.vue"),
+        component: ArtistCreated,
+        meta: { scrollToTop: false },
       },
       {
         path: "owned",
         name: "ArtistOwned",
-        component: () =>
-          import("@/components/routeChildren/artist/ArtistOwned.vue"),
+        component: ArtistOwned,
+        meta: { scrollToTop: false },
       },
       {
         path: "collection",
         name: "ArtistCollection",
-        component: () =>
-          import("@/components/routeChildren/artist/ArtistCollection.vue"),
+        component: ArtistCollection,
+        meta: { scrollToTop: false },
       },
     ],
   },
   {
     path: "/nft/:id",
     name: "Nft",
-    component: () => import("@/views/NftPage.vue"),
+    component: NftPage,
+    meta: { scrollToTop: true },
   },
   {
     path: "/collection/:id",
     name: "Collection",
-    component: () => import("@/views/CollectionPage.vue"),
+    component: CollectionPage,
+    meta: { scrollToTop: true },
   },
   {
     path: "/test",
     name: "Test",
-    component: () => import("@/views/TestPage.vue"),
+    component: TestPage,
+    meta: { scrollToTop: true },
   },
   {
     path: "/:catchAll(.*)",
     name: "notFound",
-    component: () => import("@/views/PageNotFound.vue"),
+    meta: { scrollToTop: true },
+    component: PageNotFound,
   },
 ];
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
-  scrollBehavior() {
-    return { top: 0 };
+  scrollBehavior(to) {
+    if (to.redirectedFrom || to.meta.scrollToTop) {
+      return { top: 0 };
+    }
+    return;
   },
 });
 

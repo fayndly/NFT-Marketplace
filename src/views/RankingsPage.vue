@@ -96,7 +96,16 @@ export default {
   opacity: 0;
 }
 
+.section-list {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  & :deep(.section__content) {
+    gap: 0;
+    margin-bottom: 40px;
+  }
+}
+
 .tabbar-wrapper {
-  padding: 20px 0px;
+  padding: 20px 0px !important;
 }
 </style>

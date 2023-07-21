@@ -103,20 +103,29 @@ export default {
   }
   &__nft-name {
     @include h5;
+    word-wrap: break-word;
   }
   &__artist {
     margin-top: 5px;
 
     padding: 0;
   }
+
   &__price,
   &__highest-bid {
     display: flex;
     flex-direction: column;
   }
+
   &__highest-bid {
-    align-items: end;
+    align-items: flex-end;
+
+    .nft-card__title,
+    .nft-card__value {
+      text-align: end;
+    }
   }
+
   &__title {
     @include caption;
     color: $colorBgTextSilverWhite;

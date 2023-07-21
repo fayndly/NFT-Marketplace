@@ -105,8 +105,8 @@ export default {
     @include h4;
   }
   &__button {
-    margin-top: 30px;
-    width: 100%;
+    margin-top: 30px !important;
+    width: 100% !important;
   }
 }
 

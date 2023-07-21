@@ -23,17 +23,28 @@ export default {
   },
   actions: {
     checkScreenSize(ctx) {
-      ctx.commit("updateScreenSize", innerWidth);
+      const windowWidth =
+        window.innerWidth ||
+        window.screen.width ||
+        document.documentElement.clientWidth ||
+        document.body.clientWidth;
+
+      ctx.commit("updateScreenSize", windowWidth);
     },
     checkScreenDevice(ctx) {
+      const windowWidth =
+        window.innerWidth ||
+        window.screen.width ||
+        document.documentElement.clientWidth ||
+        document.body.clientWidth;
       let device;
-      if (innerWidth >= 1200) {
+      if (windowWidth >= 1200) {
         device = "desktop";
-      } else if ((innerWidth >= 834) & (innerWidth < 1200)) {
+      } else if ((windowWidth >= 834) & (windowWidth < 1200)) {
         device = "tablet";
-      } else if ((innerWidth < 834) & (innerWidth > 425)) {
+      } else if ((windowWidth < 834) & (windowWidth > 425)) {
         device = "tabletMini";
-      } else if (innerWidth <= 425) {
+      } else if (windowWidth <= 425) {
         device = "mobile";
       }
       ctx.commit("updateScreenDevice", device);

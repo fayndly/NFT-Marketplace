@@ -74,9 +74,8 @@ export default {
 
 <style lang="scss" scoped>
 .cards-wrapper {
-  align-items: normal;
   @include ScreenSizeMobile {
-    gap: 20px;
+    gap: 20px !important;
   }
 }
 </style>

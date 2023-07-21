@@ -1,5 +1,5 @@
-# nft-marketplace
+# NFT Marketplace
 
-### [See done app](https://lifiij.github.io/nft-marketplace/).
+![Prewview](/Prewview.jpg)
 
-![For open site](/QRcode.png)
+NFT Marketplace - is my best project

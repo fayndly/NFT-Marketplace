@@ -17,42 +17,75 @@
         :name="collection.name"
         :isAdaptive="getScreenSize <= 834"
       />
-      <!-- <div ref="observer"></div> -->
+      <div
+        v-if="marketplaceCollections.length < lengthArrayCollections"
+        v-intersection="loadMoreMarketplaceCollections"
+      ></div>
     </gridWrapper>
   </sectionWrapper>
 </template>
 
 <script>
 import screenHandler from "@/mixins/screenHandler";
-import { mapActions, mapGetters } from "vuex";
+import { mapActions } from "vuex";
 
 export default {
   name: "MarketplaceCollections",
   mixins: [screenHandler],
   data() {
     return {
-      marketplaceCollections: null,
+      marketplaceCollections: [],
+      lengthArrayCollections: 0,
       loading: true,
       loadingError: false,
       loadingErrorText: Error(""),
+      searchQuery: this.$route.query.searchValue,
 
-      limitStep: 3,
-      collectionsCounter: 3,
+      limitStep: 9,
+      pageCards: 0,
     };
   },
-  computed: { ...mapGetters(["getTrendingCollection"]) },
   methods: {
-    ...mapActions(["getMarketplaceCollections", "fetchTrendingCollection"]),
+    ...mapActions(["getMarketplaceCollections"]),
     async loadMarketplaceCollections() {
-      await this.fetchTrendingCollection();
-      this.marketplaceCollections = this.getTrendingCollection;
-      this.loading = false;
+      await this.getMarketplaceCollections({
+        page: this.pageCards,
+        limitStep: this.limitStep,
+        searchingText: this.searchQuery,
+      })
+        .then((result) => {
+          console.log(result);
+          if (result) {
+            this.marketplaceCollections = result.collections;
+            this.lengthArrayCollections = result.length;
+            this.loadingError = false;
+          } else {
+            this.lengthArrayCollections = 0;
+            this.loadingError = true;
+            this.loadingErrorText = new Error(
+              "We couldn't find cards matching your request."
+            );
+          }
+          this.loading = false;
+        })
+        .catch((err) => {
+          console.log(err);
+          this.loadingError = true;
+          this.loadingErrorText = err;
+        });
     },
     async loadMoreMarketplaceCollections() {
-      await this.getMarketplaceCollections(this.collectionsCounter)
+      this.pageCards++;
+      await this.getMarketplaceCollections({
+        page: this.pageCards,
+        limitStep: this.limitStep,
+        searchingText: this.searchQuery,
+      })
         .then((result) => {
-          this.marketplaceCollections.push(...result.slice(-this.limitStep));
-          console.log(this.collectionsCounter);
+          if (result) {
+            this.marketplaceCollections.push(...result.collections);
+            this.loadingError = false;
+          }
         })
         .catch((err) => {
           this.loadingError = true;
@@ -61,49 +94,34 @@ export default {
         });
     },
   },
+  watch: {
+    async lengthArrayCollections(newLength) {
+      this.$emit("loadedCollections", newLength);
+    },
+    async "$route.query"(newQuery) {
+      this.searchQuery = newQuery.searchValue;
+      await this.loadMarketplaceCollections();
+    },
+  },
   async mounted() {
+    // this.$router.beforeEach((to, from, next) => {
+    //   console.log(to);
+    //   console.log(from);
+    //   // to.meta.previousRoute = from;
+    //   next();
+    // });
     await this.loadMarketplaceCollections();
-
-    // const options = {
-    //   rootMargin: "0px",
-    //   threshold: 1.0,
-    // };
-    // const callback = (entries) => {
-    //   if (entries[0].isIntersecting) {
-    //     this.collectionsCounter += this.limitStep;
-    //     this.loadMoreMarketplaceCollections();
-    //   }
-    // };
-    // const observer = new IntersectionObserver(callback, options);
-    // observer.observe(this.$refs.observer);
+    this.$emit("loadedCollections", this.lengthArrayCollections);
   },
 };
 </script>
 
-<style lang="scss">
-.section-list {
-  background-color: $colorBgTextSilverBlack;
-  padding: 30px;
-  padding-top: 0;
-  padding-bottom: 0;
-  & :deep(.section__content) {
-    gap: 0;
-  }
-}
+<style lang="scss" scoped>
 .card-wrapper {
-  padding-top: 60px;
-  padding-bottom: 80px;
-  & :deep(.nft-card) {
-    background-color: $colorBgTextBlack;
-  }
-
-  @include ScreenSizeTabletMini {
-    padding-top: 30px;
-    padding-bottom: 40px;
-  }
-  @include ScreenSizeMobile {
-    padding-top: 30px;
-    padding-bottom: 40px;
+  & :deep(.collection-card) {
+    .collection-card__nft-item:not(.collection-card__nft-more-couter) {
+      background-color: $colorBgTextBlack;
+    }
   }
 }
 </style>

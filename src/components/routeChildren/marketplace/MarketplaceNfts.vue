@@ -8,7 +8,6 @@
     />
     <gridWrapper class="card-wrapper" v-else-if="!loadingError">
       <NFTCard
-        class="nft-card"
         v-for="nft in marketplaceNfts"
         :key="nft.id"
         :id="nft.id"
@@ -20,100 +19,105 @@
         :artist="nft.creator"
         :isAdaptive="getScreenSize <= 834"
       />
-      <div ref="observer"></div>
+      <div
+        v-if="marketplaceNfts.length < lengthArrayNfts"
+        v-intersection="loadMoreMarketplaceNfts"
+      ></div>
     </gridWrapper>
   </sectionWrapper>
 </template>
 
 <script>
-import screenHandler from "@/mixins/screenHandler";
 import { mapActions } from "vuex";
+import screenHandler from "@/mixins/screenHandler";
 
 export default {
   name: "MarketplaceNfts",
   mixins: [screenHandler],
   data() {
     return {
-      marketplaceNfts: null,
+      marketplaceNfts: [],
+      lengthArrayNfts: 0,
       loading: true,
       loadingError: false,
       loadingErrorText: Error(""),
+      searchQuery: this.$route.query.searchValue,
 
-      limitStep: 12,
-      collectionsCounter: 12,
+      limitStep: 9,
+      pageCards: 0,
     };
   },
   methods: {
-    ...mapActions(["getMarketplaceNfts"]),
+    ...mapActions(["getMarketplaceNfts", "getNftsSearchResult"]),
     async loadMarketplaceNfts() {
-      await this.getMarketplaceNfts(this.collectionsCounter)
+      await this.getMarketplaceNfts({
+        page: this.pageCards,
+        limitStep: this.limitStep,
+        searchingText: this.searchQuery,
+      })
         .then((result) => {
-          this.marketplaceNfts = result;
-          this.loading = false;
+          if (result) {
+            this.marketplaceNfts = result.nfts;
+            this.lengthArrayNfts = result.length;
+            this.loadingError = false;
+          } else {
+            this.lengthArrayNfts = 0;
+            this.loadingError = true;
+            this.loadingErrorText = new Error(
+              "We couldn't find cards matching your request."
+            );
+          }
         })
         .catch((err) => {
           this.loadingError = true;
           this.loadingErrorText = err;
-          console.log(err);
+        })
+        .finally(() => {
+          this.loading = false;
         });
     },
     async loadMoreMarketplaceNfts() {
-      await this.getMarketplaceNfts(this.collectionsCounter)
+      this.pageCards++;
+      await this.getMarketplaceNfts({
+        page: this.pageCards,
+        limitStep: this.limitStep,
+        searchingText: this.searchQuery,
+      })
         .then((result) => {
-          this.marketplaceNfts.push(...result.slice(-this.limitStep));
-          console.log(this.collectionsCounter);
+          if (result) {
+            this.marketplaceNfts.push(...result.nfts);
+          }
         })
         .catch((err) => {
           this.loadingError = true;
           this.loadingErrorText = err;
           console.log(err);
+        })
+        .finally(() => {
+          this.loading = false;
         });
+    },
+  },
+  watch: {
+    async lengthArrayNfts(newLength) {
+      this.$emit("loadedNfts", newLength);
+    },
+    async "$route.query"(newQuery) {
+      this.searchQuery = newQuery.searchValue;
+      await this.loadMarketplaceNfts();
     },
   },
   async mounted() {
     await this.loadMarketplaceNfts();
-    this.$emit("nftsLoaded", this.lengthMarketplaceNfts);
-
-    const options = {
-      rootMargin: "0px",
-      threshold: 1.0,
-    };
-    const callback = (entries) => {
-      if (entries[0].isIntersecting) {
-        this.collectionsCounter += this.limitStep;
-        this.loadMoreMarketplaceNfts();
-      }
-    };
-    const observer = new IntersectionObserver(callback, options);
-    observer.observe(this.$refs.observer);
+    this.$emit("loadedNfts", this.lengthArrayNfts);
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.section-list {
-  background-color: $colorBgTextSilverBlack;
-  padding: 30px;
-  padding-top: 0;
-  padding-bottom: 0;
-  & :deep(.section__content) {
-    gap: 0;
-  }
-}
 .card-wrapper {
-  padding-top: 60px;
-  padding-bottom: 80px;
   & :deep(.nft-card) {
     background-color: $colorBgTextBlack;
-  }
-
-  @include ScreenSizeTabletMini {
-    padding-top: 30px;
-    padding-bottom: 40px;
-  }
-  @include ScreenSizeMobile {
-    padding-top: 30px;
-    padding-bottom: 40px;
   }
 }
 </style>

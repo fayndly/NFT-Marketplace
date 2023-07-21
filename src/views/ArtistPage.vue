@@ -23,8 +23,9 @@
             type="secondary"
             modifier="filled"
             icon="Copy"
-            :text="artist.address"
+            :text="getSmallAddress(artist.id)"
             :isAdaptive="getScreenSize <= 834"
+            @clickButton="copyText(artist.address)"
           />
           <ButtonDefault
             type="secondary"
@@ -46,7 +47,12 @@
         <div class="artist__info-links">
           <p class="artist__info-haedline">Links</p>
           <div class="artist__info-links-wrapper">
-            <a v-for="link in artist.links" :href="link.link" :key="link.link">
+            <a
+              v-for="link in artist.links"
+              target="_blank"
+              :href="link.link"
+              :key="link.link"
+            >
               <IconComponent
                 class="artist__info-links-wrapper-icon"
                 :path="getLinkIcone(link.name)"
@@ -61,7 +67,8 @@
           type="secondary"
           modifier="filled"
           icon="Copy"
-          :text="artist.address"
+          :text="getSmallAddress(artist.id)"
+          @clickButton="copyText(artist.id)"
         />
         <ButtonDefault
           type="secondary"
@@ -168,6 +175,19 @@ export default {
         return value;
       }
     },
+    getSmallAddress(address) {
+      return `${address.slice(0, 4)}...${address.slice(-4)}`;
+    },
+    copyText(value) {
+      navigator.clipboard
+        .writeText(value)
+        .then(() =>
+          console.log(`Текст "${this.artist.id}" скопирован в буфер обмена`)
+        )
+        .catch((error) =>
+          console.error("Не удалось скопировать текст: ", error)
+        );
+    },
   },
   async mounted() {
     await this.getArtistPage(this.$route.params.id)
@@ -178,7 +198,6 @@ export default {
       .catch((err) => {
         this.loadingPageError = true;
         this.loadingPageErrorText = err;
-        console.log(err);
       });
   },
 };
@@ -191,16 +210,16 @@ export default {
 .fade-leave-active {
   transition: opacity 0.3s ease;
 }
-
 .fade-enter-from {
   opacity: 0;
 }
 .fade-leave-to {
   opacity: 0;
 }
+
 .artist {
-  padding-top: 90px;
-  padding-bottom: 40px;
+  padding-top: 90px !important;
+  padding-bottom: 40px !important;
   position: relative;
 
   & :deep(.section__content) {
@@ -319,41 +338,21 @@ export default {
 }
 
 .tabbar-wrapper {
-  padding: 0;
+  padding: 0 !important;
 }
 
 .card-wrapper {
-  padding-top: 80px;
-  padding-bottom: 80px;
+  padding-top: 80px !important;
+  padding-bottom: 80px !important;
   & :deep(.nft-card) {
     background-color: $colorBgTextBlack;
-  }
-  @include ScreenSizeTablet {
-  }
-  @include ScreenSizeMobile {
   }
 }
 
 .section-list {
   background-color: $colorBgTextSilverBlack;
-  padding-top: 0;
-  padding-bottom: 0;
   & :deep(.section__content) {
     gap: 0;
   }
-}
-
-.list-enter-active {
-  transition: opacity 0.3s ease;
-}
-.list-leave-active {
-  transition: opacity 0.3s ease;
-}
-
-.list-enter-from {
-  opacity: 0;
-}
-.list-leave-to {
-  opacity: 0;
 }
 </style>

@@ -23,13 +23,10 @@
             type="secondary"
             modifier="filled"
             icon="Copy"
-            :text="collectionPage.adress"
+            :text="getSmallAddress(collectionPage.id)"
             :isAdaptive="getScreenSize <= 834"
-            @clickButton="
-              copyText('inputCreatorIdTop', collectionPage.creatorId)
-            "
+            @clickButton="copyText(collectionPage.id)"
           />
-          <input type="text" ref="inputCreatorIdTop" style="display: none" />
           <ButtonDefault
             type="secondary"
             modifier="outlined"
@@ -88,12 +85,9 @@
           type="secondary"
           modifier="filled"
           icon="Copy"
-          :text="collectionPage.adress"
-          @clickButton="
-            copyText('inputCreatorIdBottom', collectionPage.creatorId)
-          "
+          :text="getSmallAddress(collectionPage.id)"
+          @clickButton="copyText(collectionPage.id)"
         />
-        <input type="text" ref="inputCreatorIdBottom" style="display: none" />
         <ButtonDefault
           type="secondary"
           modifier="outlined"
@@ -109,7 +103,7 @@
       </div>
     </sectionWrapper>
     <sectionWrapper>
-      <HeaderSection headerName="More from this collection" />
+      <HeaderSection headerName="Nfts from this collection" />
       <loaderSection
         v-if="loadingNfts || loadingNftsError"
         :isLoading="loadingNfts"
@@ -130,16 +124,11 @@
           :isAdaptive="getScreenSize <= 834"
         />
       </gridWrapper>
-      <ButtonDefault
-        v-if="showButtonMore()"
-        style="align-self: center"
-        type="secondary"
-        modifier="outlined"
-        text="More nfts"
-        :isAdaptive="getScreenSize <= 834"
-        @clickButton="loadMoreNfts()"
-      />
     </sectionWrapper>
+    <div
+      v-if="collectionNftCards.length < lengthArrayCollectionNftCards"
+      v-intersection="loadMoreCollectionNftCards"
+    ></div>
   </mainWrapper>
 </template>
 
@@ -161,10 +150,14 @@ export default {
       loadingPageErrorText: Error(""),
       loadingNftsErrorText: Error(""),
 
+      collectionNftCards: [],
+      lengthArrayCollectionNftCards: 0,
+
+      limitStep: 6,
+      pageCards: 0,
+
       collectionPage: null,
       nfts: null,
-
-      nftsCounter: 6,
     };
   },
   computed: {
@@ -208,10 +201,13 @@ export default {
         return value;
       }
     },
-    copyText(refInput, value) {
-      this.$refs[refInput].value = value;
-      this.$refs[refInput].select();
-      document.execCommand("copy");
+    copyText(value) {
+      navigator.clipboard
+        .writeText(value)
+        .then(() => console.log(`Текст ${value} скопирован в буфер обмена`))
+        .catch((error) =>
+          console.error("Не удалось скопировать текст: ", error)
+        );
     },
     getSmallAddress(address) {
       return `${address.slice(0, 4)}...${address.slice(-4)}`;
@@ -234,7 +230,6 @@ export default {
           this.loadingPage = false;
         })
         .catch((err) => {
-          console.log(err);
           this.loadingNftsError = true;
           this.loadingNftsErrorText = err;
         });
@@ -242,22 +237,56 @@ export default {
     async loadCollectionNftCards() {
       await this.getCollectionNftCards({
         id: this.collectionPage.id,
-        quantity: this.nftsCounter,
+        page: this.pageCards,
+        limitStep: this.limitStep,
       })
         .then((result) => {
-          this.nfts = result;
-          this.loadingNfts = false;
+          this.nfts = result.nfts;
+          this.lengthArrayCollectionNftCards = result.length;
         })
         .catch((err) => {
-          console.log(err);
           this.loadingNftsError = true;
           this.loadingNftsErrorText = err;
+        })
+        .finally(() => {
+          this.loadingNfts = false;
         });
     },
-
-    async loadMoreNfts() {
-      this.nftsCounter += 6;
-      await this.loadCollectionNftCards();
+    async loadMoreCollectionNftCards() {
+      this.pageCards++;
+      await this.getCollectionNftCards({
+        id: this.collectionPage.id,
+        page: this.pageCards,
+        limitStep: this.limitStep,
+      })
+        .then((result) => {
+          if (result) {
+            this.nfts.push(...result.nfts);
+          }
+        })
+        .catch((err) => {
+          this.loadingNftsError = true;
+          this.loadingNftsErrorText = err;
+        })
+        .finally(() => {
+          this.loadingNfts = false;
+        });
+      // await this.getCollectionNftCards({
+      //   id: this.collectionPage.id,
+      //   page: this.pageCards,
+      //   limitStep: this.limitStep,
+      // })
+      //   .then((result) => {
+      //     this.nfts = result.nfts;
+      //     this.lengthArrayCollectionNftCards = result.length;
+      //   })
+      //   .catch((err) => {
+      //     this.loadingNftsError = true;
+      //     this.loadingNftsErrorText = err;
+      //   })
+      //   .finally(() => {
+      //     this.loadingNfts = false;
+      //   });
     },
   },
   async mounted() {
@@ -269,8 +298,8 @@ export default {
 
 <style lang="scss" scoped>
 .collection {
-  padding-top: 90px;
-  padding-bottom: 40px;
+  padding-top: 90px !important;
+  padding-bottom: 40px !important;
   position: relative;
 
   & :deep(.section__content) {
@@ -291,6 +320,7 @@ export default {
     gap: 30px;
   }
   &__name {
+    word-wrap: break-word;
   }
   &__additional-info {
     width: 510px;
@@ -324,6 +354,7 @@ export default {
   }
   &__info-text {
     @include body-text;
+    word-wrap: break-word;
   }
   &__info-links-wrapper {
     display: flex;
@@ -380,31 +411,6 @@ export default {
     width: 100%;
     height: 100%;
     background: linear-gradient(180deg, rgba(162, 89, 255, 0) 0%, #a259ff 100%);
-  }
-}
-
-.section-list {
-  background-color: $colorBgTextSilverBlack;
-  padding-top: 0;
-  padding-bottom: 0;
-  & :deep(.section__content) {
-    gap: 0;
-  }
-}
-
-.tabbar-wrapper {
-  padding: 0;
-}
-
-.card-wrapper {
-  padding-top: 80px;
-  padding-bottom: 80px;
-  & :deep(.nft-card) {
-    background-color: $colorBgTextBlack;
-  }
-  @include ScreenSizeTablet {
-  }
-  @include ScreenSizeMobile {
   }
 }
 </style>

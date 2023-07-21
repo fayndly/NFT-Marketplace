@@ -5,7 +5,7 @@
       'category-card--mobile': isMobile,
       'category-card--adaptive': isAdaptive,
     }"
-    @click="this.$router.push('marketplace')"
+    @click="$router.push({ name: 'Marketplace', query: { searchValue: name } })"
   >
     <div class="category-card__photo">
       <div class="category-card__icon-wrapper">

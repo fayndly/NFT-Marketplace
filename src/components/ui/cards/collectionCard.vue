@@ -83,7 +83,7 @@ export default {
 <style lang="scss" scoped>
 .collection-card {
   width: 330px;
-  height: 525px;
+  // height: 525px;
   user-select: none;
   &__preview-nfts {
   }
@@ -93,12 +93,11 @@ export default {
     border-radius: 20px;
 
     transition: transform $AnimationDuration $AnimationDelay;
+    background-color: $colorBgTextSilverBlack;
 
     cursor: pointer;
   }
   &__nft-big {
-    // width: 330px;
-    // height: 330px;
     width: 100%;
     aspect-ratio: 1/1;
     height: auto;
@@ -109,8 +108,6 @@ export default {
     gap: 15px;
   }
   &__nft-small {
-    // width: 100px;
-    // height: 100px;
     width: calc(100% / 3 - 10.5px);
     aspect-ratio: 1/1;
     height: auto;

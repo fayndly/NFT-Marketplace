@@ -49,19 +49,7 @@ export default {
       .catch((err) => {
         this.loadingError = true;
         this.loadingErrorText = err;
-        console.log(err);
       });
   },
 };
 </script>
-
-<style lang="scss" scoped>
-.section-list {
-  padding-top: 0;
-  padding-bottom: 0;
-  & :deep(.section__content) {
-    gap: 0;
-    margin-bottom: 40px;
-  }
-}
-</style>

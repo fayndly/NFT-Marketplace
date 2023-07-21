@@ -11,14 +11,18 @@
         headerName="Browse Marketplace"
         headerText="Browse through more than 50k NFTs on the NFT Marketplace."
       />
-      <SearchForm />
+      <SearchForm @search="handleSearch" :initialQuery="searchQuery" />
     </sectionWrapper>
     <sectionWrapper class="tabbar-wrapper">
       <TabBar :tabs="tabs" />
     </sectionWrapper>
     <router-view v-slot="{ Component }">
       <transition name="fade" mode="out-in">
-        <component :is="Component" />
+        <component
+          :is="Component"
+          @loadedNfts="getNftsLength"
+          @loadedCollections="getCollectionsLength"
+        />
       </transition>
     </router-view>
   </mainWrapper>
@@ -27,7 +31,6 @@
 <script>
 import TabBar from "@/components/ui/tabbars/TabBar.vue";
 import screenHandler from "@/mixins/screenHandler";
-import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "MarketPlacePage",
@@ -38,6 +41,7 @@ export default {
       loadingPage: true,
       loadingPageError: false,
       loadingPageErrorText: Error(""),
+      searchQuery: "",
 
       tabs: [
         {
@@ -53,52 +57,58 @@ export default {
       ],
     };
   },
-  computed: { ...mapGetters(["getNfts", "getCollections"]) },
-  methods: { ...mapActions(["fetchNfts", "fetchCollections"]) },
+  methods: {
+    getNftsLength(q) {
+      this.tabs[0].counter = q;
+    },
+    getCollectionsLength(q) {
+      this.tabs[1].counter = q;
+    },
+    handleSearch(query) {
+      this.$router.push({ query: { searchValue: query } });
+      this.searchQuery = query;
+    },
+  },
   async mounted() {
+    this.searchQuery = this.$route.query.searchValue;
     this.loadingPage = false;
-    await this.fetchNfts();
-    await this.fetchCollections();
-    this.tabs[0].counter = this.getNfts.length;
-    this.tabs[1].counter = this.getCollections.length;
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.fade-enter-active {
-  transition: opacity 0.3s ease;
-}
-.fade-leave-active {
-  transition: opacity 0.3s ease;
+.fade {
+  &-enter-active {
+    transition: opacity 0.3s ease;
+  }
+  &-leave-active {
+    transition: opacity 0.3s ease;
+  }
+  &-enter-from {
+    opacity: 0;
+  }
+  &-leave-to {
+    opacity: 0;
+  }
 }
 
-.fade-enter-from {
-  opacity: 0;
-}
-.fade-leave-to {
-  opacity: 0;
-}
 .section-list {
   background-color: $colorBgTextSilverBlack;
   padding: 30px;
-  padding-top: 0;
-  padding-bottom: 0;
+  // padding-top: 0 !important;
+  // padding-bottom: 0 !important;
   & :deep(.section__content) {
     gap: 0;
   }
 }
 
 .tabbar-wrapper {
-  padding: 0;
+  padding: 0 !important;
 }
 
 .card-wrapper {
   padding-top: 60px;
   padding-bottom: 80px;
-  & :deep(.nft-card) {
-    background-color: $colorBgTextBlack;
-  }
 
   @include ScreenSizeTabletMini {
     padding-top: 30px;

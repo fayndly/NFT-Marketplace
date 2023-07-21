@@ -18,15 +18,7 @@
         :isAdaptive="getScreenSize <= 834"
       />
     </gridWrapper>
-    <ButtonDefault
-      v-if="showButtonMore()"
-      style="align-self: center"
-      type="secondary"
-      modifier="outlined"
-      text="More nfts"
-      :isAdaptive="getScreenSize <= 834"
-      @clickButton="loadMoreNfts()"
-    />
+    <div v-intersection="loadMoreCards"></div>
   </sectionWrapper>
 </template>
 
@@ -43,29 +35,37 @@ export default {
       loading: true,
       loadingError: false,
       loadingErrorText: Error(""),
-      collectionsCounter: 6,
+
+      limitStep: 6,
+      pageCards: 0,
     };
   },
   methods: {
     ...mapActions(["getArtistPageCards"]),
-    showButtonMore() {
-      if (this.artistCollectionCards) {
-        return (
-          !this.loadingError &
-          (this.artistCollectionCards.length > this.collectionsCounter)
-        );
-      }
-      return;
-    },
-    async loadMoreNfts() {
-      this.collectionsCounter += 6;
-      await this.loadArtistPageCards();
+    async loadMoreCards() {
+      this.pageCards++;
+      await this.getArtistPageCards({
+        artistId: this.$route.params.id,
+        cardType: "collections",
+        limitStep: this.limitStep,
+        page: this.pageCards,
+      })
+        .then((result) => {
+          if (result) {
+            this.artistCollectionCards.push(...result);
+          }
+        })
+        .catch((err) => {
+          this.loadingError = true;
+          this.loadingErrorText = err;
+        });
     },
     async loadArtistPageCards() {
       await this.getArtistPageCards({
         artistId: this.$route.params.id,
         cardType: "collections",
-        quantity: this.collectionsCounter,
+        limitStep: this.limitStep,
+        page: this.pageCards,
       })
         .then((result) => {
           this.artistCollectionCards = result;
@@ -74,7 +74,6 @@ export default {
         .catch((err) => {
           this.loadingError = true;
           this.loadingErrorText = err;
-          console.log(err);
         });
     },
   },
@@ -83,13 +82,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss">
-.card-wrapper {
-  padding-top: 80px;
-  padding-bottom: 80px;
-  & :deep(.nft-card) {
-    background-color: $colorBgTextBlack;
-  }
-}
-</style>

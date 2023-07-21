@@ -21,28 +21,28 @@
             <div class="footer-column__counity-info">
               <p class="footer-column__text">Join our community</p>
               <div class="footer-column__counity-info-icons">
-                <a href="https://discord.com/">
+                <a target="_blank" href="https://discord.com/">
                   <IconComponent
                     color="silver"
                     class="footer-column__counity-info-icon"
                     path="DiscordLogo"
                   />
                 </a>
-                <a href="https://www.youtube.com/">
+                <a target="_blank" href="https://www.youtube.com/">
                   <IconComponent
                     color="silver"
                     class="footer-column__counity-info-icon"
                     path="YoutubeLogo"
                   />
                 </a>
-                <a href="https://twitter.com/">
+                <a target="_blank" href="https://twitter.com/">
                   <IconComponent
                     color="silver"
                     class="footer-column__counity-info-icon"
                     path="TwitterLogo"
                   />
                 </a>
-                <a href="https://www.instagram.com/">
+                <a target="_blank" href="https://www.instagram.com/">
                   <IconComponent
                     color="silver"
                     class="footer-column__counity-info-icon"

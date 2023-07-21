@@ -1,2 +1,0 @@
-import "./getImages";
-import "./screenHandler";

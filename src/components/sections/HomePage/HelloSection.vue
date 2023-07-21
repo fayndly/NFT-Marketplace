@@ -74,10 +74,16 @@ export default {
 
 <style lang="scss" scoped>
 .hello-section {
-  &:deep(.section__content) {
-    flex-direction: row;
-    gap: 30px;
+  &::v-deep {
+    .section__content {
+      flex-direction: row;
+      gap: 30px;
+    }
   }
+  // &:deep(.section__content) {
+  //   flex-direction: row;
+  //   gap: 30px;
+  // }
   &__text {
     flex-basis: 50%;
     display: flex;
@@ -116,10 +122,17 @@ export default {
   }
 
   @include ScreenSizeMobile {
-    &:deep(.section__content) {
-      flex-direction: column;
-      gap: 40px;
+    &::v-deep {
+      .section__content {
+        flex-direction: column;
+        gap: 40px;
+      }
     }
+    // &:deep(.section__content) {
+    //   flex-direction: column;
+    //   gap: 40px;
+    // }
+
     &__headline {
       @include h4;
     }

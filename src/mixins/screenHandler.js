@@ -5,7 +5,6 @@ export default {
     },
     getScreenDevice() {
       return this.$store.getters.getScreenDevice;
-      // return "heloo";
     },
   },
 };

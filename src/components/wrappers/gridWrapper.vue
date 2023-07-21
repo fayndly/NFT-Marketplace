@@ -20,11 +20,9 @@ export default {
 
   @include ScreenSizeTabletMini {
     justify-content: center;
-    // flex-direction: column;
   }
   @include ScreenSizeMobile {
     justify-content: center;
-    // flex-direction: column;
   }
 }
 </style>

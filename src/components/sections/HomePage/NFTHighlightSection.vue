@@ -87,10 +87,9 @@ export default {
   height: 640px;
   background-position: center;
   background-repeat: no-repeat;
-  // background-origin: content-box;
   background-size: cover;
   position: relative;
-  align-items: flex-end;
+  align-items: flex-end !important;
 
   &::after {
     content: "";
@@ -113,20 +112,17 @@ export default {
     flex-direction: column;
     gap: 30px;
   }
-  &__artist {
-  }
   &__name-nft {
     @include h2;
-    // word-wrap: break-word;
     word-break: break-word;
   }
   &__button {
-    background-color: #fff;
+    background-color: #fff !important;
     &:deep(.button__text) {
-      color: $colorBgTextBlack;
+      color: $colorBgTextBlack !important;
     }
     &:deep(path) {
-      fill: $colorActionPurple;
+      fill: $colorActionPurple !important;
     }
   }
 
