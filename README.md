@@ -1,10 +1,10 @@
-<center>
+<div style="text-align:center">
 
 # Заголовок
 
 Текст, который будет выровнен по центру.
 
-</center>
+</div>
 
 # nft-marketplace
 
