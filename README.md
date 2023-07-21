@@ -1,5 +1,5 @@
 # NFT Marketplace
 
-![Prewview](/Prewview.jpg)
+![Preview](/Preview.jpg)
 
 NFT Marketplace - is my best project
