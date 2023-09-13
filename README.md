@@ -2,10 +2,16 @@
 
 <img id="preview-image" src="/Preview.jpg" alt="Preview"/>
 
+<h2>Decription EN</h2>
 <p id="decription-en">
 NFT Marketplace - is my best project
 </p>
 
+<h2>Decription RU</h2>
 <p id="decription-ru">
-NFT Marketplace - это мой ахуительный проект
+NFT Marketplace - это мой лучший проект
 </p>
+
+<h2>QRCode</h2>
+<p>Yes, this site is responsive</p>
+<img id="qrcode-image" src="/QRcode.png" alt="QRcode"/>
