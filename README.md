@@ -2,16 +2,17 @@
 <img id="preview-image" src="/Preview.jpg" alt="Preview"/>
 
 <ul>
+
   <li>
-    <ul>
-      <li>
-        <a href="#description-en">Decription EN</a>
-      </li>
-      <li>
     <a href="#description-en">Decription EN</a>
   </li>
-    </ul>
+  <li>
+    <a href="#description-ru">Decription RU</a>
   </li>
+    <li>
+      <a href="#description-en">Decription EN</a>
+    </li>
+
 </ul>
 
 <h2>Decription EN</h2>
