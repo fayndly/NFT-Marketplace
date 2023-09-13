@@ -1,6 +1,18 @@
 <h1 id="project-name">NFT Marketplace</h1>
-
 <img id="preview-image" src="/Preview.jpg" alt="Preview"/>
+
+<ul>
+  <li>
+    <ul>
+      <li>
+        <a href="#description-en">Decription EN</a>
+      </li>
+      <li>
+    <a href="#description-en">Decription EN</a>
+  </li>
+    </ul>
+  </li>
+</ul>
 
 <h2>Decription EN</h2>
 <p id="decription-en">
