@@ -8,5 +8,5 @@ module.exports = defineConfig({
       },
     },
   },
-  publicPath: process.env.NODE_ENV === "production" ? "/NFTMarketplace/" : "/",
+  publicPath: process.env.NODE_ENV === "production" ? "/NFT-Marketplace/" : "/",
 });
