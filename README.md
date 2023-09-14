@@ -1,26 +1,14 @@
-<h1 id="project-name">NFT Marketplace</h1>
+<h1 id="project-name" align="center">NFT Marketplace</h1>
 <img id="preview-image" src="/Preview.jpg" alt="Preview"/>
 
-<ul>
 
-  <li>
-    <a href="#description-en">Decription EN</a>
-  </li>
-  <li>
-    <a href="#description-ru">Decription RU</a>
-  </li>
-    <li>
-      <a href="#description-en">Decription EN</a>
-    </li>
-
-</ul>
-
-<h2>Decription EN</h2>
+<h2>Decriptions:</h2>
+<h3>EN</h3>
 <p id="decription-en">
 NFT Marketplace - is my best project
 </p>
 
-<h2>Decription RU</h2>
+<h3>RU</h3>
 <p id="decription-ru">
 NFT Marketplace - это мой лучший проект
 </p>
